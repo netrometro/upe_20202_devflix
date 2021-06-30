@@ -1,0 +1,1 @@
+web: java -jar target/upe_20202_devflix-1.0.jar
