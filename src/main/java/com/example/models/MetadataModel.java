@@ -2,7 +2,7 @@ package com.example.models;
 
 import java.lang.reflect.Array;
 
-public class MetadataModel {
+public class MetadataModel extends GenericEntity{
     private int id;
     private String videoLink;
     private String title;
