@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "DevFlix",
+      "request": "launch",
+      "mainClass": "com.example.Main",
+      "projectName": "upe_20202_devflix",
+      "env": {
+        "JDBC_DATABASE_URL": "jdbc:postgresql://191.240.183.32:5432/devflix?user=postgres&password=es2020"
+      }
+    }
+  ]
+}
