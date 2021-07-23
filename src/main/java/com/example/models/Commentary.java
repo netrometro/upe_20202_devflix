@@ -22,10 +22,6 @@ public class Commentary {
   @JoinColumn(name = "user_id")
   private User author;
 
-  @ManyToOne()
-  @JoinColumn(name = "video_id")
-  private User video;
-
   @Length(max = 256)
   @Size(max = 126)
   @NotBlank
