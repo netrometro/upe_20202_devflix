@@ -8,7 +8,6 @@ import com.example.database.IUserDao;
 import com.example.models.User;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +44,7 @@ public class UserController {
 
   @PostMapping
   public ResponseEntity<User> create(
-    @RequestBody @Validated User user)
+    @RequestBody @Valid User user)
   {
     return ResponseEntity.ok(userDao.save(user));
   }
@@ -53,7 +52,7 @@ public class UserController {
   @PutMapping("/{userId}")
   public ResponseEntity<User> update(
     @PathVariable Long userId,
-    @Valid @RequestBody User user)
+    @RequestBody @Valid User user)
   {
     if (!userDao.existsById(userId)){
       return ResponseEntity.notFound().build();
