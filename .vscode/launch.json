@@ -7,7 +7,7 @@
       "mainClass": "com.example.DevflixApplication",
       "projectName": "upe_20202_devflix",
       "env": {
-        "JDBC_DATABASE_URL": "jdbc:postgresql://localhost/devflix?user=postgres&password=es2021"
+        "JDBC_DATABASE_URL": "jdbc:postgresql://191.240.183.32/devflix?user=postgres&password=es2020"
       }
     }
   ]
