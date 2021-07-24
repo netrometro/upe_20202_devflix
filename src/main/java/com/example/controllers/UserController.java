@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.database.IUserDao;
 import com.example.models.User;
+import com.example.services.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,30 +23,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserController {
   
   @Autowired
-  private IUserDao userDao;
+  private UserService userService;
 
   @GetMapping
   public ResponseEntity<List<User>> fetchAll()
   {
-    return ResponseEntity.ok(userDao.findAll());
+    return userService.fetchAll();
   }
 
   @GetMapping("/{userId}")
   public ResponseEntity<User> fetch(
     @PathVariable Long userId)
   {
-    if (!userDao.existsById(userId)){
-      return ResponseEntity.notFound().build();
-    }
-    User user = userDao.findById(userId).orElse(null);
-    return ResponseEntity.ok(user);
+    return userService.fetch(userId);
   }
 
   @PostMapping
   public ResponseEntity<User> create(
     @RequestBody @Valid User user)
   {
-    return ResponseEntity.ok(userDao.save(user));
+    return userService.create(user);
   }
  
   @PutMapping("/{userId}")
@@ -54,23 +50,14 @@ public class UserController {
     @PathVariable Long userId,
     @RequestBody @Valid User user)
   {
-    if (!userDao.existsById(userId)){
-      return ResponseEntity.notFound().build();
-    }
-    user.setId(userId);
-    return ResponseEntity.ok(userDao.save(user));
+    return userService.update(userId, user);
   }
 
   @DeleteMapping("/{userId}")
   public ResponseEntity<User> delete(
     @PathVariable Long userId)
   {
-    if (!userDao.existsById(userId)){
-      return ResponseEntity.notFound().build();
-    }
-    User user = userDao.findById(userId).orElse(null);
-    userDao.delete(user);
-    return ResponseEntity.ok(user);
+    return userService.delete(userId);
   }
 
 }
