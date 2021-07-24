@@ -8,7 +8,7 @@
 	<version>1.0</version>
 	<name>upe_20202_devflix</name>
 	<!-- Em caso de problemas, remover -->
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
