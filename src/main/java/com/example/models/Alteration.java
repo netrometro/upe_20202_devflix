@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "devflix_alteration")
+@Table(name = "devflix_alterations")
 public class Alteration {
 
   @Id
