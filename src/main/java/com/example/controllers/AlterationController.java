@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.database.IAlteration;
+import com.example.services.AlterationService;
 import com.example.models.Alteration;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,36 +16,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestControllerAdvice
+
 @RequestMapping("/alteration")
+@RestController
 public class AlterationController {
   @Autowired
-  private IAlteration alterationDao;
+  private AlterationService alterationService;
 
   @GetMapping
   public ResponseEntity<List<Alteration>> fetchAll()
   {
-    return ResponseEntity.ok(alterationDao.findAll());
+    return alterationService.fetchAll();
   }
 
   @GetMapping("/{alterationId}")
   public ResponseEntity<Alteration> fetch(
     @PathVariable Long alterationId)
   {
-    if (!alterationDao.existsById(alterationId)){
-      return ResponseEntity.notFound().build();
-    }
-    Alteration alteration = alterationDao.findById(alterationId).orElse(null);
-    return ResponseEntity.ok(alteration);
+    return alterationService.fetch(alterationId);
   }
 
   @PostMapping
   public ResponseEntity<Alteration> create(
     @RequestBody @Valid Alteration alteration)
   {
-    return ResponseEntity.ok(alterationDao.save(alteration));
+    return alterationService.create(alteration);
   }
 
   @PutMapping("/{alterationId}")
@@ -53,23 +50,14 @@ public class AlterationController {
     @PathVariable Long alterationId,
     @RequestBody @Valid Alteration alteration)
   {
-    if (!alterationDao.existsById(alterationId)){
-      return ResponseEntity.notFound().build();
-    }
-    alteration.setId(alterationId);
-    return ResponseEntity.ok(alterationDao.save(alteration));
+    return alterationService.update(alterationId, alteration);
   }
 
   @DeleteMapping("/{alterationId}")
   public ResponseEntity<Alteration> delete(
     @PathVariable Long alterationId)
   {
-    if (!alterationDao.existsById(alterationId)){
-      return ResponseEntity.notFound().build();
-    }
-    Alteration alteration = alterationDao.findById(alterationId).orElse(null);
-    alterationDao.delete(alteration);
-    return ResponseEntity.ok(alteration);
+    return alterationService.delete(alterationId);
   }
   
 }
