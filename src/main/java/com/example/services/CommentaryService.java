@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.database.*;
 import com.example.models.*;
@@ -12,62 +13,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class CommentaryService {
   @Autowired
-  private ICommentaryDao commentaryDao;
+  private ICommentaryDao Commentaries;
 
   @Autowired
-  private IUserDao userDao;
+  private IUserDao Users;
 
   
   public ResponseEntity<List<Commentary>> fetchAll() {
-    return ResponseEntity.ok(commentaryDao.findAll());
+    return ResponseEntity.ok(Commentaries.findAll());
   }
 
   public ResponseEntity<Commentary> fetch(Long commentaryId) {
-    if (!commentaryDao.existsById(commentaryId)){
+    Optional<Commentary> existingComment = Commentaries.findById(commentaryId);
+    if (!existingComment.isPresent()){
       return ResponseEntity.notFound().build();
     }
-    Commentary commentary = commentaryDao.findById(commentaryId).orElse(null);
-    
-    return ResponseEntity.ok(commentary);
+    return ResponseEntity.ok(existingComment.get());
   }
   
   public ResponseEntity<Commentary> create(Long userId,  Commentary commentary) {
     /**
     * FIX: Need add a verification if the video exists using `videoDao`
     */
-    if (!userDao.existsById(userId)){
+    Optional<User> user = Users.findById(userId);
+    if (!user.isPresent()){
       return ResponseEntity.notFound().build();
     }
-    commentary.setAuthor(userDao.findById(userId).orElse(null));
-    
-    return ResponseEntity
-      .ok(commentaryDao
-      .save(commentary));
+    commentary.setAuthor(user.get());
+    return ResponseEntity.ok(Commentaries.save(commentary));
   }
 
-  public ResponseEntity<Commentary> update(Long commentaryId, Commentary commentary) {
-    if (!commentaryDao.existsById(commentaryId)){
+  public ResponseEntity<Commentary> update(
+    Long commentaryId, 
+    Commentary commentary) 
+  {
+    Optional<Commentary> existingComment = Commentaries.findById(commentaryId);
+    if (!existingComment.isPresent()){
       return ResponseEntity.notFound().build();
     }
-    Commentary newCommentary = commentaryDao.findById(commentaryId).orElse(null);
-    newCommentary.setCommentaryText(commentary.getCommentaryText());
 
-    return ResponseEntity
-      .ok(commentaryDao
-      .save(newCommentary));
+    Commentary newCommentary = existingComment.get()
+      .setCommentaryText(commentary.getCommentaryText());
+
+    return ResponseEntity.ok(Commentaries.save(newCommentary));
   }
 
   public ResponseEntity<Commentary> delete(Long commentaryId) {
-    if (!commentaryDao.existsById(commentaryId)){
-      
-      return ResponseEntity
-        .notFound()
-        .build();
+    Optional<Commentary> commentary = Commentaries.findById(commentaryId);
+    if (!commentary.isPresent()){
+      return ResponseEntity.notFound().build();
     }
-    Commentary commentary = commentaryDao.findById(commentaryId).orElse(null);
-    commentaryDao.delete(commentary);
-    
-    return ResponseEntity.ok(commentary);
+    Commentaries.delete(commentary.get());
+    return ResponseEntity.ok(commentary.get());
   }
 
 }

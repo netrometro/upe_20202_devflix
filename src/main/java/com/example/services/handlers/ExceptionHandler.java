@@ -17,11 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
   
   @Autowired
@@ -56,6 +56,23 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
       .setError(true)
       .setTimestamp(LocalDateTime.now())
       .setFieldErrors(fieldErrors);
+
+    return super.handleExceptionInternal(ex, response, headers, status, request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleExceptionInternal(
+    Exception ex, 
+    Object body, 
+    HttpHeaders headers,
+    HttpStatus status, 
+    WebRequest request) 
+  {
+    ExceptionResponse response = new ExceptionResponse()
+      .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
+      .setStatus(status.value())
+      .setError(true)
+      .setTimestamp(LocalDateTime.now());
 
     return super.handleExceptionInternal(ex, response, headers, status, request);
   }
