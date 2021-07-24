@@ -41,7 +41,7 @@ public class AlterationController {
     return ResponseEntity.ok(alteration);
   }
 
-  @PostMapping("{/alterationId}")
+  @PostMapping
   public ResponseEntity<Alteration> create(
     @RequestBody @Valid Alteration alteration)
   {

@@ -29,10 +29,8 @@ public class Alteration {
   @NotBlank
   @Column(name = "alteration_name")
   private String name;
-  
-  @NotNull
-  @NotBlank
-  @Column(name = "alteration_date")
+
+  @Column(name = "alteration_date",  columnDefinition = "TIMESTAMP")
   private LocalDateTime date;
 
   @NotNull
