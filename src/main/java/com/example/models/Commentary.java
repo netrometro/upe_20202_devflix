@@ -3,6 +3,8 @@ package com.example.models;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
@@ -18,12 +20,13 @@ public class Commentary {
   @Column(name = "commentary_id")
   private long id;
 
-  @ManyToOne()
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id")
   private User author;
 
   @Length(max = 256)
-  @Size(max = 126)
+  @Size(max = 256)
   @NotBlank
   @NotNull
   @Column(name = "commentary_text")

@@ -8,21 +8,18 @@ import com.example.database.*;
 import com.example.models.*;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RequestMapping("/v1/commentaries")
 @RestController
 public class CommentaryController {
+
   @Autowired
   private ICommentaryDao commentaryDao;
+
+  @Autowired
+  private IUserDao userDao;
 
   @GetMapping
   public ResponseEntity<List<Commentary>> fetchAll() {
@@ -35,15 +32,23 @@ public class CommentaryController {
       return ResponseEntity.notFound().build();
     }
     Commentary commentary = commentaryDao.findById(commentaryId).orElse(null);
+    
     return ResponseEntity.ok(commentary);
   }
   
-  @PostMapping
-  public ResponseEntity<Commentary> create(@RequestBody @Valid Commentary commentary) {
+  @PostMapping("/{userId}")
+  public ResponseEntity<Commentary> create(@PathVariable Long userId, @RequestBody @Valid Commentary commentary) {
     /**
-    * FIX: Need add a verification if the user and video exists using `userDao` and `videoDao`
+    * FIX: Need add a verification if the video exists using `videoDao`
     */
-    return ResponseEntity.ok(commentaryDao.save(commentary));
+    if (!userDao.existsById(userId)){
+      return ResponseEntity.notFound().build();
+    }
+    commentary.setAuthor(userDao.findById(userId).orElse(null));
+    
+    return ResponseEntity
+      .ok(commentaryDao
+      .save(commentary));
   }
 
   @PutMapping("/{commentaryId}")
@@ -51,17 +56,25 @@ public class CommentaryController {
     if (!commentaryDao.existsById(commentaryId)){
       return ResponseEntity.notFound().build();
     }
-    commentary.setId(commentaryId);
-    return ResponseEntity.ok(commentaryDao.save(commentary));
+    Commentary newCommentary = commentaryDao.findById(commentaryId).orElse(null);
+    newCommentary.setCommentaryText(commentary.getCommentaryText());
+
+    return ResponseEntity
+      .ok(commentaryDao
+      .save(newCommentary));
   }
 
   @DeleteMapping("/{commentaryId}")
   public ResponseEntity<Commentary> delete(@PathVariable Long commentaryId) {
     if (!commentaryDao.existsById(commentaryId)){
-      return ResponseEntity.notFound().build();
+      
+      return ResponseEntity
+        .notFound()
+        .build();
     }
     Commentary commentary = commentaryDao.findById(commentaryId).orElse(null);
     commentaryDao.delete(commentary);
+    
     return ResponseEntity.ok(commentary);
   }
 
