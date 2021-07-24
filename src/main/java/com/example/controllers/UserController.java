@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.database.IUserDao;
 import com.example.models.User;
 import com.example.services.UserService;
 
