@@ -30,12 +30,12 @@ public class Alteration {
   @Column(name = "alteration_name")
   private String name;
 
-  @Column(name = "alteration_date",  columnDefinition = "TIMESTAMP")
-  private LocalDateTime date;
-
   @NotNull
   @NotBlank
   @Column(name = "alteration")
   private String alteration;
+
+  @Column(name = "alteration_date", columnDefinition = "TIMESTAMP")
+  private LocalDateTime date;
 
 }

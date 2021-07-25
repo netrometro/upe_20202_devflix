@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RequestMapping("/alteration")
+@RequestMapping("/v1/alteration")
 @RestController
 public class AlterationController {
   @Autowired
