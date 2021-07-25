@@ -46,6 +46,9 @@ public class AlterationService {
 
   public ResponseEntity<Alteration> delete(Long alterationId) {
     Optional<Alteration> alteration = Alterations.findById(alterationId);
+    if (!alteration.isPresent()){
+      return ResponseEntity.notFound().build();
+    }
     Alterations.delete(alteration.get());
     return ResponseEntity.ok(alteration.get());
   }
