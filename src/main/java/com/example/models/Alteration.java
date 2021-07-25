@@ -36,6 +36,6 @@ public class Alteration {
   private String alteration;
 
   @Column(name = "alteration_date", columnDefinition = "TIMESTAMP")
-  private LocalDateTime date;
+  private LocalDateTime date = LocalDateTime.now();
 
 }
