@@ -24,10 +24,10 @@ public class AlterationService {
   public ResponseEntity<Alteration> fetch(Long alterationId)
   {
     Optional<Alteration> alteration = Alterations.findById(alterationId);
-    if (alteration.isPresent()){
-      return ResponseEntity.ok(alteration.get());
+    if (!alteration.isPresent()){
+      return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(alteration.get());
   }
 
   public ResponseEntity<Alteration> create(Alteration alteration) {
@@ -39,8 +39,9 @@ public class AlterationService {
     if (!alterationData.isPresent()){
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.ok(
-      Alterations.save(alterationData.get().setId(alterationId)));
+    alteration.setId(alterationId);
+    Alterations.save(alteration);
+    return ResponseEntity.ok(Alterations.save(alterationData.get().setId(alterationId)));
   }
 
   public ResponseEntity<Alteration> delete(Long alterationId) {
