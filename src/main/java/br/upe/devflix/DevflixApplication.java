@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class DevflixApplication {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(DevflixApplication.class, args);
+    SpringApplication.run(DevflixApplication.class, args);
 	}
 
 }
