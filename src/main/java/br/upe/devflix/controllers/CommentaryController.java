@@ -1,11 +1,11 @@
-package com.example.controllers;
+package br.upe.devflix.controllers;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.models.*;
-import com.example.services.CommentaryService;
+import br.upe.devflix.models.*;
+import br.upe.devflix.services.CommentaryService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

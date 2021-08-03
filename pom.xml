@@ -27,6 +27,16 @@
 	</properties>
 
 	<dependencies>
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>4.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>br.com.muryllo.jmailer</groupId>
+      <artifactId>jmailer</artifactId>
+      <version>1.2.2</version>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

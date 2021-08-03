@@ -1,10 +1,10 @@
-package com.example.services;
+package br.upe.devflix.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.database.IUserDao;
-import com.example.models.User;
+import br.upe.devflix.database.IUserDao;
+import br.upe.devflix.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

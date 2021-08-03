@@ -1,4 +1,4 @@
-package com.example.models;
+package br.upe.devflix.models;
 
 public enum VisibilityType {
   Public(1),

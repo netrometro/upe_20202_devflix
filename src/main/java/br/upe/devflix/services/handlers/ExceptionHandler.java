@@ -1,12 +1,12 @@
-package com.example.services.handlers;
+package br.upe.devflix.services.handlers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.example.models.ExceptionResponse;
-import com.example.models.ExceptionResponse.FieldException;
+import br.upe.devflix.models.ExceptionResponse;
+import br.upe.devflix.models.ExceptionResponse.FieldException;
 
 import org.springframework.validation.FieldError;
 import org.springframework.beans.factory.annotation.Autowired;

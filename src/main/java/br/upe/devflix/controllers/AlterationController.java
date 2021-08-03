@@ -1,11 +1,11 @@
-package com.example.controllers;
+package br.upe.devflix.controllers;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.services.AlterationService;
-import com.example.models.Alteration;
+import br.upe.devflix.services.AlterationService;
+import br.upe.devflix.models.Alteration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

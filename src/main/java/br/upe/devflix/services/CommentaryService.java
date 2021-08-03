@@ -1,10 +1,10 @@
-package com.example.services;
+package br.upe.devflix.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.database.*;
-import com.example.models.*;
+import br.upe.devflix.database.*;
+import br.upe.devflix.models.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
-package com.example.controllers;
+package br.upe.devflix.controllers;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
-import com.example.models.Metadata;
-import com.example.services.MetadataService;
+import br.upe.devflix.models.Metadata;
+import br.upe.devflix.services.MetadataService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

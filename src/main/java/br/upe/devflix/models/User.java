@@ -1,4 +1,4 @@
-package com.example.models;
+package br.upe.devflix.models;
 
 import java.util.List;
 

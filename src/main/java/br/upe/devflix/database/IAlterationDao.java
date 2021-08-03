@@ -1,6 +1,6 @@
-package com.example.database;
+package br.upe.devflix.database;
 
-import com.example.models.Alteration;
+import br.upe.devflix.models.Alteration;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

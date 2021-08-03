@@ -4,6 +4,13 @@
       "type": "java",
       "name": "Launch DevflixApplication",
       "request": "launch",
+      "mainClass": "br.upe.devflix.DevflixApplication",
+      "projectName": "upe_20202_devflix"
+    },
+    {
+      "type": "java",
+      "name": "Launch DevflixApplication",
+      "request": "launch",
       "mainClass": "com.example.DevflixApplication",
       "projectName": "upe_20202_devflix",
       "env": {

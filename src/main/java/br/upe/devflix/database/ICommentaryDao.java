@@ -1,6 +1,6 @@
-package com.example.database;
+package br.upe.devflix.database;
 
-import com.example.models.Commentary;
+import br.upe.devflix.models.Commentary;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

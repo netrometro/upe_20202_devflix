@@ -1,4 +1,4 @@
-package com.example.models;
+package br.upe.devflix.models;
 
 public enum UserType {
   NormalUser(1),

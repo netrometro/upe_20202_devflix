@@ -1,4 +1,4 @@
-package com.example.models;
+package br.upe.devflix.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

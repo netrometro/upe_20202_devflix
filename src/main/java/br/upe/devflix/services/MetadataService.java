@@ -1,10 +1,10 @@
-package com.example.services;
+package br.upe.devflix.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.database.IMetadataDao;
-import com.example.models.Metadata;
+import br.upe.devflix.database.IMetadataDao;
+import br.upe.devflix.models.Metadata;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
