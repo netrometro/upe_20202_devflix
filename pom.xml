@@ -3,7 +3,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.upe</groupId>
+	<groupId>br.upe.devflix</groupId>
 	<artifactId>upe_20202_devflix</artifactId>
 	<version>1.0</version>
 	<name>upe_20202_devflix</name>
