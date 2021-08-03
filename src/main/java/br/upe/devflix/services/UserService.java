@@ -25,9 +25,9 @@ public class UserService {
   {
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
-      return ResponseEntity.ok(user.get());
+      return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(user.get());
   }
   
   public ResponseEntity<User> create(User user)
@@ -49,6 +49,9 @@ public class UserService {
   public ResponseEntity<User> delete(Long userId)
   {
     Optional<User> user = Users.findById(userId);
+    if (!user.isPresent()){
+      return ResponseEntity.notFound().build();
+    }
     Users.delete(user.get());
     return ResponseEntity.ok(user.get());
   }
