@@ -41,6 +41,12 @@ public class User {
   @Column(name = "user_name")
   private String name;
 
+  @Length(min = 4, max = 256)
+  @NotNull
+  @NotBlank
+  @Column(name = "user_password")
+  private String password;
+
   @NotNull
   @Column(name = "user_type")
   private UserType type;
