@@ -1,6 +1,7 @@
 package br.upe.devflix.models.entities;
 
 import java.util.List;
+import java.util.UUID;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -62,6 +63,10 @@ public class User {
   @JsonProperty(access = Access.READ_ONLY)
   @Column(name = "user_confirmed")
   private Boolean confirmed = false;
+
+  @JsonProperty(access = Access.READ_ONLY)
+  @Column(name = "user_confirmation_token")
+  private String confirmationToken = UUID.randomUUID().toString();
 
   @OneToMany(mappedBy = "author")
   private List<Commentary> commentaries;

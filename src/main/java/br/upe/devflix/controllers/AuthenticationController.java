@@ -23,28 +23,28 @@ public class AuthenticationController {
   private AuthenticationService Authentication;
 
   @PostMapping("/signup")
-  public ResponseEntity<User> createAccount(
+  public ResponseEntity<?> createAccount(
     @RequestBody @Valid User userForm)
   {
     return Authentication.createAccount(userForm);
   }
 
   @PostMapping("/login")
-  public ResponseEntity<Object> createSession(
+  public ResponseEntity<?> createSession(
     @RequestBody @Valid Credential credentialForm)
   {
     return Authentication.createSession(credentialForm);
   }
 
   @PostMapping("/forgot")
-  public ResponseEntity<Object> forgotPassword(
+  public ResponseEntity<?> forgotPassword(
     @RequestBody @Valid Forgot forgotForm)
   {
     return Authentication.forgotPassword(forgotForm);
   }
 
   @PostMapping("/recovery")
-  public ResponseEntity<Object> changePassword(
+  public ResponseEntity<?> changePassword(
     @RequestBody @Valid Recovery recoveryForm)
   {
     return Authentication.changePassword(recoveryForm);

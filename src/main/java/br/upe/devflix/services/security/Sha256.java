@@ -6,6 +6,9 @@ import java.nio.charset.StandardCharsets;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Sha256 {
 
   /**
@@ -14,10 +17,13 @@ public class Sha256 {
    * @param password A senha do usuário.
    * @return O hash em formato SHA256.
    */
-  public static String hash(String password) {
+  public String hash(String password) {
     HashFunction hashFunction = Hashing.sha256();
     Charset defaultCharset = StandardCharsets.UTF_8;
-    return hashFunction.hashString(password, defaultCharset).toString();
+    return hashFunction
+      .hashString(password, defaultCharset)
+      .toString()
+      .toUpperCase();
   }
 
   /**
@@ -27,7 +33,7 @@ public class Sha256 {
    * @param hashedPassword A senha em formato de hash SHA256.
    * @return Valor booleano indicando se as senhas são equivalentes.
    */
-  public static boolean compare(String password, String hashedPassword) {
+  public boolean compare(String password, String hashedPassword) {
     return hash(password).equalsIgnoreCase(hashedPassword);
   }
 

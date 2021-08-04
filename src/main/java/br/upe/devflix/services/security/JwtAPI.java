@@ -4,12 +4,16 @@ import java.util.*;
 
 import com.auth0.jwt.*;
 import com.auth0.jwt.exceptions.*;
+
+import org.springframework.stereotype.Service;
+
 import com.auth0.jwt.algorithms.Algorithm;
 
+@Service
 public class JwtAPI {
   
-  private static String JwtSecret = "chave-secreta";
-  private static String JwtIssuer = "nome-emissor";
+  private String JwtSecret = "chave-secreta";
+  private String JwtIssuer = "nome-emissor";
 
   /**
    * Gera um JWT.
@@ -17,7 +21,7 @@ public class JwtAPI {
    * @param claims As claims utilizadas no JWT.
    * @return Retorna um JWT em formato string.
    */
-  public static String build(Map<String, ?> claims) {
+  public String build(Map<String, ?> claims) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JwtSecret);
       Long now = (new Date()).getTime();
@@ -38,7 +42,7 @@ public class JwtAPI {
    * @param jwtToken O token JWT.
    * @return Retorna o conteúdo das claims do JWT.
    */
-  public static String decrypt(String jwtToken) {
+  public String decrypt(String jwtToken) {
     try {
       String jwt = JWT.decode(jwtToken).getPayload();
       return new String(Base64.getDecoder().decode(jwt));
@@ -53,7 +57,7 @@ public class JwtAPI {
    * @param jwtToken Token JWT em formato de string.
    * @return Um valor booleano.
    */
-  public static boolean verify(String jwtToken) {
+  public boolean verify(String jwtToken) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JwtSecret);
       JWT.require(algorithm)
