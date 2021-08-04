@@ -1,4 +1,4 @@
-package br.upe.devflix.models;
+package br.upe.devflix.models.entities;
 
 import java.util.List;
 import java.time.LocalDateTime;
@@ -53,11 +53,11 @@ public class User {
 
   @NotNull
   @Column(name = "user_type")
-  private UserType type;
+  private int type = 1;
 
   @NotNull
-  @Column(name = "user_profile_visibility")
-  private VisibilityType profileVisibility;
+  @Column(name = "user_visibility")
+  private int visibility = 1;
 
   @JsonProperty(access = Access.READ_ONLY)
   @Column(name = "user_confirmed")

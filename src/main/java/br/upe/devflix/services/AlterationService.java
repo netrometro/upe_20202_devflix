@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.upe.devflix.database.IAlterationDao;
-import br.upe.devflix.models.Alteration;
+import br.upe.devflix.models.entities.Alteration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

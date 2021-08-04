@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.upe.devflix.database.*;
-import br.upe.devflix.models.*;
+import br.upe.devflix.models.entities.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class CommentaryService {
+  
   @Autowired
   private ICommentaryDao Commentaries;
 
