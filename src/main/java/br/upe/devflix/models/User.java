@@ -1,6 +1,7 @@
 package br.upe.devflix.models;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -55,7 +59,17 @@ public class User {
   @Column(name = "user_profile_visibility")
   private VisibilityType profileVisibility;
 
+  @JsonProperty(access = Access.READ_ONLY)
+  @Column(name = "user_confirmed")
+  private Boolean confirmed = false;
+
   @OneToMany(mappedBy = "author")
   private List<Commentary> commentaries;
+
+  @OneToMany(mappedBy = "user")
+  private List<RecoveryAccount> recoveries;
+
+  @Column(name = "user_creation", columnDefinition = "TIMESTAMP")
+  private LocalDateTime creation = LocalDateTime.now();
 
 }
