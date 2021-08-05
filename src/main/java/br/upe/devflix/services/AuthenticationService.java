@@ -13,10 +13,10 @@ import br.upe.devflix.database.IRecoveryDao;
 import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.serializables.Forgot;
 import br.upe.devflix.models.serializables.Recovery;
+import br.upe.devflix.models.serializables.Credential;
 import br.upe.devflix.models.serializables.SessionResponse;
 import br.upe.devflix.services.security.JwtAPI;
 import br.upe.devflix.services.security.Sha256;
-import br.upe.devflix.models.serializables.Credential;
 
 @Service
 public class AuthenticationService {
@@ -59,12 +59,12 @@ public class AuthenticationService {
   }
 
   public ResponseEntity<?> createSession(Credential credentialForm){
-    List<User> existingUsers = Users.findByEmailAndConfirmedTrue(
+    List<User> foundUsers = Users.findByEmailAndConfirmedTrue(
       credentialForm.getEmail());
-    if (existingUsers.isEmpty()){
+    if (foundUsers.isEmpty()){
       return Response.create(null, HttpStatus.UNAUTHORIZED);
     }
-    User fetchedUser = existingUsers.get(0);
+    User fetchedUser = foundUsers.get(0);
     if (!HashSha256.compare(
       credentialForm.getPassword(), 
       fetchedUser.getPassword()))
@@ -86,7 +86,12 @@ public class AuthenticationService {
   }
 
   public ResponseEntity<?> confirmAccount(String confirmToken){
-    return Response.create(null, HttpStatus.NOT_IMPLEMENTED);
+    List<User> foundUsers = Users.findByConfirmationTokenAndConfirmedFalse(confirmToken);
+    if (foundUsers.isEmpty()){
+      return Response.create(null, HttpStatus.NOT_FOUND);
+    }
+    User user = Users.save(foundUsers.get(0).setConfirmed(true));
+    return Response.create(user, HttpStatus.OK);
   }
 
   public ResponseEntity<?> forgotPassword(Forgot forgotForm){

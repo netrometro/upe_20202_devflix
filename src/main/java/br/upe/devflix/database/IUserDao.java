@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUserDao extends JpaRepository<User, Long> {
 
+  List<User> findByConfirmationTokenAndConfirmedFalse(String confirmationToken);
   List<User> findByEmailAndConfirmedTrue(String email);
   List<User> findByEmail(String email);
   long countByEmail(String email);
