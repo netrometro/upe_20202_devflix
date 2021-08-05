@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,13 @@ public class AuthenticationController {
     return Authentication.createSession(credentialForm);
   }
 
+  @GetMapping("/confirm/{confirmToken}")
+  public ResponseEntity<?> confirmAccount(
+    @PathVariable String confirmToken)
+  {
+    return Authentication.confirmAccount(confirmToken);
+  }
+
   @PostMapping("/forgot")
   public ResponseEntity<?> forgotPassword(
     @RequestBody @Valid Forgot forgotForm)
@@ -49,5 +58,7 @@ public class AuthenticationController {
   {
     return Authentication.changePassword(recoveryForm);
   }
+
+
 
 }

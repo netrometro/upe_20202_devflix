@@ -85,6 +85,10 @@ public class AuthenticationService {
     return Response.create(session, HttpStatus.OK);
   }
 
+  public ResponseEntity<?> confirmAccount(String confirmToken){
+    return Response.create(null, HttpStatus.NOT_IMPLEMENTED);
+  }
+
   public ResponseEntity<?> forgotPassword(Forgot forgotForm){
     return Response.create(null, HttpStatus.OK);
   }
