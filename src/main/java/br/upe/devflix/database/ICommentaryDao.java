@@ -1,6 +1,6 @@
 package br.upe.devflix.database;
 
-import br.upe.devflix.models.Commentary;
+import br.upe.devflix.models.entities.Commentary;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;

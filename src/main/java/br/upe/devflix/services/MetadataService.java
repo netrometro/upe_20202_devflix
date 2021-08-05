@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.upe.devflix.database.IMetadataDao;
-import br.upe.devflix.models.Metadata;
+import br.upe.devflix.models.entities.Metadata;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

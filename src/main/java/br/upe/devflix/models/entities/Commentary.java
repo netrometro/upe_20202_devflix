@@ -1,4 +1,4 @@
-package br.upe.devflix.models;
+package br.upe.devflix.models.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

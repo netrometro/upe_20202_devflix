@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.upe.devflix.database.IUserDao;
-import br.upe.devflix.models.User;
+import br.upe.devflix.models.entities.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

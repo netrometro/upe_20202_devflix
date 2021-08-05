@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import br.upe.devflix.models.User;
+import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/v1/users")
+@RequestMapping("/api/v1/users")
 @RestController
 public class UserController {
   

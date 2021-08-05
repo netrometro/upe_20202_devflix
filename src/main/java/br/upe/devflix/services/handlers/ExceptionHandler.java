@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import br.upe.devflix.models.ExceptionResponse;
-import br.upe.devflix.models.ExceptionResponse.FieldException;
-
 import org.springframework.validation.FieldError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,6 +17,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.upe.devflix.models.serializables.ExceptionResponse;
+import br.upe.devflix.models.serializables.ExceptionResponse.FieldException;
 
 @RestControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
