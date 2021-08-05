@@ -1,4 +1,4 @@
-package br.upe.devflix.models;
+package br.upe.devflix.models.serializables;
 
 import java.time.LocalDateTime;
 import java.util.List;

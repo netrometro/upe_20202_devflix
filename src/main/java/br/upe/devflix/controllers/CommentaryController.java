@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import br.upe.devflix.models.*;
+import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.CommentaryService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@RequestMapping("/v1/commentaries")
+@RequestMapping("/api/v1/commentaries")
 @RestController
 public class CommentaryController {
 
