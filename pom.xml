@@ -27,6 +27,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-youtube</artifactId>
+			<version>v3-rev222-1.25.0</version>
+		</dependency>
     <dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
