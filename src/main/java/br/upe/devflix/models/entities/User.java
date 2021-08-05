@@ -50,6 +50,7 @@ public class User {
   @NotNull
   @NotBlank
   @Column(name = "user_password")
+  @JsonProperty(access = Access.WRITE_ONLY)
   private String password;
 
   @NotNull

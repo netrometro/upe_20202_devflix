@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import br.upe.devflix.database.IRecoveryDao;
 import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.serializables.Forgot;
 import br.upe.devflix.models.serializables.Recovery;
+import br.upe.devflix.models.serializables.SessionResponse;
 import br.upe.devflix.services.security.JwtAPI;
 import br.upe.devflix.services.security.Sha256;
 import br.upe.devflix.models.serializables.Credential;
@@ -37,17 +39,23 @@ public class AuthenticationService {
   @Autowired
   private JwtAPI JwtProvider;
 
+  @Autowired
+  private JsonService Json;
+
   public ResponseEntity<?> createAccount(User userForm){
     if (Users.countByEmail(userForm.getEmail()) > 0){
       return Response.create(null, HttpStatus.BAD_REQUEST);
     }
     userForm.setPassword(HashSha256.hash(userForm.getPassword()));
     User newUser = Users.save(userForm);
-    Mailer.sendMailConfirmation(
+    boolean result = Mailer.sendMailConfirmation(
       newUser.getName().toUpperCase(), 
       newUser.getEmail(), 
       "https://upedevflix.herokuapp.com/#/confirmation/" + newUser.getConfirmationToken());
-    return Response.create(newUser, HttpStatus.NO_CONTENT);
+    if (!result){
+      return Response.create(null, HttpStatus.BAD_REQUEST);
+    }
+    return Response.create(newUser, HttpStatus.OK);
   }
 
   public ResponseEntity<?> createSession(Credential credentialForm){
@@ -56,14 +64,25 @@ public class AuthenticationService {
     if (existingUsers.isEmpty()){
       return Response.create(null, HttpStatus.UNAUTHORIZED);
     }
+    User fetchedUser = existingUsers.get(0);
     if (!HashSha256.compare(
       credentialForm.getPassword(), 
-      existingUsers.get(0).getPassword()))
+      fetchedUser.getPassword()))
     {
       return Response.create(null, HttpStatus.UNAUTHORIZED);
     }
-    /**Usuário autenticado, implementar JWT pendente. */
-    return Response.create(null, HttpStatus.UNAUTHORIZED);
+
+    Hashtable<String, String> claims = new Hashtable<String, String>();
+    claims.put("id", String.valueOf(fetchedUser.getId()));
+    claims.put("roles", String.valueOf(fetchedUser.getType()));
+    claims.put("email", fetchedUser.getEmail());
+
+    String jwtToken = JwtProvider.build(claims);
+    SessionResponse session = new SessionResponse()
+      .setToken(jwtToken)
+      .setClaims(claims);
+
+    return Response.create(session, HttpStatus.OK);
   }
 
   public ResponseEntity<?> forgotPassword(Forgot forgotForm){
