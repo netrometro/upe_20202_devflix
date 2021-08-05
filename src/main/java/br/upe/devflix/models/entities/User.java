@@ -15,6 +15,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -65,7 +66,7 @@ public class User {
   @Column(name = "user_confirmed")
   private Boolean confirmed = false;
 
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonIgnore
   @Column(name = "user_confirmation_token")
   private String confirmationToken = UUID.randomUUID().toString();
 

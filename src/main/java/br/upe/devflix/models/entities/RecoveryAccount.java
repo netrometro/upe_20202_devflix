@@ -31,7 +31,7 @@ public class RecoveryAccount {
   @Column(name = "recovery_id")
   private long id;
 
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonIgnore
   @Column(name = "recovery_token")
   private String token = UUID.randomUUID().toString();
 

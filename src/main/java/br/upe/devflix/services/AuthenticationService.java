@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.upe.devflix.database.IUserDao;
 import br.upe.devflix.database.IRecoveryDao;
+import br.upe.devflix.models.entities.RecoveryAccount;
 import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.serializables.Forgot;
 import br.upe.devflix.models.serializables.Recovery;
@@ -38,9 +39,6 @@ public class AuthenticationService {
 
   @Autowired
   private JwtAPI JwtProvider;
-
-  @Autowired
-  private JsonService Json;
 
   public ResponseEntity<?> createAccount(User userForm){
     if (Users.countByEmail(userForm.getEmail()) > 0){
@@ -95,7 +93,25 @@ public class AuthenticationService {
   }
 
   public ResponseEntity<?> forgotPassword(Forgot forgotForm){
-    return Response.create(null, HttpStatus.OK);
+    List<User> foundUsers = Users.findByEmailAndConfirmedTrue(forgotForm.getEmail());
+    if (foundUsers.isEmpty()){
+      return Response.create(null, HttpStatus.NOT_FOUND);
+    }
+    User currentUser = foundUsers.get(0);
+    for (RecoveryAccount recovery : currentUser.getRecoveries()){
+      Recoveries.save(recovery.setExpired(true));
+    }
+    RecoveryAccount newRecovery = new RecoveryAccount()
+      .setUser(currentUser);
+    newRecovery = Recoveries.save(newRecovery);
+    boolean result = Mailer.sendMailPasswordRecovery(
+      currentUser.getName().toUpperCase(), 
+      currentUser.getEmail(), 
+      newRecovery.getToken());
+    if (!result){
+      return Response.create(null, HttpStatus.BAD_REQUEST);
+    }
+    return Response.create(newRecovery, HttpStatus.OK);
   }
 
   public ResponseEntity<?> changePassword(Recovery recoveryForm){

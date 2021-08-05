@@ -26,14 +26,14 @@ public class MailService {
     return result.success();
   }
 
-  public boolean sendMailPasswordRecovery(String userName, String userEmail, String link){
+  public boolean sendMailPasswordRecovery(String userName, String userEmail, String code){
     Mailer mail = createMailer()
       .subject("[DevFlix] Recuperação de Conta")
       .to(userName, userEmail)
       .htmlBody(String.format(
         "Olá %s, recebemos a triste notícia de que você esqueceu sua senha. " +
-        "Mas não se preocupe, você poderá alterá-la clicando <a href=\"%s\">neste link</a>.<br>" +
-        "Caso este email não tenha sido solicitado por você, basta ignorá-lo.", userName, link));
+        "Mas não se preocupe, você poderá alterá-la utilizando este código: <b>%s</b> ." +
+        "Caso este email não tenha sido solicitado por você, basta ignorá-lo.", userName, code));
     
     MailerResponse result = mail.send();
     return result.success();
