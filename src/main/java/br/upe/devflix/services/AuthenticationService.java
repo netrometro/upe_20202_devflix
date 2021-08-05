@@ -22,23 +22,12 @@ import br.upe.devflix.services.security.Sha256;
 @Service
 public class AuthenticationService {
   
-  @Autowired
-  private IUserDao Users;
-
-  @Autowired
-  private IRecoveryDao Recoveries;
-
-  @Autowired
-  private ResponseService Response;
-
-  @Autowired
-  private MailService Mailer;
-
-  @Autowired
-  private Sha256 HashSha256;
-
-  @Autowired
-  private JwtAPI JwtProvider;
+  @Autowired private IUserDao Users;
+  @Autowired private IRecoveryDao Recoveries;
+  @Autowired private ResponseService Response;
+  @Autowired private MailService Mailer;
+  @Autowired private Sha256 HashSha256;
+  @Autowired private JwtAPI JwtProvider;
 
   public ResponseEntity<?> createAccount(User userForm){
     if (Users.countByEmail(userForm.getEmail()) > 0){
@@ -115,7 +104,16 @@ public class AuthenticationService {
   }
 
   public ResponseEntity<?> changePassword(Recovery recoveryForm){
-    return Response.create(null, HttpStatus.OK);
+    List<RecoveryAccount> foundRecoveries = Recoveries.findByTokenAndExpiredFalse(recoveryForm.getToken());
+    if (foundRecoveries.isEmpty()){
+      return Response.create(null, HttpStatus.NOT_FOUND);
+    }
+    RecoveryAccount recoveryRequest = foundRecoveries.get(0);
+    User targetUser = recoveryRequest.getUser();
+    String newPassword = HashSha256.hash(recoveryForm.getPassword());
+    targetUser = Users.save(targetUser.setPassword(newPassword));
+    recoveryRequest = Recoveries.save(recoveryRequest.setExpired(true));
+    return Response.create(recoveryRequest, HttpStatus.OK);
   }
 
 }

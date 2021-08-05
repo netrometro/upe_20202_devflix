@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -54,10 +56,14 @@ public class User {
   @JsonProperty(access = Access.WRITE_ONLY)
   private String password;
 
+  @Min(1)
+  @Max(2)
   @NotNull
   @Column(name = "user_type")
   private int type = 1;
 
+  @Min(1)
+  @Max(2)
   @NotNull
   @Column(name = "user_visibility")
   private int visibility = 1;
