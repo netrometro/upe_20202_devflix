@@ -37,7 +37,7 @@
   </sub>
 </div>
 
-# :computer: Tecnologias
+# 💻 Tecnologias
 
 Este projeto foi feito utilizando as seguintes tecnologias:
 
@@ -45,5 +45,14 @@ Este projeto foi feito utilizando as seguintes tecnologias:
 - [PlantUML](https://plantuml.com/)
 - [Astah](https://astah.net/)
 - [Lucidcharts](https://lucid.app/documents)
+
+# 🗂️ Protótipo
+
+Este protótipo foi feito utilizando as seguintes tecnologias:
+- [Figma](https://www.figma.com/)
+- [Photoshop](https://www.photoshop.com/)
+
+Link para acessar as telas:
+- [Clique aqui](https://www.figma.com/file/plESiA4X0wdbw18vyP5Qjf/DevFlix?node-id=50%3A193)
 
 Deixe uma ⭐️ se este projeto ajudou você!
