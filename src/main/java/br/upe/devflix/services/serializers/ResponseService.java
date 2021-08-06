@@ -1,4 +1,4 @@
-package br.upe.devflix.services;
+package br.upe.devflix.services.serializers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

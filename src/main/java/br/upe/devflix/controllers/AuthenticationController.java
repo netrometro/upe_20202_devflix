@@ -16,7 +16,7 @@ import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.serializables.Credential;
 import br.upe.devflix.models.serializables.Forgot;
 import br.upe.devflix.models.serializables.Recovery;
-import br.upe.devflix.services.AuthenticationService;
+import br.upe.devflix.services.security.AuthenticationService;
 
 @RequestMapping("/api/v1/authentication")
 @RestController
