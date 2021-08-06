@@ -164,8 +164,8 @@
     </style>
   </head>
 
-  <body style="margin: 0; padding: 0;" bgcolor="#f4f5f8">
-    <table style="min-width: 320px;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f4f5f8">
+  <body style="margin: 0; padding: 0;" bgcolor="#eaeced">
+    <table style="min-width: 320px;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#eaeced">
       <tr>
         <td class="hide">
           <table width="600" cellpadding="0" cellspacing="0" style="width: 600px !important;">
@@ -177,10 +177,54 @@
       </tr>
       <tr>
         <td class="wrapper" style="padding: 0 10px;">
-          <td height="50"></td>
+          <table data-module="modulo-1" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td data-bgcolor="bg-module" bgcolor="#eaeced">
+                <table class="flexible" width="600" align="center" style="margin: 0 auto;" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="padding: 29px 0 30px;">
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <th class="flex" width="113" align="left" style="padding: 0;">
+                            <table class="center" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td style="line-height: 0;">
+                                  <a target="_blank" style="text-decoration: none;">
+                                    <img src="https://i.imgur.com/QlgDSXl.png" border="0" style="font: bold 12px/12px Arial, Helvetica, sans-serif; color: #606060;" align="left" vspace="0" hspace="0" width="100" height="100" />
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </th>
+                          <th class="flex" align="left" style="padding: 0;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td
+                                  data-color="text"
+                                  data-size="size navigation"
+                                  data-min="10"
+                                  data-max="22"
+                                  data-link-style="text-decoration:none; color:#888;"
+                                  class="nav"
+                                  align="right"
+                                  style="font: bold 13px/15px Arial, Helvetica, sans-serif; color: #888;">
+                                  <a target="_blank" style="text-decoration: none; color: #888;" href="#">Site Devflix</a> &nbsp; &nbsp;
+                                  <a target="_blank" style="text-decoration: none; color: #888;" href="#">Contato </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </th>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
           <table data-module="modulo-2" width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td data-bgcolor="bg-module" bgcolor="#f4f5f8">
+              <td data-bgcolor="bg-module" bgcolor="#eaeced">
                 <table class="flexible" width="600" align="center" style="margin: 0 auto;" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="img-flex"><img src="https://i.ibb.co/xYqVKsC/fundo-email-devflix.png" style="vertical-align: top;" width="600" height="249" alt="" /></td>
@@ -219,13 +263,13 @@
                             style="font: 16px/29px Arial, Helvetica, sans-serif; color: #ffffff; padding: 0 0 21px;"
                           >
                             <p style="text-align: justify;">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                              ut labore et dolore magna aliqua. Sed ullamcorper morbi tincidunt ornare. Elit at imperdiet
-                              dui accumsan sit amet nulla facilisi morbi. Turpis egestas pretium aenean pharetra magna ac.
-                              Quis eleifend quam adipiscing vitae proin sagittis. Sagittis id consectetur purus ut faucibus
-                              pulvinar elementum integer. Elit pellentesque habitant morbi tristique senectus. Purus in 
-                              mollis nunc sed id semper risus in. Id semper risus in hendrerit gravida rutrum quisque non 
-                              tellus. Proin sagittis nisl rhoncus mattis rhoncus urna neque viverra.
+                              Olá, <b>{{DEVFLIX_USERNAME}}</b>, recebemos a triste notícia de que você esqueceu sua senha. 
+                              Essa solicitação de redefinição de senha foi solicitada para o endereço de e-mail <b>{{DEVFLIX_USEREMAIL}}</b>.<br><br>
+                              Caso este email não tenha sido solicitado por você, basta ignorá-lo.
+                            </p>
+                            <p style="text-align: center;">
+                              Não se preocupe, você poderá alterá-la utilizando este código: 
+                              <br><b style="color: #EC0025; font-size: 1.5rem;">{{DEVFLIX_RECOVERYTOKEN}}</b>.
                             </p>
                           </td>
                         </tr>
@@ -239,9 +283,9 @@
               </td>
             </tr>
           </table>
-          <table data-module="modulo-3" data-thumb="thumbnails/03.png" width="100%" cellpadding="0" cellspacing="0">
+          <table data-module="modulo-3" width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td data-bgcolor="bg-module" bgcolor="#f4f5f8">
+              <td data-bgcolor="bg-module" bgcolor="#eaeced">
                 <table class="flexible" width="600" align="center" style="margin: 0 auto;" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="footer" style="padding: 0 0 10px;">
@@ -255,8 +299,7 @@
                                   data-link-color="link text color"
                                   data-link-style="text-decoration:underline; color:#797c82;"
                                   class="aligncenter"
-                                  style="font: 12px/16px Arial, Helvetica, sans-serif; color: #797c82; padding: 0 0 10px;"
-                                >
+                                  style="font: 12px/16px Arial, Helvetica, sans-serif; color: #797c82; padding: 0 0 10px;">
                                   Equipe de Desenvolvimento do Projeto, Devflix 2021
                                 </td>
                               </tr>
