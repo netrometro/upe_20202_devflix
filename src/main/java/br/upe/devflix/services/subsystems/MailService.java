@@ -1,4 +1,4 @@
-package br.upe.devflix.services;
+package br.upe.devflix.services.subsystems;
 
 import org.springframework.stereotype.Service;
 

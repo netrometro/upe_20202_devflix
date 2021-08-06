@@ -1,4 +1,4 @@
-package br.upe.devflix.services;
+package br.upe.devflix.services.serializers;
 
 import com.google.gson.Gson;
 

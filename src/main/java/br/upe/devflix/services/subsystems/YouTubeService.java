@@ -1,4 +1,4 @@
-package br.upe.devflix.services;
+package br.upe.devflix.services.subsystems;
 
 import java.io.IOException;
 

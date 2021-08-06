@@ -1,4 +1,4 @@
-package br.upe.devflix.services;
+package br.upe.devflix.services.security;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -16,8 +16,8 @@ import br.upe.devflix.models.serializables.Forgot;
 import br.upe.devflix.models.serializables.Recovery;
 import br.upe.devflix.models.serializables.Credential;
 import br.upe.devflix.models.serializables.SessionResponse;
-import br.upe.devflix.services.security.JwtAPI;
-import br.upe.devflix.services.security.Sha256;
+import br.upe.devflix.services.serializers.ResponseService;
+import br.upe.devflix.services.subsystems.MailService;
 
 @Service
 public class AuthenticationService {
