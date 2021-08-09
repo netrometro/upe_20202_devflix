@@ -1,4 +1,4 @@
-package br.upe.devflix.database;
+package br.upe.devflix.dao;
 
 import java.util.List;
 

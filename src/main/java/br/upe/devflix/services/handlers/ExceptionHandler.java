@@ -21,6 +21,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.upe.devflix.models.serializables.ExceptionResponse;
 import br.upe.devflix.models.serializables.ExceptionResponse.FieldException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
   
@@ -30,10 +33,12 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
     MethodArgumentNotValidException ex, 
-    HttpHeaders headers,
+    HttpHeaders headers, 
     HttpStatus status, 
     WebRequest request) 
   {
+    log.warn("An unhandled exception was caught by ExceptionHandler. Bad request detected with invalid fields.");
+
     List<ExceptionResponse.FieldException> fieldErrors = new ArrayList<>();
     
     for (ObjectError error : ex.getBindingResult().getAllErrors())
@@ -68,6 +73,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     HttpStatus status, 
     WebRequest request) 
   {
+    log.warn("An unhandled exception was caught by ExceptionHandler. Status: %d", status.value());
+
     ExceptionResponse response = new ExceptionResponse()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(status.value())

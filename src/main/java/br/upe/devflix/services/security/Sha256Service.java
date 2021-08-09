@@ -8,8 +8,11 @@ import com.google.common.hash.Hashing;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
-public class Sha256 {
+public class Sha256Service {
 
   /**
    * Gera um hash SHA256 da senha do usuário.
@@ -18,6 +21,7 @@ public class Sha256 {
    * @return O hash em formato SHA256.
    */
   public String hash(String password) {
+    log.info("Generating hash SHA256 for password.");
     HashFunction hashFunction = Hashing.sha256();
     Charset defaultCharset = StandardCharsets.UTF_8;
     return hashFunction
@@ -34,6 +38,7 @@ public class Sha256 {
    * @return Valor booleano indicando se as senhas são equivalentes.
    */
   public boolean compare(String password, String hashedPassword) {
+    log.info("Comparing a password with a hashed password.");
     return hash(password).equalsIgnoreCase(hashedPassword);
   }
 
