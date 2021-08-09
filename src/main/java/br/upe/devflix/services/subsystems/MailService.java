@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import br.com.muryllo.jmailer.Mailer;
 import br.com.muryllo.jmailer.MailerResponse;
 import br.upe.devflix.services.filesystem.ResourceService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class MailService {
 
@@ -28,6 +30,7 @@ public class MailService {
         .replace("{{DEVFLIX_USEREMAIL}}", userEmail)
         .replace("{{DEVFLIX_CONFIRMATIONURL}}", link));
     
+    log.debug("Sending Mail Confirmation to user <%s>", userEmail);
     MailerResponse result = mail.send();
     return result.success();
   }
@@ -42,6 +45,7 @@ public class MailService {
         .replace("{{DEVFLIX_USEREMAIL}}", userEmail)
         .replace("{{DEVFLIX_RECOVERYTOKEN}}", recoveryToken));
     
+    log.debug("Sending Mail Recovery to user <%s>", userEmail);
     MailerResponse result = mail.send();
     return result.success();
   }
@@ -55,6 +59,7 @@ public class MailService {
         .replace("{{DEVFLIX_USERNAME}}", userName)
         .replace("{{DEVFLIX_SHARELINK}}", link));
     
+    log.debug("Sending Devflix Mail Share to user <%s>", userEmail);
     MailerResponse result = mail.send();
     return result.success();
   }

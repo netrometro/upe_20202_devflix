@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.upe.devflix.models.serializables.GenericResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ResponseService {
   
@@ -17,6 +19,7 @@ public class ResponseService {
    * @return Resposta HTTP.
    */
   public <Any> ResponseEntity<GenericResponse<Any>> create(Any body, HttpStatus status){
+    log.info("Returning generic response to client.");
     GenericResponse<Any> response = new GenericResponse<Any>()
       .setError(status.isError())
       .setStatus(status.value())
