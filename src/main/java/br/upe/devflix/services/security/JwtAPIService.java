@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.algorithms.Algorithm;
 
 @Service
-public class JwtAPI {
+public class JwtAPIService {
   
   private String JwtSecret = "chave-secreta";
   private String JwtIssuer = "nome-emissor";

@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.upe.devflix.database.IUserDao;
-import br.upe.devflix.database.IRecoveryDao;
+import br.upe.devflix.dao.IRecoveryDao;
+import br.upe.devflix.dao.IUserDao;
 import br.upe.devflix.models.entities.RecoveryAccount;
 import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.serializables.Forgot;
@@ -26,8 +26,8 @@ public class AuthenticationService {
   @Autowired private IRecoveryDao Recoveries;
   @Autowired private ResponseService Response;
   @Autowired private MailService Mailer;
-  @Autowired private Sha256 HashSha256;
-  @Autowired private JwtAPI JwtProvider;
+  @Autowired private Sha256Service HashSha256;
+  @Autowired private JwtAPIService JwtProvider;
 
   public ResponseEntity<?> createAccount(User userForm){
     if (Users.countByEmail(userForm.getEmail()) > 0){

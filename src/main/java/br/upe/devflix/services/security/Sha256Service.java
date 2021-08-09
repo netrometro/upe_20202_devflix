@@ -9,7 +9,7 @@ import com.google.common.hash.Hashing;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Sha256 {
+public class Sha256Service {
 
   /**
    * Gera um hash SHA256 da senha do usuário.

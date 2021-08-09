@@ -1,4 +1,4 @@
-package br.upe.devflix.database;
+package br.upe.devflix.dao;
 
 import br.upe.devflix.models.entities.User;
 

@@ -3,7 +3,7 @@ package br.upe.devflix.services;
 import java.util.List;
 import java.util.Optional;
 
-import br.upe.devflix.database.*;
+import br.upe.devflix.dao.*;
 import br.upe.devflix.models.entities.*;
 
 import org.springframework.http.ResponseEntity;
@@ -52,10 +52,8 @@ public class CommentaryService {
     if (!existingComment.isPresent()){
       return ResponseEntity.notFound().build();
     }
-
     Commentary newCommentary = existingComment.get()
       .setCommentaryText(commentary.getCommentaryText());
-
     return ResponseEntity.ok(Commentaries.save(newCommentary));
   }
 
