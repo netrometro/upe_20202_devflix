@@ -15,18 +15,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MetadataService {
   
-  @Autowired
-  private IMetadataDao Metadata;
+  @Autowired private IMetadataDao Metadata;
 
   public ResponseEntity<List<Metadata>> fetchAll()
   {
-    log.debug("Returning all Metadata from videos in database.");
+    log.info("Returning all Metadata from videos in database.");
     return ResponseEntity.ok(Metadata.findAll());
   }
 
   public ResponseEntity<Metadata> fetch(Long metadataId)
   {
-    log.debug("Returning a specific Metadata from video in database.");
+    log.info("Returning a specific Metadata from video in database.");
     Optional<Metadata> metadata = Metadata.findById(metadataId);
     if (!metadata.isPresent()){
       log.warn("Returning all Metadata from videos.");
@@ -37,14 +36,14 @@ public class MetadataService {
 
   public ResponseEntity<Metadata> create(Metadata metadata) 
   {
-    log.debug("Creating a metadata of a video in database.");
+    log.info("Creating a metadata of a video in database.");
     return ResponseEntity.ok(Metadata.save(metadata));
   }
 
   public ResponseEntity<Metadata> update(
     Long metadataId, Metadata metadata)
   {
-    log.debug("Updating metadata of video in database.");
+    log.info("Updating metadata of video in database.");
     Optional<Metadata> metadataData = Metadata.findById(metadataId);
     if (!metadataData.isPresent()){
       log.warn("Metadata not found in database.");
@@ -58,7 +57,7 @@ public class MetadataService {
 
   public ResponseEntity<Metadata> delete(Long metadataId)
   {
-    log.debug("Deleting metadata from database.");
+    log.info("Deleting metadata from database.");
     Optional<Metadata> metadata = Metadata.findById(metadataId);
     if (!metadata.isPresent()){
       log.warn("Metadata not found in database.");

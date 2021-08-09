@@ -15,18 +15,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserService {
   
-  @Autowired
-  private IUserDao Users;
+  @Autowired private IUserDao Users;
 
   public ResponseEntity<List<User>> fetchAll()
   {
-    log.debug("Returning all users from database.");
+    log.info("Returning all users from database.");
     return ResponseEntity.ok(Users.findAll());
   }
 
   public ResponseEntity<User> fetch(Long userId)
   {
-    log.debug("Returning a specific user from database.");
+    log.info("Returning a specific user from database.");
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
       return ResponseEntity.notFound().build();
@@ -36,14 +35,14 @@ public class UserService {
   
   public ResponseEntity<User> create(User user)
   {
-    log.debug("Creating a new user in database.");
+    log.info("Creating a new user in database.");
     return ResponseEntity.ok(Users.save(user));
   }
 
   public ResponseEntity<User> update(
     Long userId, User user)
   {
-    log.debug("Updating a specific user from database.");
+    log.info("Updating a specific user from database.");
     Optional<User> userData = Users.findById(userId);
     if (!userData.isPresent()){
       log.warn("User not found in database.");
@@ -55,7 +54,7 @@ public class UserService {
 
   public ResponseEntity<User> delete(Long userId)
   {
-    log.debug("Deleting a specific user from database.");
+    log.info("Deleting a specific user from database.");
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
       log.warn("User not found in database.");
