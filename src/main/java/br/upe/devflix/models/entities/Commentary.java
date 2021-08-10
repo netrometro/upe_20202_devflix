@@ -28,6 +28,11 @@ public class Commentary extends GenericEntity {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id")
   private User author;
+  
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "video_id")
+  private Video video;
 
   @Length(max = 256)
   @Size(max = 256)

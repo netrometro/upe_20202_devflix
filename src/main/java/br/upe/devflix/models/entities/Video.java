@@ -31,7 +31,6 @@ import br.upe.devflix.base.GenericEntity;
 @Table(name = "devflix_users")
 @EqualsAndHashCode(callSuper = false)
 public class Video extends GenericEntity {
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "video_id")
