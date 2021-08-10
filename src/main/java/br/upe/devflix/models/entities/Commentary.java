@@ -3,18 +3,22 @@ package br.upe.devflix.models.entities;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.upe.devflix.base.GenericEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain = true)
 @Entity
+@Accessors(chain = true)
 @Table(name = "devflix_commentaries")
-public class Commentary {
+@EqualsAndHashCode(callSuper = false)
+public class Commentary extends GenericEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "commentary_id")
@@ -24,12 +28,22 @@ public class Commentary {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id")
   private User author;
+  
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "video_id")
+  private Video video;
 
   @Length(max = 256)
   @Size(max = 256)
   @NotBlank
   @NotNull
   @Column(name = "commentary_text")
-  private String commentaryText; 
+  private String commentaryText;
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "category_id")
+  private Category category;
 
 }

@@ -10,13 +10,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import br.upe.devflix.base.GenericEntity;
+
 @Data
-@Accessors(chain = true)
 @Entity
+@Accessors(chain = true)
 @Table(name = "devflix_metadata")
-public class Metadata {
+@EqualsAndHashCode(callSuper = false)
+public class Metadata extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "metadata_id")
