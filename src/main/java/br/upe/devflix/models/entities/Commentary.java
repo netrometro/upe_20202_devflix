@@ -45,5 +45,4 @@ public class Commentary extends GenericEntity {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "category_id")
   private Category category;
-
 }
