@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "core/*": [
+        "src/core/*"
+      ],
+      "images/*": [
+        "images/*"
+      ]
+    }
+  }
+}
