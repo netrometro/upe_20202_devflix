@@ -1,11 +1,12 @@
 package br.upe.devflix.services.subsystems;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.muryllo.jmailer.Mailer;
 import br.com.muryllo.jmailer.MailerResponse;
 import br.upe.devflix.services.filesystem.ResourceService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

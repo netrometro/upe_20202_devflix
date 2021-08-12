@@ -1,12 +1,17 @@
 package br.upe.devflix.models.entities;
 
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotBlank;
 
@@ -15,42 +20,39 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import br.upe.devflix.base.GenericEntity;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "devflix_metadata")
+@Table(name = "devflix_categories")
 @EqualsAndHashCode(callSuper = false)
-public class Metadata extends GenericEntity {
-  
+public class Category extends GenericEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "metadata_id")
+  @Column(name = "category_id")
   private long id;
 
+  @Length(min = 20, max = 25)
   @NotNull
   @NotBlank
-  @Column(name = "metadata_video_link")
-  private String videoLink;
-
-  @NotNull
-  @NotBlank
-  @Column(name = "metadata_title")
+  @Column(name = "category_title")
   private String title;
 
+  @Length(min = 6, max = 6)
   @NotNull
   @NotBlank
-  @Column(name = "metadata_description")
-  private String description;
+  @Column(name = "category_color")
+  private String color;
 
-  @NotNull
-  @NotBlank
-  @Column(name = "metadata_video_youtube_channel")
-  private String videoYoutubeChannel;
+  @OneToMany(mappedBy = "category")
+  private List<Commentary> commentaries;
 
+  @Min(1)
+  @Max(2)
   @NotNull
-  @NotBlank
-  @Column(name = "metadata_tags")
-  private String tags;
+  @Column(name = "category_visibility")
+  private int visibility = 1;
 
 }

@@ -5,35 +5,36 @@ import java.util.Optional;
 
 import br.upe.devflix.dao.*;
 import br.upe.devflix.models.entities.*;
+import br.upe.devflix.services.interfaces.ICommentaryCRUDService;
+
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Service
 @Slf4j
-public class CommentaryService {
+@Service
+public class CommentaryCRUDService implements ICommentaryCRUDService {
   
   @Autowired private ICommentaryDao Commentaries;
   @Autowired private IUserDao Users;
 
-  public ResponseEntity<List<Commentary>> fetchAll() {
+  public List<Commentary> fetchAll() {
     log.info("Returning all commentaries from database.");
-    return ResponseEntity.ok(Commentaries.findAll());
+    return Commentaries.findAll();
   }
 
-  public ResponseEntity<Commentary> fetch(Long commentaryId) {
+  public Commentary fetch(Long commentaryId) {
     log.info("Returning a specific commentary from database.");
     Optional<Commentary> existingComment = Commentaries.findById(commentaryId);
     if (!existingComment.isPresent()){
       log.info("Commentary not found in database.");
-      return ResponseEntity.notFound().build();
+      return null;
     }
-    return ResponseEntity.ok(existingComment.get());
+    return existingComment.get();
   }
   
-  public ResponseEntity<Commentary> create(Long userId,  Commentary commentary) {
+  public Commentary create(Long userId,  Commentary commentary) {
     /**
     * FIX: Need add a verification if the video exists using `videoDao`
     */
@@ -41,13 +42,13 @@ public class CommentaryService {
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
       log.info("Commentary not found in database.");
-      return ResponseEntity.notFound().build();
+      return null;
     }
     commentary.setAuthor(user.get());
-    return ResponseEntity.ok(Commentaries.save(commentary));
+    return Commentaries.save(commentary);
   }
 
-  public ResponseEntity<Commentary> update(
+  public Commentary update(
     Long commentaryId, 
     Commentary commentary) 
   {
@@ -55,22 +56,28 @@ public class CommentaryService {
     Optional<Commentary> existingComment = Commentaries.findById(commentaryId);
     if (!existingComment.isPresent()){
       log.info("Commentary not found in database.");
-      return ResponseEntity.notFound().build();
+      return null;
     }
     Commentary newCommentary = existingComment.get()
       .setCommentaryText(commentary.getCommentaryText());
-    return ResponseEntity.ok(Commentaries.save(newCommentary));
+    return Commentaries.save(newCommentary);
   }
 
-  public ResponseEntity<Commentary> delete(Long commentaryId) {
+  public Commentary delete(Long commentaryId) {
     log.info("Deleting commentary in database.");
     Optional<Commentary> commentary = Commentaries.findById(commentaryId);
     if (!commentary.isPresent()){
       log.info("Commentary not found in database.");
-      return ResponseEntity.notFound().build();
+      return null;
     }
     Commentaries.delete(commentary.get());
-    return ResponseEntity.ok(commentary.get());
+    return commentary.get();
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public ICommentaryDao getDao() {
+    return Commentaries;
   }
 
 }

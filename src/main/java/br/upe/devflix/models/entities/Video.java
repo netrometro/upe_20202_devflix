@@ -1,50 +1,55 @@
 package br.upe.devflix.models.entities;
 
-import java.util.UUID;
-
+import java.util.List;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.upe.devflix.base.GenericEntity;
 
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "devflix_recovery")
+@Table(name = "devflix_users")
 @EqualsAndHashCode(callSuper = false)
-public class RecoveryAccount extends GenericEntity {
-  
+public class Video extends GenericEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "recovery_id")
+  @Column(name = "video_id")
   private long id;
 
-  @JsonIgnore
-  @Column(name = "recovery_token")
-  private String token = UUID.randomUUID().toString();
+  @OneToOne
+  private Metadata videoMetadata;
 
-  @JsonProperty(access = Access.READ_ONLY)
-  @Column(name = "recovery_expired")
-  private Boolean expired = false;
-  
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id")
-  private User user;
+  private Category videoCategory;
+  
+  @Min(1)
+  @Max(2)
+  @NotNull
+  @Column(name = "video_visibility")
+  private int videoVisibility = 1;
+  
+  @OneToMany(mappedBy = "video")
+  private List<Commentary> videoComments;
   
 }
