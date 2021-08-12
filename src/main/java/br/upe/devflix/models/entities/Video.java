@@ -28,7 +28,7 @@ import br.upe.devflix.base.GenericEntity;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "devflix_users")
+@Table(name = "devflix_video")
 @EqualsAndHashCode(callSuper = false)
 public class Video extends GenericEntity {
   @Id

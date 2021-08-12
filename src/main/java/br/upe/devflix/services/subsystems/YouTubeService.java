@@ -31,7 +31,7 @@ public class YouTubeService {
     }).setApplicationName("Devflix").build();
   
   //Chave da API do Youtube
-  @Value("devflix.youtube.apikey")
+  @Value("${devflix.youtube.apikey}")
   private String YoutubeApiKey;
 
   //Número de vídeos que serão retornados na busca

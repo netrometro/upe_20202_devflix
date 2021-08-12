@@ -17,7 +17,7 @@ public class MailService {
 
   @Autowired private ResourceService ResourceProvider;
 
-  @Value("devflix.jmailer.apikey")
+  @Value("${devflix.jmailer.apikey}")
   private String JMailerApiKey;
 
   private Mailer createMailer(){
@@ -36,7 +36,7 @@ public class MailService {
         .replace("{{DEVFLIX_USEREMAIL}}", userEmail)
         .replace("{{DEVFLIX_CONFIRMATIONURL}}", link));
     
-    log.debug("Sending Mail Confirmation to user <%s>", userEmail);
+    log.debug(String.format("Sending Mail Confirmation to user <%s>", userEmail)); 
     MailerResponse result = mail.send();
     return result.success();
   }
