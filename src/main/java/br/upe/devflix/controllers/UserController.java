@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-import br.upe.devflix.services.UserService;
+import br.upe.devflix.services.UserCRUDService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +15,29 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
   
-  @Autowired
-  private UserService userService;
+  @Autowired private UserCRUDService userService;
 
   @GetMapping
   public ResponseEntity<List<User>> fetchAll()
   {
-    return userService.fetchAll();
+    return null;
+    //return userService.fetchAll();
   }
 
   @GetMapping("/{userId}")
   public ResponseEntity<User> fetch(
     @PathVariable Long userId)
   {
-    return userService.fetch(userId);
+    return null;
+    //return userService.fetch(userId);
   }
 
   @PostMapping
   public ResponseEntity<User> create(
     @RequestBody @Valid User user)
   {
-    return userService.create(user);
+    return null;
+    //return userService.create(user);
   }
  
   @PutMapping("/{userId}")
@@ -43,14 +45,16 @@ public class UserController {
     @PathVariable Long userId,
     @RequestBody @Valid User user)
   {
-    return userService.update(userId, user);
+    return null;
+    //return userService.update(userId, user);
   }
 
   @DeleteMapping("/{userId}")
   public ResponseEntity<User> delete(
     @PathVariable Long userId)
   {
-    return userService.delete(userId);
+    return null;
+    //return userService.delete(userId);
   }
 
 }

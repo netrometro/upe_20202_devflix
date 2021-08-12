@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-import br.upe.devflix.services.MetadataService;
+import br.upe.devflix.services.MetadataCRUDService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +22,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/metadata")
 public class MetadataController {
 
-  @Autowired
-  private MetadataService metadataService;
+  @Autowired private MetadataCRUDService metadataService;
 
   @GetMapping
   public ResponseEntity<List<Metadata>> fetchAll()
   {
-    return metadataService.fetchAll();
+    return null;
+    //return metadataService.fetchAll();
   }
 
   @GetMapping("/{metadaId}")
   public ResponseEntity<Metadata> fetch(
     @PathVariable Long metadaId)
   {
-    return metadataService.fetch(metadaId);
+    return null;
+    //return metadataService.fetch(metadaId);
   }
 
   @PostMapping
   public ResponseEntity<Metadata> create(
     @RequestBody @Valid Metadata metadata)
   {
-    return metadataService.create(metadata);
+    return null;
+    //return metadataService.create(metadata);
   }
 
   @PutMapping("/{metadataId}")
@@ -50,13 +52,15 @@ public class MetadataController {
     @PathVariable Long metadataId,
     @RequestBody @Valid Metadata metadata)
   {
-    return metadataService.update(metadataId, metadata);
+    return null;
+    //return metadataService.update(metadataId, metadata);
   }
 
   @DeleteMapping("/{metadataId}")
   public ResponseEntity<Metadata> delete(
     @PathVariable Long metadataId)
   {
-    return metadataService.delete(metadataId);
+    return null;
+    //return metadataService.delete(metadataId);
   }
 }

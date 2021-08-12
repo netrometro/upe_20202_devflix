@@ -24,13 +24,17 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import br.upe.devflix.base.GenericEntity;
+
 @Data
-@Accessors(chain = true)
 @Entity
+@Accessors(chain = true)
 @Table(name = "devflix_users")
-public class User {
+@EqualsAndHashCode(callSuper = false)
+public class User extends GenericEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

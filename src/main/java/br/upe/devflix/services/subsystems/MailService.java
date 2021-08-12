@@ -1,11 +1,14 @@
 package br.upe.devflix.services.subsystems;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import br.com.muryllo.jmailer.Mailer;
 import br.com.muryllo.jmailer.MailerResponse;
+
 import br.upe.devflix.services.filesystem.ResourceService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -14,9 +17,12 @@ public class MailService {
 
   @Autowired private ResourceService ResourceProvider;
 
+  @Value("devflix.jmailer.apikey")
+  private String JMailerApiKey;
+
   private Mailer createMailer(){
     return new Mailer()
-      .key("api-D87E11D6F0D311EBA990F23C91C88F4E")
+      .key(this.JMailerApiKey)
       .from("Devflix UPE", "noreply@upedevflix.herokuapp.com");
   }
 

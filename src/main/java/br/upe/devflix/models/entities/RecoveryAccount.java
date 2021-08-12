@@ -1,6 +1,5 @@
 package br.upe.devflix.models.entities;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Id;
@@ -18,13 +17,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import br.upe.devflix.base.GenericEntity;
+
 @Data
-@Accessors(chain = true)
 @Entity
+@Accessors(chain = true)
 @Table(name = "devflix_recovery")
-public class RecoveryAccount {
+@EqualsAndHashCode(callSuper = false)
+public class RecoveryAccount extends GenericEntity {
   
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,9 +41,6 @@ public class RecoveryAccount {
   @JsonProperty(access = Access.READ_ONLY)
   @Column(name = "recovery_expired")
   private Boolean expired = false;
-  
-  @Column(name = "recovery_creation", columnDefinition = "TIMESTAMP")
-  private LocalDateTime creation = LocalDateTime.now();
   
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
