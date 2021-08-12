@@ -16,6 +16,7 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchListResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,10 +31,11 @@ public class YouTubeService {
     }).setApplicationName("Devflix").build();
   
   //Chave da API do Youtube
-  private static final String API_KEY = "AIzaSyB7CFY0eRyt5NDINZfb0U5A_Ikl3xbOoCg";
+  @Value("devflix.youtube.apikey")
+  private String YoutubeApiKey;
 
   //Número de vídeos que serão retornados na busca
-  private static final long NUMBER_OF_VIDEOS_RETURNED = 15;
+  private static final long MaxVideosPerPage = 15;
 
   /**
    * Retorna os metadados do vídeo a partir do seu ID
@@ -46,7 +48,7 @@ public class YouTubeService {
       YouTube.Videos.List search = youtube.videos()
         .list("id,snippet")
         .setId(videoId)
-        .setKey(API_KEY);
+        .setKey(YoutubeApiKey);
   
       List<Video> youtubeSearchResponse = search.execute().getItems();
       Video video = youtubeSearchResponse.get(0);
@@ -74,11 +76,11 @@ public class YouTubeService {
     try {
       YouTube.Search.List search = youtube.search()
         .list("id,snippet")
-        .setKey(API_KEY)
+        .setKey(YoutubeApiKey)
         .setQ(query)
         .setType("video")
         .setFields("items(id/videoId,snippet/title,snippet/description,snippet/thumbnails/high/url)")
-        .setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+        .setMaxResults(MaxVideosPerPage);
 
       SearchListResponse searchResponse = search.execute();
       List<SearchResult> searchResultList = searchResponse.getItems();
