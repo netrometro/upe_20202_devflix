@@ -2,7 +2,6 @@ package br.upe.devflix.models.entities;
 
 import java.util.List;
 import java.util.UUID;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -85,8 +84,5 @@ public class User extends GenericEntity {
 
   @OneToMany(mappedBy = "user")
   private List<RecoveryAccount> recoveries;
-
-  @Column(name = "user_creation", columnDefinition = "TIMESTAMP")
-  private LocalDateTime creation = LocalDateTime.now();
 
 }
