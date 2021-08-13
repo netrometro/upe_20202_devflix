@@ -2,7 +2,7 @@ import {MenuItem as ChakraMenuItem} from '@chakra-ui/react'
 import React from 'react'
 import {Constants} from 'core/utils'
 
-const MenuItem = (props) => {
+const MenuItem = ({...props}) => {
   const {disabledDefaultBg} = Constants
 
   const {
@@ -17,9 +17,8 @@ const MenuItem = (props) => {
       _hover={_hover}
       _focus={_focus}
       _active={_active}
-      {...props}>
-      Realizar login
-    </ChakraMenuItem>
+      {...props}
+    />
   )
 }
 
