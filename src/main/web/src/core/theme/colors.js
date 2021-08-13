@@ -2,8 +2,8 @@
 
 export default {
   black: '#1D1D1D',
-  white: '#fff',
+  secondary: '#fff',
   whiteLight: '#FCFCFC',
-  backGround: '#303030',
-  red: '#EC0025',
+  background: '#303030',
+  primary: '#EC0025',
 }

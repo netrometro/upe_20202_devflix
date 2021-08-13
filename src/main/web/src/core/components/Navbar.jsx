@@ -12,7 +12,7 @@ const PAGES = [
 
 const NavLink = ({icon, linkName, colors, link}) => (
   <NextLink href={link}>
-    <Link px={2} py={1} color={colors.red} rounded={'md'}>
+    <Link px={2} py={1} color={colors.primary} rounded={'md'}>
       <Icon as={icon} mx={2} />
       {linkName}
     </Link>

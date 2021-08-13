@@ -1,20 +1,18 @@
 import React from 'react'
 import {Grid, GridItem} from '@chakra-ui/react'
-import {Carousel} from 'core/components'
+import {Category} from 'core/components'
+import {useTheme} from 'core/hooks'
 
 const HomePage = () => {
+  const {colors} = useTheme()
   return (
-    <Grid h="100%" templateRows="1fr 2fr" bg="papayawhip">
+    <Grid h="100%" templateRows="1fr 2fr" bg={colors.background}>
       <GridItem>
-        <Carousel.Videos
-          style={{backgroundColor: 'green'}}
-          height={200}
-          visibleSlides={3}
-          // isPlaying
-          // interval={2000}
-        />
+        <Category color="green" title="Back end" />
       </GridItem>
-      <GridItem bg="red"></GridItem>
+      <GridItem>
+        <Category color="blue" title="Front end" />
+      </GridItem>
     </Grid>
   )
 }
