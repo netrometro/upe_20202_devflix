@@ -5,7 +5,7 @@ import {ArrowBackIcon} from '@chakra-ui/icons'
 import {IconButton} from 'core/components'
 
 import Leading from './Leading'
-import {TextInput} from '../TextInput'
+import TextInput from '../TextInput'
 
 const SearchBar = ({onClickSwitchNavbar}) => {
   const [searchField, setSearchField] = useState('')
@@ -23,6 +23,7 @@ const SearchBar = ({onClickSwitchNavbar}) => {
           mr={8}
         />
       </Leading>
+
       <TextInput
         value={searchField}
         onChange={onSearch}

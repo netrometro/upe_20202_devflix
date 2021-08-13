@@ -1,5 +1,9 @@
 import React from 'react'
-import {Input as ChakraInput} from '@chakra-ui/react'
+import {
+  Input as ChakraInput,
+  InputGroup,
+  InputLeftElement,
+} from '@chakra-ui/react'
 
 import {useTheme} from 'core/hooks'
 
@@ -18,5 +22,8 @@ const TextInput = (props) => {
     />
   )
 }
+
+TextInput.Group = InputGroup
+TextInput.LeftElement = InputLeftElement
 
 export default TextInput
