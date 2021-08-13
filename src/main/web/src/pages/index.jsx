@@ -1,22 +1,26 @@
 import React from 'react'
-import {Grid, GridItem} from '@chakra-ui/react'
+import {Box} from '@chakra-ui/react'
 import {Category} from 'core/components'
-import {useTheme} from 'core/hooks'
+
+const CATEGORIES = [
+  {color: 'green', title: 'Back end'},
+  {color: 'blue', title: 'Front end'},
+  {color: 'orange', title: 'Full end'},
+]
 
 const HomePage = () => {
-  const {colors} = useTheme()
   return (
-    <Grid templateRows="1fr 1fr" bg={colors.background}>
-      <GridItem>
-        <Category color="green" title="Back end" />
-      </GridItem>
-      <GridItem>
-        <Category color="blue" title="Front end" />
-      </GridItem>
-      <GridItem>
-        <Category color="orange" title="Full stack" />
-      </GridItem>
-    </Grid>
+    <Box bg="background" py={20}>
+      {CATEGORIES.map((category, index, categories) => {
+        const isLastCategory = categories.length - 1 === index
+        return (
+          <Box key={`${index}`}>
+            <Category {...category} />
+            {!isLastCategory && <Box height={20} />}
+          </Box>
+        )
+      })}
+    </Box>
   )
 }
 

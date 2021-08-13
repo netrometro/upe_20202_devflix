@@ -5,7 +5,7 @@ import Title from './Title'
 
 const Category = ({title, color, videos}) => {
   return (
-    <Box mt={10}>
+    <Box>
       <Title text={title} color={color} />
       {/**
        * FIX: Needs to adds the video object to be pass as props to Carousel.Videos
