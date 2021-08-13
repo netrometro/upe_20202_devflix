@@ -1,13 +1,10 @@
 import {Box} from '@chakra-ui/react'
 import {ArrowBackIos, ArrowForwardIos} from '@material-ui/icons'
-import {useTheme} from 'core/hooks'
 
 /**
  * @param {{tintColor: string, direction: 'back' | 'forward' }} props
  */
 const CarouselButton = ({tintColor, direction, fontSize}) => {
-  const {colors} = useTheme()
-
   const renderButton = () => {
     return {
       back: (
@@ -25,7 +22,7 @@ const CarouselButton = ({tintColor, direction, fontSize}) => {
   }
 
   return (
-    <Box bg={colors.white} p={2} borderRadius={50}>
+    <Box p={2} borderRadius={50}>
       {renderButton()}
     </Box>
   )

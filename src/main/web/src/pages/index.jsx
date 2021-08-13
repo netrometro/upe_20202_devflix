@@ -6,12 +6,15 @@ import {useTheme} from 'core/hooks'
 const HomePage = () => {
   const {colors} = useTheme()
   return (
-    <Grid h="100%" templateRows="1fr 2fr" bg={colors.background}>
+    <Grid templateRows="1fr 1fr" bg={colors.background}>
       <GridItem>
         <Category color="green" title="Back end" />
       </GridItem>
       <GridItem>
         <Category color="blue" title="Front end" />
+      </GridItem>
+      <GridItem>
+        <Category color="orange" title="Full stack" />
       </GridItem>
     </Grid>
   )
