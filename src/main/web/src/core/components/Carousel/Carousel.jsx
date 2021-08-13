@@ -5,26 +5,31 @@ import {
   Slide,
   ButtonBack,
   ButtonNext,
+  DotGroup,
 } from 'pure-react-carousel'
 import 'pure-react-carousel/dist/react-carousel.es.css'
 import {Box, Flex} from '@chakra-ui/react'
 import {ArrowForwardIos, ArrowBackIos} from '@material-ui/icons'
+
 import {useTheme} from '../../hooks'
 import VideosCarousel from './Videos'
+import CarouselButton from './Button'
+import CarouselItem from './Item'
 
-const Carousel = ({
+const CarouselComponent = ({
   width = 333,
   height = 200,
   slides = [],
   dragEnabled = false,
   backButtonIcon = (props) => <ArrowBackIos {...props} />,
   forwardButtonIcon = (props) => <ArrowForwardIos {...props} />,
+  hasDotGroup = false,
   ...props
 }) => {
   const {colors} = useTheme()
 
   const renderSlide = (children, index) => (
-    <Slide key={index} index={index}>
+    <Slide index={index} key={index}>
       {children}
     </Slide>
   )
@@ -42,7 +47,7 @@ const Carousel = ({
       {...props}>
       <Flex flexDirection="row" alignItems="center" justifyContent="center">
         <Box px={4}>
-          <ButtonBack>{backButtonIcon({tintColor: colors.red})}</ButtonBack>
+          <ButtonBack>{backButtonIcon({tintColor: colors.primary})}</ButtonBack>
         </Box>
 
         <Box flex={1}>
@@ -50,12 +55,18 @@ const Carousel = ({
         </Box>
 
         <Box px={4}>
-          <ButtonNext>{forwardButtonIcon({tintColor: colors.red})}</ButtonNext>
+          <ButtonNext>
+            {forwardButtonIcon({tintColor: colors.primary})}
+          </ButtonNext>
         </Box>
       </Flex>
+      {hasDotGroup && <DotGroup />}
     </CarouselProvider>
   )
 }
-Carousel.Videos = VideosCarousel
 
-export default Carousel
+CarouselComponent.Videos = VideosCarousel
+CarouselComponent.Button = CarouselButton
+CarouselComponent.Item = CarouselItem
+
+export default CarouselComponent

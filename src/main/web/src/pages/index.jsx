@@ -1,21 +1,26 @@
 import React from 'react'
-import {Grid, GridItem} from '@chakra-ui/react'
-import {Carousel} from 'core/components'
+import {Box} from '@chakra-ui/react'
+import {Category} from 'core/components'
+
+const CATEGORIES = [
+  {color: 'green', title: 'Back end'},
+  {color: 'blue', title: 'Front end'},
+  {color: 'orange', title: 'Full end'},
+]
 
 const HomePage = () => {
   return (
-    <Grid h="100%" templateRows="1fr 2fr" bg="papayawhip">
-      <GridItem>
-        <Carousel.Videos
-          style={{backgroundColor: 'green'}}
-          height={200}
-          visibleSlides={3}
-          // isPlaying
-          // interval={2000}
-        />
-      </GridItem>
-      <GridItem bg="red"></GridItem>
-    </Grid>
+    <Box bg="background" py={20}>
+      {CATEGORIES.map((category, index, categories) => {
+        const isLastCategory = categories.length - 1 === index
+        return (
+          <Box key={`${index}`}>
+            <Category {...category} />
+            {!isLastCategory && <Box height={20} />}
+          </Box>
+        )
+      })}
+    </Box>
   )
 }
 

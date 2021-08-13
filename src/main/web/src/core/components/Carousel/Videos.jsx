@@ -1,30 +1,37 @@
-/* eslint-disable react/jsx-key */
 import React from 'react'
-import Carousel from './Carousel'
-import {ArrowBackIos, ArrowForwardIos} from '@material-ui/icons'
+
+import {Range} from 'core/utils'
+
 import Image from '../Image'
+import Carousel from './Carousel'
+
+import THUMB_ONE from 'images/thumb-one.svg'
+
+const Slide = (props) => {
+  return (
+    <Carousel.Item hasSpace {...props}>
+      <Image src={THUMB_ONE} alt="thumb_one" height={350} />
+    </Carousel.Item>
+  )
+}
 
 const VideosCarousel = (props) => {
-  const slides = Array.from({length: 5}, (_, index) => (
-    <Image
-      key={index}
-      alt="test-image"
-      src={require('images/thumb-one.svg')}
-      width="100%"
-      height="100%"
-    />
-  ))
+  const slides = Range().map((_, i) => <Slide key={i} />)
 
   return (
     <Carousel
       slides={slides}
-      {...props}
       backButtonIcon={({tintColor}) => (
-        <ArrowBackIos style={{color: tintColor}} fontSize="large" />
+        <Carousel.Button tintColor={tintColor} direction="back" fontSize={56} />
       )}
       forwardButtonIcon={({tintColor}) => (
-        <ArrowForwardIos style={{color: tintColor}} fontSize="large" />
+        <Carousel.Button
+          tintColor={tintColor}
+          direction="forward"
+          fontSize={56}
+        />
       )}
+      {...props}
     />
   )
 }
