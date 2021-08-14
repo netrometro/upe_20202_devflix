@@ -1,7 +1,11 @@
-import React from "react";
+import React from 'react'
 
-const SignUpe = () => {
-  return <div />;
-};
+const SignUp = () => {
+  return (
+    <div>
+      <h1>Tela de cadastro</h1>
+    </div>
+  )
+}
 
-export default SignUpe;
+export default SignUp
