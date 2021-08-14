@@ -7,9 +7,18 @@ module.exports = withOptimizedImages({
     defaultPathMap,
     {dev, dir, outDir, distDir, buildId},
   ) {
+    console.log({
+      defaultPathMap,
+      dev,
+      dir,
+      outDir,
+      distDir,
+      buildId,
+    })
+
     return {
       '/': {page: '/'},
-      '/sign-in': {page: '/authentication/login'},
+      '/sign-in': {page: '/authentication/sign-in'},
       '/sign-up': {page: '/authentication/sign-up'},
     }
   },
