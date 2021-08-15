@@ -1,7 +1,8 @@
 import React from 'react'
 import {Box, Center, Container} from '@chakra-ui/react'
-import {TextInput, Image, Button} from 'core/components'
+import {Image, Button} from 'core/components'
 import {InfoOutlineIcon, EmailIcon, LockIcon} from '@chakra-ui/icons'
+import FormField from 'core/components/Form/FormField'
 
 const FORMFIELDS = [
   {type: "name",icon: <InfoOutlineIcon />, text: 'Nome completo'},
@@ -24,24 +25,9 @@ const SignUp = () => {
         />
       </Center>  
       <Container>
-        {FORMFIELDS.map((formfield, index, formfields) => {
+        {FORMFIELDS.map((formfield) => {
           return (
-            <TextInput.Group key={formfield.type} my={5}>
-              <TextInput.LeftElement
-              children={formfield.icon}
-              >
-              </TextInput.LeftElement>
-              <TextInput
-              px={10}
-              placeholder={formfield.text}
-              bg="whiteLight"
-              borderColor="primary"
-              borderWidth={2}
-              color='black'
-              _placeholder={{color: 'black'}}
-              size="md">
-              </TextInput>
-            </TextInput.Group>
+            <FormField {...formfield}/>
           )
         })}
       </Container>
@@ -56,6 +42,5 @@ const SignUp = () => {
     </Box>
   )
 }
-
 
 export default SignUp
