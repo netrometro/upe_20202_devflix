@@ -1,47 +1,40 @@
 package br.upe.devflix.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-//import br.upe.devflix.services.UserCRUDService;
+import br.upe.devflix.services.UserCRUDService;
+import br.upe.devflix.services.serializers.ResponseService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserController {
   
-  //@Autowired private UserCRUDService userService;
+  @Autowired private ResponseService responseService;
+  @Autowired private UserCRUDService userService;
 
   @GetMapping
-  public ResponseEntity<List<User>> fetchAll()
+  public ResponseEntity<?> fetchAll()
   {
-    return null;
-    //return userService.fetchAll();
+    return responseService.create(
+      userService.fetchAll(), HttpStatus.OK);
   }
 
   @GetMapping("/{userId}")
-  public ResponseEntity<User> fetch(
+  public ResponseEntity<?> fetch(
     @PathVariable Long userId)
   {
-    return null;
-    //return userService.fetch(userId);
-  }
-
-  @PostMapping
-  public ResponseEntity<User> create(
-    @RequestBody @Valid User user)
-  {
-    return null;
-    //return userService.create(user);
+    return responseService.create(
+      userService.fetch(userId), HttpStatus.OK);
   }
  
   @PutMapping("/{userId}")
-  public ResponseEntity<User> update(
+  public ResponseEntity<?> update(
     @PathVariable Long userId,
     @RequestBody @Valid User user)
   {
@@ -50,7 +43,7 @@ public class UserController {
   }
 
   @DeleteMapping("/{userId}")
-  public ResponseEntity<User> delete(
+  public ResponseEntity<?> delete(
     @PathVariable Long userId)
   {
     return null;
