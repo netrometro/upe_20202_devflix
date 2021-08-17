@@ -1,6 +1,7 @@
 import React from 'react'
 import {Box} from '@chakra-ui/react'
 import {Category} from 'core/components'
+import {useUser} from 'core/hooks'
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
@@ -9,6 +10,10 @@ const CATEGORIES = [
 ]
 
 const HomePage = () => {
+  const [state, actions] = useUser()
+
+  console.log({state, actions})
+
   return (
     <Box bg="background" py={20}>
       {CATEGORIES.map((category, index, categories) => {
