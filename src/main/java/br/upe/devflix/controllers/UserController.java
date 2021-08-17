@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.UserCRUDService;
+import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.serializers.ResponseService;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class UserController {
   
   @Autowired private ResponseService responseService;
   @Autowired private UserCRUDService userService;
+  @Autowired private AuthorizationService authorizationService;
 
   @GetMapping
   public ResponseEntity<?> fetchAll()
@@ -33,17 +35,22 @@ public class UserController {
       userService.fetch(userId), HttpStatus.OK);
   }
  
-  @PutMapping("/{userId}")
+  @GetMapping("/{userId}")
   public ResponseEntity<?> update(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long userId,
     @RequestBody @Valid User user)
   {
-    return null;
-    //return userService.update(userId, user);
+    if (authorizationService.isAdmin(authorization)){
+      return responseService.create(userService.update(userId, user), HttpStatus.OK);
+    } else {
+      return responseService.create(null, HttpStatus.UNAUTHORIZED);
+    }
   }
 
   @DeleteMapping("/{userId}")
   public ResponseEntity<?> delete(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long userId)
   {
     return null;
