@@ -3,6 +3,7 @@ import {
   Input as ChakraInput,
   InputGroup,
   InputLeftElement,
+  InputRightElement
 } from '@chakra-ui/react'
 
 import {useTheme} from 'core/hooks'
@@ -25,5 +26,6 @@ const TextInput = (props) => {
 
 TextInput.Group = InputGroup
 TextInput.LeftElement = InputLeftElement
+TextInput.RightElement = InputRightElement
 
 export default TextInput
