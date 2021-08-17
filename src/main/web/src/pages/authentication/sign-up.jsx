@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Center, Container} from '@chakra-ui/react'
 import {Image, Button} from 'core/components'
-import {InfoOutlineIcon, EmailIcon, LockIcon} from '@chakra-ui/icons'
+import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import PersonIcon from '@material-ui/icons/Person';
 import FormField from 'core/components/Form/FormField'
 
