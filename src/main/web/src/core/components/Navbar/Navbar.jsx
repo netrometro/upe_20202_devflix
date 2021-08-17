@@ -3,14 +3,19 @@ import {Box} from '@chakra-ui/react'
 
 import DefaultNavbar from './DefaultNavbar'
 import SearchBar from './SearchBar'
+import BackBar from './BackBar'
 
 const Navbar = () => {
-  const [isDefaultNavbar, setIsDefaultNavbar] = useState(true)
+  const [defaultNavbar, setDefaultNavbar] = useState("default")
 
-  const onClickSwitchNavbar = () =>
-    setIsDefaultNavbar((prevNavbar) => !prevNavbar)
+  const onClickSwitchNavbar = (type) =>
+    setDefaultNavbar(type)
 
-  const ActualNavbar = isDefaultNavbar ? DefaultNavbar : SearchBar
+  const ActualNavbar = { 
+    "default": DefaultNavbar,
+    "search": SearchBar,
+    "back": BackBar
+  }[defaultNavbar]
 
   return (
     <Box bg="black" px={4}>
