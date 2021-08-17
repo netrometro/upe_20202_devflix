@@ -38,6 +38,24 @@ const INITIAL_STATE = {
   token: undefined,
 }
 
+/**
+ * 
+ *{
+    "timestamp": "2021-08-17T13:03:05.835",
+    "status": 200,
+    "statusText": "OK",
+    "error": false,
+    "response": {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IjEiLCJpc3MiOiJub21lLWVtaXNzb3IiLCJpZCI6IjEiLCJleHAiOjE2MjkyMDcxODUsImVtYWlsIjoibHVpei5tYXRpYXNAdXBlLmJyIn0.uNiRdIdhCxEagiN_J4YHzrYYfZ0d9sZbj98OFEJCJ3I",
+        "claims": {
+            "email": "luiz.matias@upe.br",
+            "roles": "1",
+            "id": "1"
+        }
+    }
+}
+ */
+
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case Types.LOGIN: {
