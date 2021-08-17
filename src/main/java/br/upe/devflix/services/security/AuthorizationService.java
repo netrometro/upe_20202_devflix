@@ -3,6 +3,8 @@ package br.upe.devflix.services.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.upe.devflix.services.security.payload.JwtPayload;
+
 @Service
 public class AuthorizationService {
   
@@ -13,15 +15,17 @@ public class AuthorizationService {
     if (authorization != null){
       bearer = authorization.replace("Bearer ", "");
     }
-    return bearer;
+    return bearer; 
   }
 
   public boolean isAdmin(String authorization){
     String bearerToken = parseBearer(authorization);
-    String decrypted = JwtProvider.decrypt(bearerToken);
-    System.out.println(decrypted);
-    /**Implementar lógica de verificar se usuário é Admin */
-    return false;
+    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    if (payload == null){
+      return false;
+    }
+    //Verifica se a propriedade "Roles" é igual a 2.
+    return (payload.getRoles() == 2);
   }
 
 }

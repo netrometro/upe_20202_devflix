@@ -4,9 +4,11 @@ import java.util.*;
 
 import com.auth0.jwt.*;
 import com.auth0.jwt.exceptions.*;
+import com.google.gson.Gson;
 
 import org.springframework.stereotype.Service;
 
+import br.upe.devflix.services.security.payload.JwtPayload;
 import lombok.extern.slf4j.Slf4j;
 
 import com.auth0.jwt.algorithms.Algorithm;
@@ -48,11 +50,11 @@ public class JwtAPIService {
    * @param jwtToken O token JWT.
    * @return Retorna o conteúdo das claims do JWT.
    */
-  public String decrypt(String jwtToken) {
+  public JwtPayload decrypt(String jwtToken) {
     try {
       log.info("Decrypting Json Web Token.");
       String jwt = JWT.decode(jwtToken).getPayload();
-      return new String(Base64.getDecoder().decode(jwt));
+      return (new Gson()).fromJson(new String(Base64.getDecoder().decode(jwt)), JwtPayload.class);
     } catch (Exception exception) {
       log.error("Failed to decrypt Json Web Token. Returning null.");
       return null;

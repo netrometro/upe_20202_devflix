@@ -17,4 +17,8 @@ public class JwtPayload {
     return Long.parseLong(this.id);
   }
 
+  public Long getRoles(){
+    return Long.parseLong(this.roles);
+  }
+
 }
