@@ -37,7 +37,7 @@ const SignIn = () => {
         </Button>
       </Center>
       <Center>
-        <Button color="#A8A5A5" variant="ghost" mt={'20px'} size='lg'>
+        <Button color="grayPers" variant="ghost" mt={'20px'} size='lg'>
           Esqueceu a senha?
         </Button>
       </Center>
