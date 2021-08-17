@@ -11,3 +11,4 @@ docs/deploying-spring-boot-apps/
 .mvn/wrapper/maven-wrapper.jar
 .vscode
 **/node_modules
+src/main/resources/static
