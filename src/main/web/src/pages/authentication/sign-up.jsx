@@ -2,10 +2,11 @@ import React from 'react'
 import {Box, Center, Container} from '@chakra-ui/react'
 import {Image, Button} from 'core/components'
 import {InfoOutlineIcon, EmailIcon, LockIcon} from '@chakra-ui/icons'
+import PersonIcon from '@material-ui/icons/Person';
 import FormField from 'core/components/Form/FormField'
 
 const FORMFIELDS = [
-  {type: "name",icon: <InfoOutlineIcon />, text: 'Nome completo'},
+  {type: "name", icon: <PersonIcon />, text: 'Nome completo'},
   {type: "email", icon: <EmailIcon />, text: 'Email'},
   {type: "psw", icon: <LockIcon />, text: 'Senha'},
   {type: "psw_conf", icon: <LockIcon />, text: 'Confirmar senha'}

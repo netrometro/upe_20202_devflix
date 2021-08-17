@@ -9,6 +9,7 @@ import MenuItem from './Item'
 import MenuList from './List'
 import IconButton from '../IconButton'
 import Text from '../Text'
+import Link from 'next/link'
 
 const MenuWidget = (props) => {
   const {colors} = useTheme()
@@ -24,12 +25,16 @@ const MenuWidget = (props) => {
         variant="outline"
       />
       <MenuList>
-        <MenuItem icon={<ExitToApp style={iconStyle} />}>
-          Realizar login
-        </MenuItem>
-        <MenuItem icon={<PersonAdd style={iconStyle} />}>
-          Realizar cadastro
-        </MenuItem>
+        <Link href="/sign-in">
+          <MenuItem icon={<ExitToApp style={iconStyle} />}>
+            Realizar login
+          </MenuItem>
+        </Link>
+        <Link href="/sign-up">
+          <MenuItem icon={<PersonAdd style={iconStyle} />}>
+            Realizar cadastro
+          </MenuItem>
+        </Link>
         <MenuItem icon={<Info style={iconStyle} />}>Sobre</MenuItem>
         <Flex flexDirection="column" alignItems="center" mt={10}>
           <Text color="secondary">Versão 0.0.1</Text>
