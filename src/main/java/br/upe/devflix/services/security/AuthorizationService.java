@@ -1,7 +1,9 @@
 package br.upe.devflix.services.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthorizationService {
   
   @Autowired private JwtAPIService JwtProvider;
