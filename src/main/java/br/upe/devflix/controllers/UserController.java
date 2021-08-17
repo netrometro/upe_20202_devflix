@@ -35,7 +35,7 @@ public class UserController {
       userService.fetch(userId), HttpStatus.OK);
   }
  
-  @GetMapping("/{userId}")
+  @PutMapping("/{userId}")
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long userId,
