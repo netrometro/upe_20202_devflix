@@ -1,4 +1,4 @@
-export default function bindActionCreators(actions, dispatch) {
+const bindActionCreators = (actions, dispatch) => {
   const bindedActions = {}
 
   for (const action in actions) {
@@ -15,3 +15,5 @@ export default function bindActionCreators(actions, dispatch) {
 
   return bindedActions
 }
+
+export default bindActionCreators
