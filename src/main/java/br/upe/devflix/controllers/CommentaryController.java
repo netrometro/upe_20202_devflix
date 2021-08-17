@@ -5,17 +5,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-import br.upe.devflix.services.CommentaryCRUDService;
+//import br.upe.devflix.services.CommentaryCRUDService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
-@RequestMapping("/api/v1/commentaries")
+@RequestMapping("/api/v1/commentary")
 @RestController
 public class CommentaryController {
 
-  @Autowired private CommentaryCRUDService commentaryService;
+  //@Autowired private CommentaryCRUDService commentaryService;
 
   @GetMapping
   public ResponseEntity<List<Commentary>> fetchAll() 

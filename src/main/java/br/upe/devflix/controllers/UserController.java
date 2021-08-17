@@ -5,17 +5,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-import br.upe.devflix.services.UserCRUDService;
+//import br.upe.devflix.services.UserCRUDService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/user")
 @RestController
 public class UserController {
   
-  @Autowired private UserCRUDService userService;
+  //@Autowired private UserCRUDService userService;
 
   @GetMapping
   public ResponseEntity<List<User>> fetchAll()

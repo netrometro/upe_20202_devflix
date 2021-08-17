@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,45 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.upe.devflix.models.entities.Video;
-//import br.upe.devflix.services.VideoCRUDService;
+import br.upe.devflix.models.entities.Category;
 
-@RequestMapping("/api/v1/video")
+@RequestMapping("/api/v1/category")
 @RestController
-public class VideoController {
-
-  //@Autowired private VideoCRUDService videoService;
-
+public class CategoryController {
+  
   @GetMapping
-  public ResponseEntity<List<Video>> fetchAll() {
+  public ResponseEntity<List<Category>> fetchAll() {
     return null;
   }
 
-  public ResponseEntity<Video> fetch(
-    @PathVariable Long videoId)
+  public ResponseEntity<Category> fetch(
+    @PathVariable Long categoryId)
   {
     return null;
   }
 
   @PostMapping
-  public ResponseEntity<Video> create(
-    @RequestBody @Valid Video video)
+  public ResponseEntity<Category> create(
+    @RequestBody @Valid Category category)
   {
     return null;
   }
 
-  public ResponseEntity<Video> update(
-    @PathVariable Long videoId,
-    @RequestBody @Valid Video video)
+  public ResponseEntity<Category> update(
+    @PathVariable Long CategoryId,
+    @RequestBody @Valid Category Category)
   {
     return null;
   }
 
-  @DeleteMapping("/{videoId}")
-  public ResponseEntity<Video> delete(
-    @PathVariable Long videoId)
+  @DeleteMapping("/{categoryId}")
+  public ResponseEntity<Category> delete(
+    @PathVariable Long categoryId)
   {
     return null;
   }
-  
+
 }

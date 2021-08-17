@@ -5,10 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-import br.upe.devflix.services.MetadataCRUDService;
+//import br.upe.devflix.services.MetadataCRUDService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/metadata")
 public class MetadataController {
 
-  @Autowired private MetadataCRUDService metadataService;
+  //@Autowired private MetadataCRUDService metadataService;
 
   @GetMapping
   public ResponseEntity<List<Metadata>> fetchAll()
