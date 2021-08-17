@@ -25,14 +25,16 @@ const SignUp = () => {
         />
       </Center>  
       <Container>
-        {FORMFIELDS.map((formfield) => {
+        {FORMFIELDS.map((formfield, index) => {
           return (
-            <FormField {...formfield}/>
+            <form key={`${index}`}> 
+              <FormField {...formfield}/>
+            </form>
           )
         })}
       </Container>
       <Center>
-      <Box py={0.5} px={3} width={'20%'} bg='primary' borderRadius={1} mt={5} mb={10}/>
+        <Box py={0.5} px={3} width={'20%'} bg='primary' borderRadius={1} mt={5} mb={10}/>
       </Center>
       <Center>
         <Button size='lg'>
