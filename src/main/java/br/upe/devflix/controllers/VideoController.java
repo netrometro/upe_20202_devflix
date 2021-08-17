@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.upe.devflix.models.entities.Video;
 //import br.upe.devflix.services.VideoCRUDService;
 
-@RequestMapping("/api/v1/videos")
+@RequestMapping("/api/v1/video")
 @RestController
 public class VideoController {
 
-  @Autowired
-  //private VideoCRUDService videoService;
+  //@Autowired private VideoCRUDService videoService;
 
   @GetMapping
   public ResponseEntity<List<Video>> fetchAll() {
@@ -55,4 +54,5 @@ public class VideoController {
   {
     return null;
   }
+
 }
