@@ -1,22 +1,23 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/layout'
-import {ArrowBackIcon} from '@chakra-ui/icons'
+import {Flex} from '@chakra-ui/layout'
+import {ArrowBackIcon, InfoOutlineIcon} from '@chakra-ui/icons'
+import Link from 'next/link'
 
 import Leading from './Leading'
 import {IconButton} from 'core/components'
 import ActionsButtons from './ActionsButtons'
 
 const BackBar = () => {
-  return(
-    <Flex alignItems="center" justifyContent="space-between">
+  return (
+    <Flex alignItems="center" justifyContent="space-between" bg="black">
       <Leading>
-        <Link href="/">
+        <Link href="/" passHref>
           <IconButton
-          icon={<ArrowBackIcon />}
-          bg="black"
-          color="secondary"
-          size="lg"
-          mr={8}
+            icon={<ArrowBackIcon />}
+            bg="black"
+            color="secondary"
+            size="lg"
+            mr={8}
           />
         </Link>
       </Leading>

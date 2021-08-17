@@ -6,16 +6,12 @@ import SearchBar from './SearchBar'
 import BackBar from './BackBar'
 
 const Navbar = () => {
-  const [defaultNavbar, setDefaultNavbar] = useState("default")
+  const [isDefaultNavbar, setIsDefaultNavbar] = useState(true)
 
-  const onClickSwitchNavbar = (type) =>
-    setDefaultNavbar(type)
+  const onClickSwitchNavbar = () =>
+    setIsDefaultNavbar((prevNavbar) => !prevNavbar)
 
-  const ActualNavbar = { 
-    "default": DefaultNavbar,
-    "search": SearchBar,
-    "back": BackBar
-  }[defaultNavbar]
+  const ActualNavbar = isDefaultNavbar ? DefaultNavbar : SearchBar
 
   return (
     <Box bg="black" px={4}>
@@ -23,4 +19,6 @@ const Navbar = () => {
     </Box>
   )
 }
+
+Navbar.BackBar = BackBar
 export default Navbar

@@ -1,12 +1,14 @@
 import '../styles/globals.css'
 import {HttpRequestProvider, ThemeProvider} from 'core/providers'
-import {Navbar} from 'core/components'
+import Head from 'next/head'
 
 export default function MyApp({Component, pageProps}) {
   return (
     <HttpRequestProvider>
       <ThemeProvider>
-        <Navbar />
+        <Head>
+          <title>{Component.pageTitle}</title>
+        </Head>
         <Component {...pageProps} />
       </ThemeProvider>
     </HttpRequestProvider>
