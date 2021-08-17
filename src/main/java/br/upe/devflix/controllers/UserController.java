@@ -53,8 +53,11 @@ public class UserController {
     @RequestHeader("authorization") String authorization,
     @PathVariable Long userId)
   {
-    return null;
-    //return userService.delete(userId);
+    if (authorizationService.isAdmin(authorization)){
+      return responseService.create(userService.delete(userId), HttpStatus.OK);
+    } else {
+      return responseService.create(null, HttpStatus.UNAUTHORIZED);
+    }
   }
 
 }
