@@ -1,8 +1,7 @@
 import {PagesTitles} from 'core/utils/constants'
 import React from 'react'
 import {Box, Center, Container, Flex} from '@chakra-ui/react'
-import {Image, Button} from 'core/components'
-import BackBar from 'core/components/Navbar/BackBar'
+import {Image, Button, Navbar} from 'core/components'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 
@@ -14,7 +13,6 @@ const FORMFIELDS = [
 const SignIn = () => {
   return (
     <Flex flexDirection="column">
-      <BackBar />
       <Box
         className="box"
         bg="background"
@@ -73,5 +71,6 @@ const SignIn = () => {
   )
 }
 SignIn.pageTitle = PagesTitles.SIGN_IN
+SignIn.Navbar = Navbar.BackBar
 
 export default SignIn
