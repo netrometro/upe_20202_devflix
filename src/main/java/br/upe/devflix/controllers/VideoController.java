@@ -62,7 +62,12 @@ public class VideoController {
     @PathVariable Long videoId,
     @RequestBody @Valid Video video)
   {
-    return null;
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(
+      videoService.update(videoId, video), HttpStatus.OK);
   }
 
   @DeleteMapping("/{videoId}")
