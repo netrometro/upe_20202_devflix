@@ -52,5 +52,9 @@ public class Video extends GenericEntity {
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private Category category;
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  private User owner;
   
 }

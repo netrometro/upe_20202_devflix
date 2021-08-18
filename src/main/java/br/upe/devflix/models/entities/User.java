@@ -85,4 +85,10 @@ public class User extends GenericEntity {
   @OneToMany(mappedBy = "user")
   private List<RecoveryAccount> recoveries;
 
+  @OneToMany(mappedBy = "owner")
+  private List<Video> videos;
+
+  @OneToMany(mappedBy = "owner")
+  private List<Category> categories;
+
 }
