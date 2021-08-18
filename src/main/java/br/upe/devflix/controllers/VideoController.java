@@ -40,8 +40,16 @@ public class VideoController {
   @Autowired private AuthorizationService authorizationService;
   @Autowired private UserCRUDService userService;
 
+  @GetMapping("/search")
+  public ResponseEntity<?> searchDevflixVideosByKeyword(
+    @RequestParam("keyword") String keyword)
+  {
+    List<Video> devflixVideos = videoService.search(keyword);
+    return responseService.create(devflixVideos, HttpStatus.OK);
+  }
+
   @GetMapping("/youtube/search")
-  public ResponseEntity<?> searchByKeyword(
+  public ResponseEntity<?> searchYoutubeVideosByKeyword(
     @RequestParam("keyword") String keyword)
   {
     List<HashMap<String, String>> youtubeVideos = youtubeService.getVideoSearch(keyword);
