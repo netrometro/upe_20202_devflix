@@ -19,9 +19,12 @@ public class AuthorizationService {
     return bearer; 
   }
 
+  public JwtPayload parseJwtPayload(String authorization){
+    return JwtProvider.decrypt(parseBearer(authorization));
+  }
+
   public boolean isAdmin(String authorization){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
@@ -30,8 +33,7 @@ public class AuthorizationService {
   }
 
   public boolean isOwner(String authorization, Long userId){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
@@ -40,8 +42,7 @@ public class AuthorizationService {
   }
 
   public boolean isOwner(String authorization, User user){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
@@ -50,8 +51,9 @@ public class AuthorizationService {
   }
 
   public boolean isAuthenticated(String authorization){
-    String bearerToken = parseBearer(authorization);
-    return (JwtProvider.decrypt(bearerToken) != null);
+    return (parseJwtPayload(authorization) != null);
   }
+
+
 
 }
