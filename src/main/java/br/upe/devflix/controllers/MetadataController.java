@@ -25,10 +25,13 @@ public class MetadataController {
 
   @GetMapping("/{metadaId}")
   public ResponseEntity<?> fetch(
-    @PathVariable Long metadaId)
+    @PathVariable Long metadataId)
   {
-    return null;
-    //return metadataService.fetch(metadaId);
+    Metadata foundMetadata = metadataService.fetch(metadataId);
+    if (foundMetadata == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(foundMetadata, HttpStatus.OK);
   }
 
   @PutMapping("/{metadataId}")
