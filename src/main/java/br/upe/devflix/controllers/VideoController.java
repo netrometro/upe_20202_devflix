@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import br.upe.devflix.models.entities.Category;
 import br.upe.devflix.models.entities.Video;
 import br.upe.devflix.services.CategoryCRUDService;
 import br.upe.devflix.services.VideoCRUDService;
+import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.serializers.ResponseService;
 import br.upe.devflix.services.subsystems.YouTubeService;
 
@@ -32,6 +34,7 @@ public class VideoController {
   @Autowired private VideoCRUDService videoService;
   @Autowired private CategoryCRUDService categoryService;
   @Autowired private YouTubeService youtubeService;
+  @Autowired private AuthorizationService authorizationService;
 
   @GetMapping("/youtube/search")
   public ResponseEntity<?> searchByKeyword(
@@ -56,12 +59,16 @@ public class VideoController {
 
   @PostMapping
   public ResponseEntity<?> create(
+    @RequestHeader("authorization") String authorization,
     @RequestBody @Valid Video video,
     @PathVariable Long categoryId)
   {
     Category category = categoryService.fetch(categoryId);
     if (category == null){
       return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    if (!authorizationService.isAuthenticated(authorization)){
+      return responseService.create(null, HttpStatus.FORBIDDEN);
     }
     List<Video> categoryVideos = category.getVideos();
     Video addedVideo = videoService.insert(video.setCategory(category));
