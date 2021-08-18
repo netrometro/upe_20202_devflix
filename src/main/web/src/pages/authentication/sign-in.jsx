@@ -25,7 +25,7 @@ const SignIn = () => {
             alt="logo"
             width={500}
             height={125}
-            mb={5}
+            mb={6}
             display="inline-block"
           />
         </Center>
