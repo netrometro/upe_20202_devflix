@@ -49,6 +49,9 @@ public class Category extends GenericEntity {
   @OneToMany(mappedBy = "category")
   private List<Commentary> commentaries;
 
+  @OneToMany(mappedBy = "category")
+  private List<Video> videos;
+
   @Min(1)
   @Max(2)
   @NotNull

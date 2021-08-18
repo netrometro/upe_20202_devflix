@@ -1,5 +1,7 @@
 package br.upe.devflix.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,11 @@ public class VideoController {
     if (category == null){
       return responseService.create(null, HttpStatus.NOT_FOUND);
     }
-    return responseService.create(categoryService.fetchAll(), HttpStatus.OK);
+    List<Video> categoryVideos = category.getVideos();
+    Video addedVideo = videoService.insert(video.setCategory(category));
+    categoryVideos.add(addedVideo);
+    categoryService.update(category.setVideos(categoryVideos));
+    return responseService.create(video, HttpStatus.OK);
   }
 
   public ResponseEntity<?> update(
