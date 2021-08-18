@@ -3,10 +3,12 @@ package br.upe.devflix.controllers;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-//import br.upe.devflix.services.MetadataCRUDService;
+import br.upe.devflix.services.MetadataCRUDService;
+import br.upe.devflix.services.serializers.ResponseService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/metadata")
 public class MetadataController {
 
-  //@Autowired private MetadataCRUDService metadataService;
+  @Autowired private MetadataCRUDService metadataService;
+  @Autowired private ResponseService responseService;
 
   @GetMapping("/{metadaId}")
-  public ResponseEntity<Metadata> fetch(
+  public ResponseEntity<?> fetch(
     @PathVariable Long metadaId)
   {
     return null;
@@ -29,12 +32,16 @@ public class MetadataController {
   }
 
   @PutMapping("/{metadataId}")
-  public ResponseEntity<Metadata> update(
+  public ResponseEntity<?> update(
     @PathVariable Long metadataId,
     @RequestBody @Valid Metadata metadata)
   {
-    return null;
-    //return metadataService.update(metadataId, metadata);
+    Metadata foundMetadata = metadataService.fetch(metadataId);
+    if (foundMetadata == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(
+      metadataService.update(metadataId, metadata), HttpStatus.OK);
   }
 
 }
