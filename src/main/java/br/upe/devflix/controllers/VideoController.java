@@ -74,7 +74,12 @@ public class VideoController {
   public ResponseEntity<?> delete(
     @PathVariable Long videoId)
   {
-    return null;
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(
+      videoService.delete(videoId), HttpStatus.OK);
   }
 
 }
