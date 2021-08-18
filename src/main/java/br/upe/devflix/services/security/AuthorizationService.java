@@ -49,4 +49,9 @@ public class AuthorizationService {
     return (payload.getId() == user.getId());
   }
 
+  public boolean isAuthenticated(String authorization){
+    String bearerToken = parseBearer(authorization);
+    return (JwtProvider.decrypt(bearerToken) != null);
+  }
+
 }
