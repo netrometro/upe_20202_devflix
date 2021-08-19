@@ -24,6 +24,7 @@ const SignUp = () => {
       <Center>
         <Image
           src={require('images/logo.svg')}
+          id="logo"
           alt="logo"
           width={500}
           height={125}
