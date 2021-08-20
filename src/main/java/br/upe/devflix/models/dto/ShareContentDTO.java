@@ -17,7 +17,7 @@ public class ShareContentDTO {
   @Email
   @NotNull
   @NotBlank
-  private String email;
+  private String userEmail;
   
   @URL(regexp = "^(http|https).*")
   @NotNull

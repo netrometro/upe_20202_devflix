@@ -33,6 +33,12 @@ public class ShareController {
     if (!authorizationService.isAuthenticated(authorization)){
       return responseService.create(null, HttpStatus.FORBIDDEN);
     }
-    return null;
+
+    Boolean status = mailService.sendMailShareLink(content.getUserName(), content.getUserEmail(), content.getLink());
+
+    if (status == true){
+      return responseService.create(null, HttpStatus.OK);
+    }
+    return responseService.create(null, HttpStatus.BAD_REQUEST);
   }
 }
