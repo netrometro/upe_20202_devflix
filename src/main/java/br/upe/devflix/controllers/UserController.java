@@ -4,13 +4,12 @@ import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.UserCRUDService;
-import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.serializers.ResponseService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RequestMapping("/api/v1/user")
 @RestController
@@ -18,7 +17,6 @@ public class UserController {
   
   @Autowired private ResponseService responseService;
   @Autowired private UserCRUDService userService;
-  @Autowired private AuthorizationService authorizationService;
 
   @GetMapping
   public ResponseEntity<?> fetchAll()
@@ -41,11 +39,8 @@ public class UserController {
     @PathVariable Long userId,
     @RequestBody @Valid User user)
   {
-    if (authorizationService.isAdmin(authorization)){
-      return responseService.create(userService.update(userId, user), HttpStatus.OK);
-    } else {
-      return responseService.create(null, HttpStatus.UNAUTHORIZED);
-    }
+    return responseService.create(
+      userService.adminUpdateUser(authorization, userId, user), HttpStatus.OK);
   }
 
   @DeleteMapping("/{userId}")
@@ -53,11 +48,8 @@ public class UserController {
     @RequestHeader("authorization") String authorization,
     @PathVariable Long userId)
   {
-    if (authorizationService.isAdmin(authorization)){
-      return responseService.create(userService.delete(userId), HttpStatus.OK);
-    } else {
-      return responseService.create(null, HttpStatus.UNAUTHORIZED);
-    }
+    return responseService.create(
+      userService.adminDeleteUser(authorization, userId), HttpStatus.OK);
   }
 
 }

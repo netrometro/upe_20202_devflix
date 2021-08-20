@@ -5,17 +5,21 @@ import java.util.Optional;
 
 import br.upe.devflix.dao.IUserDao;
 import br.upe.devflix.models.entities.User;
+import br.upe.devflix.base.exceptions.AccessDeniedException;
 import br.upe.devflix.services.interfaces.IUserCRUDService;
-import lombok.extern.slf4j.Slf4j;
+import br.upe.devflix.services.security.AuthorizationService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class UserCRUDService implements IUserCRUDService {
   
   @Autowired private IUserDao Users;
+  @Autowired private AuthorizationService authorizationService;
 
   public List<User> fetchAll()
   {
@@ -61,6 +65,27 @@ public class UserCRUDService implements IUserCRUDService {
     }
     Users.delete(user.get());
     return user.get();
+  }
+
+  public User adminUpdateUser(
+    String authHeader, 
+    Long userId, 
+    User user)
+  {
+    if (!authorizationService.isAdmin(authHeader)){
+      throw new AccessDeniedException("Você não pode realizar esta ação pois não é um administrador!");
+    }
+    return update(userId, user);
+  }
+
+  public User adminDeleteUser(
+    String authHeader, 
+    Long userId)
+  {
+    if (!authorizationService.isAdmin(authHeader)){
+      throw new AccessDeniedException("Você não pode realizar esta ação pois não é um administrador!");
+    }
+    return delete(userId);
   }
 
   @SuppressWarnings("unchecked")
