@@ -92,7 +92,7 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
     Exception exception,
     WebRequest request) 
   {
-    log.warn("Ocorreu um erro inesperado", exception);
+    log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
 
     ExceptionResponse response = new ExceptionResponse()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
