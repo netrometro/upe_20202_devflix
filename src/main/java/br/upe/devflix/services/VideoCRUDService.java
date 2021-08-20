@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.dao.IVideoDao;
 import br.upe.devflix.models.entities.*;
+import br.upe.devflix.base.exceptions.*;
 import br.upe.devflix.services.interfaces.IVideoCRUDService;
 import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.security.payload.JwtPayload;
@@ -75,7 +76,7 @@ public class VideoCRUDService implements IVideoCRUDService {
     return video.get();
   }
 
-  public Optional<Video> protectedCreate(
+  public Video protectedCreate(
     String authHeader, 
     Video video,
     Long categoryId)
@@ -83,17 +84,17 @@ public class VideoCRUDService implements IVideoCRUDService {
     Category category = categoryService.fetch(categoryId);
     if (category == null){
       //Categoria não encontrada...
-      return Optional.empty();
+      throw new CategoryNotFoundException("Playlist de vídeos não encontrada.");
     }
     if (!authorizationService.isAuthenticated(authHeader)){
       //Usuário não está autenticado...
-      return Optional.empty();
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
     }
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
     if (owner.getId() != category.getOwner().getId()){
       //Usuário não é o proprietário da categoria...
-      return Optional.empty();
+      throw new AccessDeniedException("Você não é proprietário desta Playlist para adicionar vídeos.");
     }
 
     List<Video> categoryVideos = category.getVideos();
@@ -102,10 +103,10 @@ public class VideoCRUDService implements IVideoCRUDService {
     categoryVideos.add(addedVideo);
     categoryService.update(category.setVideos(categoryVideos));
 
-    return Optional.of(video);
+    return video;
   }
 
-  public Optional<Video> protectedUpdate(
+  public Video protectedUpdate(
     String authHeader, 
     Long videoId,
     Video video)
@@ -113,42 +114,42 @@ public class VideoCRUDService implements IVideoCRUDService {
     Video foundVideo = videoService.fetch(videoId);
     if (foundVideo == null){
       //Vídeo não encontrado...
-      return Optional.empty();
+      throw new VideoNotFoundException("Vídeo não encontrado.");
     }
     if (!authorizationService.isAuthenticated(authHeader)){
       //Usuário não está autenticado...
-      return Optional.empty();
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
     }
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
     if (owner.getId() != video.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
-      return Optional.empty();
+      throw new AccessDeniedException("Você não é proprietário desta Playlist para adicionar vídeos.");
     }
-    return Optional.of(update(videoId, video));
+    return update(videoId, video);
   }
 
-  public Optional<Video> protectedDelete(
+  public Video protectedDelete(
     String authHeader, 
     Long videoId)
   {
     Video foundVideo = videoService.fetch(videoId);
     if (foundVideo == null){
-      return Optional.empty();
+      throw new VideoNotFoundException("Vídeo não encontrado.");
     }
     if (!authorizationService.isAuthenticated(authHeader)){
       //Usuário não está autenticado...
-      return Optional.empty();
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
     }
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
     if (owner.getId() != foundVideo.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
-      return Optional.empty();
+      throw new AccessDeniedException("Você não é proprietário deste vídeo para excluí-lo.");
     }
-    return Optional.of(videoService.delete(videoId));
+    return videoService.delete(videoId);
   }
 
   @SuppressWarnings("unchecked")
