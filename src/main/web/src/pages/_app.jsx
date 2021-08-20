@@ -11,7 +11,6 @@ export default function MyApp({Component, pageProps}) {
           <Head>
             <title>{Component.pageTitle}</title>
           </Head>
-          <Component.Navbar />
           <Component {...pageProps} />
         </ThemeProvider>
       </UserProvider>
