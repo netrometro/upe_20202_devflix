@@ -29,8 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
   
-  @Autowired
-  private MessageSource messageSource;
+  @Autowired private MessageSource messageSource;
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
