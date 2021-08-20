@@ -3,12 +3,12 @@ package br.upe.devflix.controllers;
 import javax.validation.Valid;
 
 import java.util.List;
-import java.util.HashMap;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,16 +44,16 @@ public class VideoController {
   public ResponseEntity<?> searchDevflixVideosByKeyword(
     @RequestParam("keyword") String keyword)
   {
-    List<Video> devflixVideos = videoService.search(keyword);
-    return responseService.create(devflixVideos, HttpStatus.OK);
+    return responseService.create(
+      videoService.search(keyword), HttpStatus.OK);
   }
 
   @GetMapping("/youtube/search")
   public ResponseEntity<?> searchYoutubeVideosByKeyword(
     @RequestParam("keyword") String keyword)
   {
-    List<HashMap<String, String>> youtubeVideos = youtubeService.getVideoSearch(keyword);
-    return responseService.create(youtubeVideos, HttpStatus.OK);
+    return responseService.create(
+      youtubeService.getVideoSearch(keyword), HttpStatus.OK);
   }
 
   @GetMapping
@@ -62,6 +62,7 @@ public class VideoController {
       categoryService.fetchAll(), HttpStatus.OK);
   }
 
+  @GetMapping("/{}")
   public ResponseEntity<?> fetch(
     @PathVariable Long videoId)
   {
@@ -100,6 +101,7 @@ public class VideoController {
     return responseService.create(video, HttpStatus.OK);
   }
 
+  @PutMapping
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId,

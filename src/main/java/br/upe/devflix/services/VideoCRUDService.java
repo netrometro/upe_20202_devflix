@@ -69,6 +69,30 @@ public class VideoCRUDService implements IVideoCRUDService {
     return video.get();
   }
 
+  public Optional<Video> protectedCreate(
+    String authHeader, 
+    Video video)
+  {
+    /**TODO: Implementar regra de negócio. */
+    return null;
+  }
+
+  public Optional<Video> protectedUpdate(
+    String authHeader, 
+    Video video)
+  {
+    /**TODO: Implementar regra de negócio. */
+    return null;
+  }
+
+  public Optional<Video> protectedDelete(
+    String authHeader, 
+    Video video)
+  {
+    /**TODO: Implementar regra de negócio. */
+    return null;
+  }
+
   @SuppressWarnings("unchecked")
   @Override
   public IVideoDao getDao() {
