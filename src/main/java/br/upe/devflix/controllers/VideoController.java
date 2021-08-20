@@ -2,13 +2,11 @@ package br.upe.devflix.controllers;
 
 import javax.validation.Valid;
 
-import java.util.List;
-import java.util.HashMap;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,16 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.upe.devflix.models.entities.Category;
-import br.upe.devflix.models.entities.User;
 import br.upe.devflix.models.entities.Video;
-import br.upe.devflix.services.CategoryCRUDService;
-import br.upe.devflix.services.UserCRUDService;
 import br.upe.devflix.services.VideoCRUDService;
-import br.upe.devflix.services.security.AuthorizationService;
-import br.upe.devflix.services.security.payload.JwtPayload;
-import br.upe.devflix.services.serializers.ResponseService;
+import br.upe.devflix.services.CategoryCRUDService;
 import br.upe.devflix.services.subsystems.YouTubeService;
+import br.upe.devflix.services.serializers.ResponseService;
 
 @RequestMapping("/api/v1/video")
 @RestController
@@ -37,23 +30,21 @@ public class VideoController {
   @Autowired private VideoCRUDService videoService;
   @Autowired private CategoryCRUDService categoryService;
   @Autowired private YouTubeService youtubeService;
-  @Autowired private AuthorizationService authorizationService;
-  @Autowired private UserCRUDService userService;
 
   @GetMapping("/search")
   public ResponseEntity<?> searchDevflixVideosByKeyword(
     @RequestParam("keyword") String keyword)
   {
-    List<Video> devflixVideos = videoService.search(keyword);
-    return responseService.create(devflixVideos, HttpStatus.OK);
+    return responseService.create(
+      videoService.search(keyword), HttpStatus.OK);
   }
 
   @GetMapping("/youtube/search")
   public ResponseEntity<?> searchYoutubeVideosByKeyword(
     @RequestParam("keyword") String keyword)
   {
-    List<HashMap<String, String>> youtubeVideos = youtubeService.getVideoSearch(keyword);
-    return responseService.create(youtubeVideos, HttpStatus.OK);
+    return responseService.create(
+      youtubeService.getVideoSearch(keyword), HttpStatus.OK);
   }
 
   @GetMapping
@@ -62,6 +53,7 @@ public class VideoController {
       categoryService.fetchAll(), HttpStatus.OK);
   }
 
+  @GetMapping("/{videoId}")
   public ResponseEntity<?> fetch(
     @PathVariable Long videoId)
   {
@@ -75,53 +67,18 @@ public class VideoController {
     @RequestBody @Valid Video video,
     @PathVariable Long categoryId)
   {
-    Category category = categoryService.fetch(categoryId);
-    if (category == null){
-      //Categoria não encontrada...
-      return responseService.create(null, HttpStatus.NOT_FOUND);
-    }
-    if (!authorizationService.isAuthenticated(authorization)){
-      //Usuário não está autenticado...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
-
-    JwtPayload session = authorizationService.parseJwtPayload(authorization);
-    User owner = userService.fetch(session.getId());
-    if (owner.getId() != category.getOwner().getId()){
-      //Usuário não é o proprietário da categoria...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
-
-    List<Video> categoryVideos = category.getVideos();
-    Video addedVideo = videoService.insert(
-      video.setCategory(category).setOwner(owner));
-    categoryVideos.add(addedVideo);
-    categoryService.update(category.setVideos(categoryVideos));
-    return responseService.create(video, HttpStatus.OK);
+    return responseService.create(
+      videoService.protectedCreate(authorization, video, categoryId), HttpStatus.OK);
   }
 
+  @PutMapping
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId,
     @RequestBody @Valid Video video)
   {
-    Video foundVideo = videoService.fetch(videoId);
-    if (foundVideo == null){
-      return responseService.create(null, HttpStatus.NOT_FOUND);
-    }
-    if (!authorizationService.isAuthenticated(authorization)){
-      //Usuário não está autenticado...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
-
-    JwtPayload session = authorizationService.parseJwtPayload(authorization);
-    User owner = userService.fetch(session.getId());
-    if (owner.getId() != video.getOwner().getId()){
-      //Usuário não é o proprietário do vídeo...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
     return responseService.create(
-      videoService.update(videoId, video), HttpStatus.OK);
+      videoService.protectedUpdate(authorization, videoId, video), HttpStatus.OK);
   }
 
   @DeleteMapping("/{videoId}")
@@ -129,23 +86,8 @@ public class VideoController {
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId)
   {
-    Video foundVideo = videoService.fetch(videoId);
-    if (foundVideo == null){
-      return responseService.create(null, HttpStatus.NOT_FOUND);
-    }
-    if (!authorizationService.isAuthenticated(authorization)){
-      //Usuário não está autenticado...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
-
-    JwtPayload session = authorizationService.parseJwtPayload(authorization);
-    User owner = userService.fetch(session.getId());
-    if (owner.getId() != foundVideo.getOwner().getId()){
-      //Usuário não é o proprietário do vídeo...
-      return responseService.create(null, HttpStatus.FORBIDDEN);
-    }
     return responseService.create(
-      videoService.delete(videoId), HttpStatus.OK);
+      videoService.protectedDelete(authorization, videoId), HttpStatus.OK);
   }
 
 }

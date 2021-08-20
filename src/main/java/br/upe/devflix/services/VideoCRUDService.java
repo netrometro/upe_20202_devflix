@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.dao.IVideoDao;
-import br.upe.devflix.models.entities.Video;
+import br.upe.devflix.models.entities.*;
+import br.upe.devflix.base.exceptions.*;
 import br.upe.devflix.services.interfaces.IVideoCRUDService;
+import br.upe.devflix.services.security.AuthorizationService;
+import br.upe.devflix.services.security.payload.JwtPayload;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class VideoCRUDService implements IVideoCRUDService {
 
-  @Autowired 
-  private IVideoDao Videos;
+  @Autowired private IVideoDao Videos;
+  @Autowired private UserCRUDService userService;
+  @Autowired private VideoCRUDService videoService;
+  @Autowired private CategoryCRUDService categoryService;
+  @Autowired private AuthorizationService authorizationService;
 
   public List<Video> search(String keyword){
     log.info("Returning all videos by searching for keywords.");
@@ -67,6 +74,85 @@ public class VideoCRUDService implements IVideoCRUDService {
     }
     Videos.delete(video.get());
     return video.get();
+  }
+
+  public Video protectedCreate(
+    String authHeader, 
+    Video video,
+    Long categoryId)
+  {
+    log.info("Adding new video to category.");
+    Category category = categoryService.fetch(categoryId);
+    if (category == null){
+      //Categoria não encontrada...
+      throw new CategoryNotFoundException("Playlist de vídeos não encontrada.");
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != category.getOwner().getId()){
+      //Usuário não é o proprietário da categoria...
+      throw new AccessDeniedException("Você não é proprietário desta Playlist para adicionar vídeos.");
+    }
+
+    List<Video> categoryVideos = category.getVideos();
+    Video addedVideo = videoService.insert(
+      video.setCategory(category).setOwner(owner));
+    categoryVideos.add(addedVideo);
+    categoryService.update(category.setVideos(categoryVideos));
+
+    return video;
+  }
+
+  public Video protectedUpdate(
+    String authHeader, 
+    Long videoId,
+    Video video)
+  {
+    log.info("Updating video.");
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      //Vídeo não encontrado...
+      throw new VideoNotFoundException("Vídeo não encontrado.");
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
+    }
+
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != video.getOwner().getId()){
+      //Usuário não é o proprietário do vídeo...
+      throw new AccessDeniedException("Você não é proprietário deste vídeo para alterá-lo.");
+    }
+    return update(videoId, video);
+  }
+
+  public Video protectedDelete(
+    String authHeader, 
+    Long videoId)
+  {
+    log.info("Deleting video.");
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      throw new VideoNotFoundException("Vídeo não encontrado.");
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
+    }
+
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != foundVideo.getOwner().getId()){
+      //Usuário não é o proprietário do vídeo...
+      throw new AccessDeniedException("Você não é proprietário deste vídeo para excluí-lo.");
+    }
+    return videoService.delete(videoId);
   }
 
   @SuppressWarnings("unchecked")

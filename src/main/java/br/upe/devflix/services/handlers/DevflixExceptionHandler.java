@@ -9,14 +9,16 @@ import org.springframework.validation.FieldError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import br.upe.devflix.models.serializables.ExceptionResponse;
 import br.upe.devflix.models.serializables.ExceptionResponse.FieldException;
@@ -25,10 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestControllerAdvice
-public class ExceptionHandler extends ResponseEntityExceptionHandler {
+public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
   
-  @Autowired
-  private MessageSource messageSource;
+  @Autowired private MessageSource messageSource;
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -82,6 +83,23 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
       .setTimestamp(LocalDateTime.now());
 
     return super.handleExceptionInternal(ex, response, headers, status, request);
+  }
+
+  @ExceptionHandler(Throwable.class)
+  @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+  protected ExceptionResponse globalExceptionHandler(
+    Exception exception,
+    WebRequest request) 
+  {
+    log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
+
+    ExceptionResponse response = new ExceptionResponse()
+      .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
+      .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+      .setError(true)
+      .setTimestamp(LocalDateTime.now());
+
+    return response;
   }
 
 }
