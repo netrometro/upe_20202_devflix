@@ -81,6 +81,7 @@ public class VideoCRUDService implements IVideoCRUDService {
     Video video,
     Long categoryId)
   {
+    log.info("Adding new video to category.");
     Category category = categoryService.fetch(categoryId);
     if (category == null){
       //Categoria não encontrada...
@@ -111,6 +112,7 @@ public class VideoCRUDService implements IVideoCRUDService {
     Long videoId,
     Video video)
   {
+    log.info("Updating video.");
     Video foundVideo = videoService.fetch(videoId);
     if (foundVideo == null){
       //Vídeo não encontrado...
@@ -125,7 +127,7 @@ public class VideoCRUDService implements IVideoCRUDService {
     User owner = userService.fetch(session.getId());
     if (owner.getId() != video.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
-      throw new AccessDeniedException("Você não é proprietário desta Playlist para adicionar vídeos.");
+      throw new AccessDeniedException("Você não é proprietário deste vídeo para alterá-lo.");
     }
     return update(videoId, video);
   }
@@ -134,6 +136,7 @@ public class VideoCRUDService implements IVideoCRUDService {
     String authHeader, 
     Long videoId)
   {
+    log.info("Deleting video.");
     Video foundVideo = videoService.fetch(videoId);
     if (foundVideo == null){
       throw new VideoNotFoundException("Vídeo não encontrado.");
