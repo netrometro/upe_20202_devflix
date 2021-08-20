@@ -1,6 +1,12 @@
 package br.upe.devflix.controllers;
 
 import javax.validation.Valid;
+
+import br.upe.devflix.services.security.AuthorizationService;
+import br.upe.devflix.services.serializers.ResponseService;
+import br.upe.devflix.services.subsystems.MailService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +20,10 @@ import br.upe.devflix.models.dto.ShareContentDTO;
 @RestController
 public class ShareController {
   
+  @Autowired private ResponseService responseService;
+  @Autowired private AuthorizationService authorizationService;
+  @Autowired private MailService mailService;
+
   @PostMapping
   public ResponseEntity<?> shareLink(
     @RequestHeader("authorization") String authorization,
