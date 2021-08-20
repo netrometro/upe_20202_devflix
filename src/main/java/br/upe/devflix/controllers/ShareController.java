@@ -2,9 +2,8 @@ package br.upe.devflix.controllers;
 
 import javax.validation.Valid;
 
-import br.upe.devflix.services.security.AuthorizationService;
+import br.upe.devflix.services.ShareContentService;
 import br.upe.devflix.services.serializers.ResponseService;
-import br.upe.devflix.services.subsystems.MailService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,17 @@ import br.upe.devflix.models.dto.ShareContentDTO;
 public class ShareController {
   
   @Autowired private ResponseService responseService;
-  @Autowired private AuthorizationService authorizationService;
-  @Autowired private MailService mailService;
+  @Autowired private ShareContentService shareContentService;
 
   @PostMapping
   public ResponseEntity<?> shareLink(
     @RequestHeader("authorization") String authorization,
     @RequestBody @Valid ShareContentDTO content) 
-  {
-
+  { 
+    shareContentService.shareLinkByEmail(authorization, 
+      content.getUserName(), 
+      content.getUserEmail(), 
+      content.getLink());
+    return responseService.create(null, HttpStatus.OK);
   }
 }

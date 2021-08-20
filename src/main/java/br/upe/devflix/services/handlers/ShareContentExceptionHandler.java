@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.upe.devflix.models.serializables.ExceptionResponse;
-import br.upe.devflix.base.exceptions.CategoryNotFoundException;
+import br.upe.devflix.base.exceptions.ShareContentException;
 
 @Slf4j
 @RestControllerAdvice
-public class CategoryExceptionHandler {
+public class ShareContentExceptionHandler {
   
-  @ExceptionHandler(CategoryNotFoundException.class)
-  @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  protected ExceptionResponse categoryNotFound(
+  @ExceptionHandler(ShareContentException.class)
+  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
+  protected ExceptionResponse videoNotFound(
     Exception exception,
     WebRequest request) 
   {
-    log.warn("Error, category not found.", exception);
-    
+    log.warn("Error, cannot send e-mail to share a DevFlix link.", exception);
+
     ExceptionResponse response = new ExceptionResponse()
       .setTitle(exception.getMessage())
-      .setStatus(HttpStatus.NOT_FOUND.value())
+      .setStatus(HttpStatus.SERVICE_UNAVAILABLE.value())
       .setError(true)
       .setTimestamp(LocalDateTime.now());
 
