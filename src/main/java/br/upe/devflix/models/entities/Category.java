@@ -3,9 +3,11 @@ package br.upe.devflix.models.entities;
 import java.util.List;
 
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +21,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import br.upe.devflix.base.GenericEntity;
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.upe.devflix.base.GenericEntity;
 
 @Data
 @Entity
@@ -46,13 +51,20 @@ public class Category extends GenericEntity {
   @Column(name = "category_color")
   private String color;
 
-  @OneToMany(mappedBy = "category")
-  private List<Commentary> commentaries;
-
   @Min(1)
   @Max(2)
   @NotNull
   @Column(name = "category_visibility")
   private int visibility = 1;
+
+  @OneToMany(mappedBy = "category")
+  private List<Commentary> commentaries;
+
+  @OneToMany(mappedBy = "category")
+  private List<Video> videos;
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  private User owner;
 
 }

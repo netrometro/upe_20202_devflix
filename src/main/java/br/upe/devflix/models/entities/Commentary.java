@@ -34,7 +34,7 @@ public class Commentary extends GenericEntity {
   @NotBlank
   @NotNull
   @Column(name = "commentary_text")
-  private String commentaryText;
+  private String text;
   
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)

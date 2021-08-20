@@ -1,18 +1,16 @@
 package br.upe.devflix.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-//import br.upe.devflix.services.MetadataCRUDService;
+import br.upe.devflix.services.MetadataCRUDService;
+import br.upe.devflix.services.serializers.ResponseService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,45 +20,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/metadata")
 public class MetadataController {
 
-  //@Autowired private MetadataCRUDService metadataService;
-
-  @GetMapping
-  public ResponseEntity<List<Metadata>> fetchAll()
-  {
-    return null;
-    //return metadataService.fetchAll();
-  }
+  @Autowired private MetadataCRUDService metadataService;
+  @Autowired private ResponseService responseService;
 
   @GetMapping("/{metadaId}")
-  public ResponseEntity<Metadata> fetch(
-    @PathVariable Long metadaId)
+  public ResponseEntity<?> fetch(
+    @PathVariable Long metadataId)
   {
-    return null;
-    //return metadataService.fetch(metadaId);
-  }
-
-  @PostMapping
-  public ResponseEntity<Metadata> create(
-    @RequestBody @Valid Metadata metadata)
-  {
-    return null;
-    //return metadataService.create(metadata);
+    Metadata foundMetadata = metadataService.fetch(metadataId);
+    if (foundMetadata == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(foundMetadata, HttpStatus.OK);
   }
 
   @PutMapping("/{metadataId}")
-  public ResponseEntity<Metadata> update(
+  public ResponseEntity<?> update(
     @PathVariable Long metadataId,
     @RequestBody @Valid Metadata metadata)
   {
-    return null;
-    //return metadataService.update(metadataId, metadata);
+    Metadata foundMetadata = metadataService.fetch(metadataId);
+    if (foundMetadata == null){
+      return responseService.create(null, HttpStatus.NOT_FOUND);
+    }
+    return responseService.create(
+      metadataService.update(metadataId, metadata), HttpStatus.OK);
   }
 
-  @DeleteMapping("/{metadataId}")
-  public ResponseEntity<Metadata> delete(
-    @PathVariable Long metadataId)
-  {
-    return null;
-    //return metadataService.delete(metadataId);
-  }
 }

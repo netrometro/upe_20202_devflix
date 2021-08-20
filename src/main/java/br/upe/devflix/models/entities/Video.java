@@ -31,25 +31,30 @@ import br.upe.devflix.base.GenericEntity;
 @Table(name = "devflix_video")
 @EqualsAndHashCode(callSuper = false)
 public class Video extends GenericEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "video_id")
   private long id;
-
-  @OneToOne
-  private Metadata videoMetadata;
-
-  @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  private Category videoCategory;
   
   @Min(1)
   @Max(2)
   @NotNull
   @Column(name = "video_visibility")
-  private int videoVisibility = 1;
+  private int visibility = 1;
+
+  @OneToOne
+  private Metadata metadata;
   
   @OneToMany(mappedBy = "video")
-  private List<Commentary> videoComments;
+  private List<Commentary> commentaries;
+  
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  private Category category;
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  private User owner;
   
 }

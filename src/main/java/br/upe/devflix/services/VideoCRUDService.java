@@ -19,6 +19,11 @@ public class VideoCRUDService implements IVideoCRUDService {
   @Autowired 
   private IVideoDao Videos;
 
+  public List<Video> search(String keyword){
+    log.info("Returning all videos by searching for keywords.");
+    return this.Videos.findVideoByMetadata_TitleContainingOrMetadata_DescriptionContaining(keyword, keyword);
+  }
+
   public List<Video> fetchAll() {
     log.info("Returning all videos from database.");
     return Videos.findAll();
