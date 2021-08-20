@@ -16,21 +16,23 @@ const HomePage = () => {
   console.log({state, actions})
 
   return (
-    <Box bg="background" py={20}>
-      {CATEGORIES.map((category, index, categories) => {
-        const isLastCategory = categories.length - 1 === index
-        return (
-          <Box key={`${index}`}>
-            <Category {...category} />
-            {!isLastCategory && <Box height={20} />}
-          </Box>
-        )
-      })}
-    </Box>
+    <>
+      <Navbar />
+      <Box bg="background" py={20}>
+        {CATEGORIES.map((category, index, categories) => {
+          const isLastCategory = categories.length - 1 === index
+          return (
+            <Box key={`${index}`}>
+              <Category {...category} />
+              {!isLastCategory && <Box height={20} />}
+            </Box>
+          )
+        })}
+      </Box>
+    </>
   )
 }
 
 HomePage.pageTitle = PagesTitles.HOME
-HomePage.Navbar = Navbar
 
 export default HomePage

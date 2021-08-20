@@ -12,66 +12,67 @@ const FORMFIELDS = [
 
 const SignIn = () => {
   return (
-    <Flex flexDirection="column">
-      <Box
-        className="box"
-        bg="background"
-        py={20}
-        alignItems="center"
-        width={'100%'}>
-        <Center>
-          <Image
-            src={require('images/logo.svg')}
-            id="logo"
-            alt="logo"
-            width={500}
-            height={125}
-            mb={6}
-            display="inline-block"
-          />
-        </Center>
-        <Container>
-          {FORMFIELDS.map((formfield, index) => {
-            return (
-              <form key={`${index}`}>
-                <FormField {...formfield} />
-              </form>
-            )
-          })}
-        </Container>
-        <Center>
-          <Button size="lg">Entrar</Button>
-        </Center>
-        <Center>
-          <Button color="grayPers" variant="ghost" mt={'20px'} size="lg">
-            Esqueceu a senha?
-          </Button>
-        </Center>
-        <Center>
-          <Box
-            py={0.5}
-            px={3}
-            width={'20%'}
-            bg="primary"
-            borderRadius={1}
-            mt={5}
-            mb={10}
-          />
-        </Center>
-        <Center>
-          <Button
-            color="primary"
-            borderColor="primary"
-            variant="outline"
-            size="lg">
-            Realizar Cadastro
-          </Button>
-        </Center>
-      </Box>
-    </Flex>
+    <>
+      <Navbar.BackBar />
+      <Flex flexDirection="column">
+        <Box
+          className="box"
+          bg="background"
+          py={20}
+          alignItems="center"
+          width={'100%'}>
+          <Center>
+            <Image
+              src={require('images/logo.svg')}
+              alt="logo"
+              width={500}
+              height={125}
+              mb={5}
+              display="inline-block"
+            />
+          </Center>
+          <Container>
+            {FORMFIELDS.map((formfield, index) => {
+              return (
+                <form key={`${index}`}>
+                  <FormField {...formfield} />
+                </form>
+              )
+            })}
+          </Container>
+          <Center>
+            <Button size="lg">Entrar</Button>
+          </Center>
+          <Center>
+            <Button color="grayPers" variant="ghost" mt={'20px'} size="lg">
+              Esqueceu a senha?
+            </Button>
+          </Center>
+          <Center>
+            <Box
+              py={0.5}
+              px={3}
+              width={'20%'}
+              bg="primary"
+              borderRadius={1}
+              mt={5}
+              mb={10}
+            />
+          </Center>
+          <Center>
+            <Button
+              color="primary"
+              borderColor="primary"
+              variant="outline"
+              size="lg">
+              Realizar Cadastro
+            </Button>
+          </Center>
+        </Box>
+      </Flex>
+    </>
   )
 }
 SignIn.pageTitle = PagesTitles.SIGN_IN
-SignIn.Navbar = Navbar.BackBar
 
 export default SignIn
