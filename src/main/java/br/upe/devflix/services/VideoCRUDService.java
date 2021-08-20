@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.dao.IVideoDao;
-import br.upe.devflix.models.entities.Video;
+import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.interfaces.IVideoCRUDService;
+import br.upe.devflix.services.security.AuthorizationService;
+import br.upe.devflix.services.security.payload.JwtPayload;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class VideoCRUDService implements IVideoCRUDService {
 
-  @Autowired 
-  private IVideoDao Videos;
+  @Autowired private IVideoDao Videos;
+  @Autowired private UserCRUDService userService;
+  @Autowired private VideoCRUDService videoService;
+  @Autowired private CategoryCRUDService categoryService;
+  @Autowired private AuthorizationService authorizationService;
 
   public List<Video> search(String keyword){
     log.info("Returning all videos by searching for keywords.");
@@ -71,26 +77,78 @@ public class VideoCRUDService implements IVideoCRUDService {
 
   public Optional<Video> protectedCreate(
     String authHeader, 
-    Video video)
+    Video video,
+    Long categoryId)
   {
-    /**TODO: Implementar regra de negócio. */
-    return null;
+    Category category = categoryService.fetch(categoryId);
+    if (category == null){
+      //Categoria não encontrada...
+      return Optional.empty();
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      return Optional.empty();
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != category.getOwner().getId()){
+      //Usuário não é o proprietário da categoria...
+      return Optional.empty();
+    }
+
+    List<Video> categoryVideos = category.getVideos();
+    Video addedVideo = videoService.insert(
+      video.setCategory(category).setOwner(owner));
+    categoryVideos.add(addedVideo);
+    categoryService.update(category.setVideos(categoryVideos));
+
+    return Optional.of(video);
   }
 
   public Optional<Video> protectedUpdate(
     String authHeader, 
+    Long videoId,
     Video video)
   {
-    /**TODO: Implementar regra de negócio. */
-    return null;
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      //Vídeo não encontrado...
+      return Optional.empty();
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      return Optional.empty();
+    }
+
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != video.getOwner().getId()){
+      //Usuário não é o proprietário do vídeo...
+      return Optional.empty();
+    }
+    return Optional.of(update(videoId, video));
   }
 
   public Optional<Video> protectedDelete(
     String authHeader, 
-    Video video)
+    Long videoId)
   {
-    /**TODO: Implementar regra de negócio. */
-    return null;
+    Video foundVideo = videoService.fetch(videoId);
+    if (foundVideo == null){
+      return Optional.empty();
+    }
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      return Optional.empty();
+    }
+
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+    if (owner.getId() != foundVideo.getOwner().getId()){
+      //Usuário não é o proprietário do vídeo...
+      return Optional.empty();
+    }
+    return Optional.of(videoService.delete(videoId));
   }
 
   @SuppressWarnings("unchecked")
