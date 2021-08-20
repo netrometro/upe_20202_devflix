@@ -1,58 +1,117 @@
 package br.upe.devflix.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.models.entities.Video;
-//import br.upe.devflix.services.VideoCRUDService;
+import br.upe.devflix.base.exceptions.AccessDeniedException;
+import br.upe.devflix.base.exceptions.VideoNotFoundException;
+import br.upe.devflix.base.exceptions.CategoryNotFoundException;
+import br.upe.devflix.services.VideoCRUDService;
+import br.upe.devflix.services.CategoryCRUDService;
+import br.upe.devflix.services.subsystems.YouTubeService;
+import br.upe.devflix.services.serializers.ResponseService;
 
 @RequestMapping("/api/v1/video")
 @RestController
 public class VideoController {
 
-  //@Autowired private VideoCRUDService videoService;
+  @Autowired private ResponseService responseService;
+  @Autowired private VideoCRUDService videoService;
+  @Autowired private CategoryCRUDService categoryService;
+  @Autowired private YouTubeService youtubeService;
 
-  @GetMapping
-  public ResponseEntity<List<Video>> fetchAll() {
-    return null;
+  @GetMapping("/search")
+  public ResponseEntity<?> searchDevflixVideosByKeyword(
+    @RequestParam("keyword") String keyword)
+  {
+    return responseService.create(
+      videoService.search(keyword), HttpStatus.OK);
   }
 
-  public ResponseEntity<Video> fetch(
+  @GetMapping("/youtube/search")
+  public ResponseEntity<?> searchYoutubeVideosByKeyword(
+    @RequestParam("keyword") String keyword)
+  {
+    return responseService.create(
+      youtubeService.getVideoSearch(keyword), HttpStatus.OK);
+  }
+
+  @GetMapping
+  public ResponseEntity<?> fetchAll() {
+    return responseService.create(
+      categoryService.fetchAll(), HttpStatus.OK);
+  }
+
+  @GetMapping("/{videoId}")
+  public ResponseEntity<?> fetch(
     @PathVariable Long videoId)
   {
-    return null;
+    return responseService.create(
+      videoService.fetch(videoId), HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<Video> create(
-    @RequestBody @Valid Video video)
+  public ResponseEntity<?> create(
+    @RequestHeader("authorization") String authorization,
+    @RequestBody @Valid Video video,
+    @PathVariable Long categoryId)
   {
-    return null;
+    /**TODO: Delegar a execução ao Service.*/
+    try {
+      return responseService.create(
+        videoService.protectedCreate(authorization, video, categoryId), HttpStatus.OK);
+    } catch (AccessDeniedException accessEx){
+      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
+    } catch (CategoryNotFoundException categoryEx){
+      return responseService.create(categoryEx, HttpStatus.NOT_FOUND);
+    }
   }
 
-  public ResponseEntity<Video> update(
+  @PutMapping
+  public ResponseEntity<?> update(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId,
     @RequestBody @Valid Video video)
   {
-    return null;
+    /**TODO: Delegar a execução ao Service.*/
+    try {
+      return responseService.create(
+        videoService.protectedUpdate(authorization, videoId, video), HttpStatus.OK);
+    } catch (AccessDeniedException accessEx){
+      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
+    } catch (VideoNotFoundException videoEx){
+      return responseService.create(videoEx, HttpStatus.NOT_FOUND);
+    }
   }
 
   @DeleteMapping("/{videoId}")
-  public ResponseEntity<Video> delete(
+  public ResponseEntity<?> delete(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId)
   {
-    return null;
+    /**TODO: Delegar a execução ao Service.*/
+    try {
+      return responseService.create(
+        videoService.protectedDelete(authorization, videoId), HttpStatus.OK);
+    } catch (AccessDeniedException accessEx){
+      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
+    } catch (VideoNotFoundException videoEx){
+      return responseService.create(videoEx, HttpStatus.NOT_FOUND);
+    }
   }
 
 }

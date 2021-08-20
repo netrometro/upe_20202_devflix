@@ -19,9 +19,12 @@ public class AuthorizationService {
     return bearer; 
   }
 
+  public JwtPayload parseJwtPayload(String authorization){
+    return JwtProvider.decrypt(parseBearer(authorization));
+  }
+
   public boolean isAdmin(String authorization){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
@@ -30,8 +33,7 @@ public class AuthorizationService {
   }
 
   public boolean isOwner(String authorization, Long userId){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
@@ -40,13 +42,18 @@ public class AuthorizationService {
   }
 
   public boolean isOwner(String authorization, User user){
-    String bearerToken = parseBearer(authorization);
-    JwtPayload payload = JwtProvider.decrypt(bearerToken);
+    JwtPayload payload = parseJwtPayload(authorization);
     if (payload == null){
       return false;
     }
     //Verifica se o usuário logado é igual ao usuário especificado.
     return (payload.getId() == user.getId());
   }
+
+  public boolean isAuthenticated(String authorization){
+    return (parseJwtPayload(authorization) != null);
+  }
+
+
 
 }

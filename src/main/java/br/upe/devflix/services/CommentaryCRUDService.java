@@ -59,7 +59,7 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
       return null;
     }
     Commentary newCommentary = existingComment.get()
-      .setCommentaryText(commentary.getCommentaryText());
+      .setText(commentary.getText());
     return Commentaries.save(newCommentary);
   }
 

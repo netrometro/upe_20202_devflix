@@ -9,11 +9,11 @@ import ActionsButtons from './ActionsButtons'
 
 const BackBar = () => {
   return (
-    <Flex alignItems="center" justifyContent="space-between" bg="black">
+    <Flex alignItems="center" justifyContent="space-between" bg="black" py={2}>
       <Leading>
         <Link href="/" passHref>
           <IconButton
-            icon={<ArrowBackIcon />}
+            icon={<ArrowBackIcon boxSize="1.75rem"/>}
             bg="black"
             color="secondary"
             size="lg"
@@ -24,7 +24,7 @@ const BackBar = () => {
       <ActionsButtons>
         <IconButton
           aria-label="Procurar vídeo"
-          icon={<InfoOutlineIcon />}
+          icon={<InfoOutlineIcon boxSize="1.75rem"/>}
           bg="black"
           color="secondary"
           size="lg"
