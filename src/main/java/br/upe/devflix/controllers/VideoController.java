@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.models.entities.Video;
-import br.upe.devflix.base.exceptions.AccessDeniedException;
-import br.upe.devflix.base.exceptions.VideoNotFoundException;
-import br.upe.devflix.base.exceptions.CategoryNotFoundException;
 import br.upe.devflix.services.VideoCRUDService;
 import br.upe.devflix.services.CategoryCRUDService;
 import br.upe.devflix.services.subsystems.YouTubeService;
@@ -70,15 +67,8 @@ public class VideoController {
     @RequestBody @Valid Video video,
     @PathVariable Long categoryId)
   {
-    /**TODO: Delegar a execução ao Service.*/
-    try {
-      return responseService.create(
-        videoService.protectedCreate(authorization, video, categoryId), HttpStatus.OK);
-    } catch (AccessDeniedException accessEx){
-      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
-    } catch (CategoryNotFoundException categoryEx){
-      return responseService.create(categoryEx, HttpStatus.NOT_FOUND);
-    }
+    return responseService.create(
+      videoService.protectedCreate(authorization, video, categoryId), HttpStatus.OK);
   }
 
   @PutMapping
@@ -87,15 +77,8 @@ public class VideoController {
     @PathVariable Long videoId,
     @RequestBody @Valid Video video)
   {
-    /**TODO: Delegar a execução ao Service.*/
-    try {
-      return responseService.create(
-        videoService.protectedUpdate(authorization, videoId, video), HttpStatus.OK);
-    } catch (AccessDeniedException accessEx){
-      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
-    } catch (VideoNotFoundException videoEx){
-      return responseService.create(videoEx, HttpStatus.NOT_FOUND);
-    }
+    return responseService.create(
+      videoService.protectedUpdate(authorization, videoId, video), HttpStatus.OK);
   }
 
   @DeleteMapping("/{videoId}")
@@ -103,15 +86,8 @@ public class VideoController {
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId)
   {
-    /**TODO: Delegar a execução ao Service.*/
-    try {
-      return responseService.create(
-        videoService.protectedDelete(authorization, videoId), HttpStatus.OK);
-    } catch (AccessDeniedException accessEx){
-      return responseService.create(accessEx, HttpStatus.FORBIDDEN);
-    } catch (VideoNotFoundException videoEx){
-      return responseService.create(videoEx, HttpStatus.NOT_FOUND);
-    }
+    return responseService.create(
+      videoService.protectedDelete(authorization, videoId), HttpStatus.OK);
   }
 
 }
