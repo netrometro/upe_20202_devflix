@@ -61,6 +61,10 @@ public class CategoryCRUDService implements ICategoryCRUDService{
       log.warn("Category not found in database.");
       throw new CategoryNotFoundException("Categoria não encontrada.");
     }
+
+    foundCategory.get().setColor(category.getColor());
+    foundCategory.get().setTitle(category.getTitle());
+
     return Categories.save(foundCategory.get().setId(categoryId));
   }
 
@@ -98,6 +102,7 @@ public class CategoryCRUDService implements ICategoryCRUDService{
   {
     log.info("Updating category.");
     Category foundCategory = categoryService.fetch(categoryId);
+    
     if (foundCategory == null){
       //Vídeo não encontrado...
       throw new CategoryNotFoundException("Categoria não encontrada.");
@@ -108,10 +113,14 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     }
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
-    if (owner.getId() != category.getOwner().getId()){
+    
+    
+    if (owner.getId() != foundCategory.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
       throw new AccessDeniedException("Você não é proprietário desta categoria para alterá-la.");
     }
+
+
     return update(categoryId, category);
   }
 

@@ -61,7 +61,7 @@ public class VideoController {
       videoService.fetch(videoId), HttpStatus.OK);
   }
 
-  @PostMapping
+  @PostMapping("/{categoryId}")
   public ResponseEntity<?> create(
     @RequestHeader("authorization") String authorization,
     @RequestBody @Valid Video video,
