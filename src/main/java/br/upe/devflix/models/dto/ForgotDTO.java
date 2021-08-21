@@ -1,4 +1,4 @@
-package br.upe.devflix.models.serializables;
+package br.upe.devflix.models.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class Forgot {
+public class ForgotDTO {
   
   @NotBlank
   @NotNull

@@ -1,39 +1,48 @@
 package br.upe.devflix.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import br.upe.devflix.models.entities.*;
-//import br.upe.devflix.services.CommentaryCRUDService;
+import br.upe.devflix.services.CommentaryCRUDService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RequestMapping("/api/v1/commentary")
 @RestController
 public class CommentaryController {
 
-  //@Autowired private CommentaryCRUDService commentaryService;
+  @Autowired private CommentaryCRUDService commentaryService;
 
-  @GetMapping
-  public ResponseEntity<List<Commentary>> fetchAll() 
+  @GetMapping("/video/{videoId}")
+  public ResponseEntity<?> fetchByVideoId(
+    @PathVariable Long videoId) 
   {
     return null;
-    //return commentaryService.fetchAll();
+    //return commentaryService.fetch(commentaryId);
   }
 
-  @GetMapping("/{commentaryId}")
-  public ResponseEntity<Commentary> fetch(@PathVariable Long commentaryId) 
+  @GetMapping("/category/{categoryId}")
+  public ResponseEntity<?> fetchByCategoryId(
+    @PathVariable Long categoryId) 
   {
     return null;
     //return commentaryService.fetch(commentaryId);
   }
   
-  @PostMapping("/{userId}")
-  public ResponseEntity<Commentary> create(
-    @PathVariable Long userId, 
+  @PostMapping("/video/{videoId}")
+  public ResponseEntity<?> createInVideo(
+    @RequestHeader("authorization") String authorization,
+    @RequestBody @Valid Commentary commentary) 
+  {
+    return null;
+    //return commentaryService.create(userId, commentary);
+  }
+
+  @PostMapping("/category/{categoryId}")
+  public ResponseEntity<?> createInCategory(
+    @RequestHeader("authorization") String authorization,
     @RequestBody @Valid Commentary commentary) 
   {
     return null;
@@ -41,7 +50,8 @@ public class CommentaryController {
   }
 
   @PutMapping("/{commentaryId}")
-  public ResponseEntity<Commentary> update(
+  public ResponseEntity<?> update(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long commentaryId, 
     @RequestBody @Valid Commentary commentary) 
   {
@@ -50,7 +60,8 @@ public class CommentaryController {
   }
 
   @DeleteMapping("/{commentaryId}")
-  public ResponseEntity<Commentary> delete(
+  public ResponseEntity<?> delete(
+    @RequestHeader("authorization") String authorization,
     @PathVariable Long commentaryId) 
   {
     return null;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import br.upe.devflix.models.serializables.ExceptionResponse;
 import br.upe.devflix.base.exceptions.UserNotFoundException;
+import br.upe.devflix.models.dto.ExceptionResponseDTO;
 
 @Slf4j
 @RestControllerAdvice
@@ -19,13 +19,13 @@ public class UserExceptionHandler {
   
   @ExceptionHandler(UserNotFoundException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  protected ExceptionResponse userNotFound(
+  protected ExceptionResponseDTO userNotFound(
     Exception exception,
     WebRequest request) 
   {
     log.warn("Error, user not found.", exception);
     
-    ExceptionResponse response = new ExceptionResponse()
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle(exception.getMessage())
       .setStatus(HttpStatus.NOT_FOUND.value())
       .setError(true)

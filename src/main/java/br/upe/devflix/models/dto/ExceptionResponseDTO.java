@@ -1,4 +1,4 @@
-package br.upe.devflix.models.serializables;
+package br.upe.devflix.models.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class ExceptionResponse {
+public class ExceptionResponseDTO {
   
   private Integer status;
   private String title;

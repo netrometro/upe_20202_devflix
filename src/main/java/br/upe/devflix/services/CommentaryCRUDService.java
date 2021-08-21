@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import br.upe.devflix.dao.*;
 import br.upe.devflix.models.entities.*;
+import br.upe.devflix.base.exceptions.*;
+import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.interfaces.ICommentaryCRUDService;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
   
   @Autowired private ICommentaryDao Commentaries;
   @Autowired private IUserDao Users;
+  @Autowired private VideoCRUDService videoService;
+  @Autowired private CategoryCRUDService categoryService;
+  @Autowired private AuthorizationService authorizationService;
 
   public List<Commentary> fetchAll() {
     log.info("Returning all commentaries from database.");
@@ -35,9 +39,6 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
   }
   
   public Commentary create(Long userId,  Commentary commentary) {
-    /**
-    * FIX: Need add a verification if the video exists using `videoDao`
-    */
     log.info("Creating new commentary in database.");
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
@@ -72,6 +73,61 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
     }
     Commentaries.delete(commentary.get());
     return commentary.get();
+  }
+
+  public List<Commentary> fetchByVideoId(
+    Long videoId) 
+  {
+    Video video = videoService.fetch(videoId);
+    if (video == null){
+      throw new VideoNotFoundException("Vídeo não encontrado.");
+    }
+    return video.getCommentaries();
+  }
+
+  public List<Commentary> fetchByCategoryId(
+    Long categoryId) 
+  {
+    Category category = categoryService.fetch(categoryId);
+    if (category == null) {
+      throw new CategoryNotFoundException("Categoria não encontrada.");
+    }
+    return category.getCommentaries();
+  }
+  
+  public List<Commentary> createInVideo(
+    String authHeader,
+    Commentary commentary) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    return null;
+  }
+
+  public List<Commentary> createInCategory(
+    String authHeader,
+    Commentary commentary) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    return null;
+  }
+
+  public Commentary update(
+    String authHeader,
+    Long commentaryId, 
+    Commentary commentary) 
+  {
+    return null;
+  }
+
+  public Commentary delete(
+    String authHeader,
+    Long commentaryId) 
+  {
+    return null;
   }
 
   @Override

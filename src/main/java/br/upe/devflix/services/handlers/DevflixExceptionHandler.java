@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 
-import br.upe.devflix.models.serializables.ExceptionResponse;
-import br.upe.devflix.models.serializables.ExceptionResponse.FieldException;
+import br.upe.devflix.models.dto.ExceptionResponseDTO;
+import br.upe.devflix.models.dto.ExceptionResponseDTO.FieldException;
+
+import org.springframework.web.context.request.WebRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +41,7 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
   {
     log.warn("An unhandled exception was caught by ExceptionHandler. Bad request detected with invalid fields.");
 
-    List<ExceptionResponse.FieldException> fieldErrors = new ArrayList<>();
+    List<ExceptionResponseDTO.FieldException> fieldErrors = new ArrayList<>();
     
     for (ObjectError error : ex.getBindingResult().getAllErrors())
     {
@@ -56,7 +57,7 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
       }
     }
 
-    ExceptionResponse response = new ExceptionResponse()
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(status.value())
       .setError(true)
@@ -76,7 +77,7 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
   {
     log.warn("An unhandled exception was caught by ExceptionHandler. Status: %d", status.value());
 
-    ExceptionResponse response = new ExceptionResponse()
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(status.value())
       .setError(true)
@@ -87,13 +88,13 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(Throwable.class)
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-  protected ExceptionResponse globalExceptionHandler(
+  protected ExceptionResponseDTO globalExceptionHandler(
     Exception exception,
     WebRequest request) 
   {
     log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
 
-    ExceptionResponse response = new ExceptionResponse()
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
       .setError(true)
