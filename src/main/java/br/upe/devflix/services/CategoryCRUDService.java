@@ -40,15 +40,9 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     return foundCategories.get();
   }
 
-  public Category create(Long userId, Category category)
+  public Category create(Category category)
   {
     log.info("Creating a new category in database.");
-    Optional<User> user = userService.getDao().findById(userId);
-    if (!user.isPresent()) {
-      log.info("User not found in database.");
-      throw new UserNotFoundException("Usuário não encontrado.");
-    }
-    category.setOwner(user.get());
     return Categories.save(category);
   }
 
@@ -62,10 +56,7 @@ public class CategoryCRUDService implements ICategoryCRUDService{
       throw new CategoryNotFoundException("Categoria não encontrada.");
     }
 
-    foundCategory.get().setColor(category.getColor());
-    foundCategory.get().setTitle(category.getTitle());
-
-    return Categories.save(foundCategory.get().setId(categoryId));
+    return Categories.save(category.setId(categoryId));
   }
 
   public Category delete(Long categoryId)
@@ -92,7 +83,7 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
 
-    return Categories.save(category.setOwner(owner));
+    return create(category.setOwner(owner));
   }
 
   public Category protectedUpdate(
@@ -120,8 +111,7 @@ public class CategoryCRUDService implements ICategoryCRUDService{
       throw new AccessDeniedException("Você não é proprietário desta categoria para alterá-la.");
     }
 
-
-    return update(categoryId, category);
+    return update(categoryId, category.setOwner(owner));
   }
 
   public Category protectedDelete(
