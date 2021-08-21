@@ -5,19 +5,25 @@ import java.util.Optional;
 
 import br.upe.devflix.dao.*;
 import br.upe.devflix.models.entities.*;
+import br.upe.devflix.base.exceptions.*;
+import br.upe.devflix.services.security.payload.JwtPayload;
+import br.upe.devflix.services.security.AuthorizationService;
 import br.upe.devflix.services.interfaces.ICommentaryCRUDService;
-
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class CommentaryCRUDService implements ICommentaryCRUDService {
   
+  @Autowired private UserCRUDService userService;
   @Autowired private ICommentaryDao Commentaries;
-  @Autowired private IUserDao Users;
+  @Autowired private VideoCRUDService videoService;
+  @Autowired private CategoryCRUDService categoryService;
+  @Autowired private AuthorizationService authorizationService;
 
   public List<Commentary> fetchAll() {
     log.info("Returning all commentaries from database.");
@@ -35,11 +41,8 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
   }
   
   public Commentary create(Long userId,  Commentary commentary) {
-    /**
-    * FIX: Need add a verification if the video exists using `videoDao`
-    */
     log.info("Creating new commentary in database.");
-    Optional<User> user = Users.findById(userId);
+    Optional<User> user = userService.getDao().findById(userId);
     if (!user.isPresent()){
       log.info("Commentary not found in database.");
       return null;
@@ -72,6 +75,96 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
     }
     Commentaries.delete(commentary.get());
     return commentary.get();
+  }
+
+  public List<Commentary> fetchByVideoId(
+    Long videoId) 
+  {
+    Video video = videoService.fetch(videoId);
+    if (video == null){
+      throw new VideoNotFoundException("Vídeo não encontrado.");
+    }
+    return video.getCommentaries();
+  }
+
+  public List<Commentary> fetchByCategoryId(
+    Long categoryId) 
+  {
+    Category category = categoryService.fetch(categoryId);
+    if (category == null) {
+      throw new CategoryNotFoundException("Categoria não encontrada.");
+    }
+    return category.getCommentaries();
+  }
+  
+  public Commentary createInVideo(
+    String authHeader,
+    Long videoId,
+    Commentary commentary) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User author = userService.fetch(session.getId());
+    Video video = videoService.fetch(videoId);
+    if (video == null){
+      throw new VideoNotFoundException("Vídeo não encontrado.");
+    }
+    return Commentaries.save(commentary.setVideo(video).setAuthor(author));
+  }
+
+  public Commentary createInCategory(
+    String authHeader,
+    Long categoryId,
+    Commentary commentary) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User author = userService.fetch(session.getId());
+    Category category = categoryService.fetch(categoryId);
+    return Commentaries.save(commentary.setCategory(category).setAuthor(author));
+  }
+
+  public Commentary protectedUpdate(
+    String authHeader,
+    Long commentaryId, 
+    Commentary commentary) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    Commentary foundCommentary = fetch(commentaryId);
+    if (foundCommentary == null){
+      throw new CommentaryNotFoundException("Comentário não encontrado.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User author = userService.fetch(session.getId());
+    if ((foundCommentary.getAuthor().getId() != author.getId()) && !authorizationService.isAdmin(authHeader)){
+      throw new AccessDeniedException("Você não tem permissão para editar este comentário.");
+    }
+    return update(commentaryId, commentary);
+  }
+
+  public Commentary protectedDelete(
+    String authHeader,
+    Long commentaryId) 
+  {
+    if (!authorizationService.isAuthenticated(authHeader)){
+      throw new AccessDeniedException("Você precisa estar logado para comentar no vídeo.");
+    }
+    Commentary foundCommentary = fetch(commentaryId);
+    if (foundCommentary == null){
+      throw new CommentaryNotFoundException("Comentário não encontrado.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User author = userService.fetch(session.getId());
+    if ((foundCommentary.getAuthor().getId() != author.getId()) && !authorizationService.isAdmin(authHeader)){
+      throw new AccessDeniedException("Você não tem permissão para editar este comentário.");
+    }
+    return delete(commentaryId);
   }
 
   @Override
