@@ -71,7 +71,7 @@ public class VideoController {
       videoService.protectedCreate(authorization, video, categoryId), HttpStatus.OK);
   }
 
-  @PutMapping
+  @PutMapping("/{videoId}")
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId,

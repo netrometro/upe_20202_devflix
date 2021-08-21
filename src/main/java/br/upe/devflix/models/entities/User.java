@@ -80,9 +80,11 @@ public class User extends GenericEntity {
   @Column(name = "user_confirmation_token")
   private String confirmationToken = UUID.randomUUID().toString();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   private List<Commentary> commentaries;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<RecoveryAccount> recoveries;
 
