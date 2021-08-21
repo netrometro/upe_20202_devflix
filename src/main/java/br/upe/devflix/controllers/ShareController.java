@@ -2,6 +2,7 @@ package br.upe.devflix.controllers;
 
 import javax.validation.Valid;
 
+import br.upe.devflix.models.dto.ShareContentDTO;
 import br.upe.devflix.services.ShareContentService;
 import br.upe.devflix.services.serializers.ResponseService;
 
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.upe.devflix.models.dto.ShareContentDTO;
 
 @RequestMapping("/api/v1/share")
 @RestController

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.upe.devflix.models.dto.CredentialDTO;
+import br.upe.devflix.models.dto.ForgotDTO;
+import br.upe.devflix.models.dto.RecoveryDTO;
 import br.upe.devflix.models.entities.User;
-import br.upe.devflix.models.serializables.Credential;
-import br.upe.devflix.models.serializables.Forgot;
-import br.upe.devflix.models.serializables.Recovery;
 import br.upe.devflix.services.security.AuthenticationService;
 
 @RequestMapping("/api/v1/authentication")
@@ -34,7 +34,7 @@ public class AuthenticationController {
 
   @PostMapping("/login")
   public ResponseEntity<?> createSession(
-    @RequestBody @Valid Credential credentialForm)
+    @RequestBody @Valid CredentialDTO credentialForm)
   {
     return Authentication.createSession(credentialForm);
   }
@@ -48,14 +48,14 @@ public class AuthenticationController {
 
   @PostMapping("/forgot")
   public ResponseEntity<?> forgotPassword(
-    @RequestBody @Valid Forgot forgotForm)
+    @RequestBody @Valid ForgotDTO forgotForm)
   {
     return Authentication.forgotPassword(forgotForm);
   }
 
   @PutMapping("/recovery")
   public ResponseEntity<?> changePassword(
-    @RequestBody @Valid Recovery recoveryForm)
+    @RequestBody @Valid RecoveryDTO recoveryForm)
   {
     return Authentication.changePassword(recoveryForm);
   }

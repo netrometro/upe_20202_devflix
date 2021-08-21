@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import br.upe.devflix.dao.IRecoveryDao;
 import br.upe.devflix.dao.IUserDao;
+import br.upe.devflix.models.dto.CredentialDTO;
+import br.upe.devflix.models.dto.ForgotDTO;
+import br.upe.devflix.models.dto.RecoveryDTO;
+import br.upe.devflix.models.dto.SessionResponseDTO;
 import br.upe.devflix.models.entities.RecoveryAccount;
 import br.upe.devflix.models.entities.User;
-import br.upe.devflix.models.serializables.Forgot;
-import br.upe.devflix.models.serializables.Recovery;
-import br.upe.devflix.models.serializables.Credential;
-import br.upe.devflix.models.serializables.SessionResponse;
 import br.upe.devflix.services.serializers.ResponseService;
 import br.upe.devflix.services.subsystems.MailService;
 
@@ -45,7 +45,7 @@ public class AuthenticationService {
     return Response.create(newUser, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> createSession(Credential credentialForm){
+  public ResponseEntity<?> createSession(CredentialDTO credentialForm){
     List<User> foundUsers = Users.findByEmailAndConfirmedTrue(
       credentialForm.getEmail());
     if (foundUsers.isEmpty()){
@@ -65,7 +65,7 @@ public class AuthenticationService {
     claims.put("email", fetchedUser.getEmail());
 
     String jwtToken = JwtProvider.build(claims);
-    SessionResponse session = new SessionResponse()
+    SessionResponseDTO session = new SessionResponseDTO()
       .setToken(jwtToken)
       .setClaims(claims);
 
@@ -81,7 +81,7 @@ public class AuthenticationService {
     return Response.create(user, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> forgotPassword(Forgot forgotForm){
+  public ResponseEntity<?> forgotPassword(ForgotDTO forgotForm){
     List<User> foundUsers = Users.findByEmailAndConfirmedTrue(forgotForm.getEmail());
     if (foundUsers.isEmpty()){
       return Response.create(null, HttpStatus.NOT_FOUND);
@@ -103,7 +103,7 @@ public class AuthenticationService {
     return Response.create(newRecovery, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> changePassword(Recovery recoveryForm){
+  public ResponseEntity<?> changePassword(RecoveryDTO recoveryForm){
     List<RecoveryAccount> foundRecoveries = Recoveries.findByTokenAndExpiredFalse(recoveryForm.getToken());
     if (foundRecoveries.isEmpty()){
       return Response.create(null, HttpStatus.NOT_FOUND);

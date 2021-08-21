@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.upe.devflix.models.serializables.GenericResponse;
+import br.upe.devflix.models.dto.GenericResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,14 +18,14 @@ public class ResponseService {
    * @param status Status HTTP;
    * @return Resposta HTTP.
    */
-  public <Any> ResponseEntity<GenericResponse<Any>> create(Any body, HttpStatus status){
+  public <Any> ResponseEntity<GenericResponseDTO<Any>> create(Any body, HttpStatus status){
     log.info("Returning generic response to client.");
-    GenericResponse<Any> response = new GenericResponse<Any>()
+    GenericResponseDTO<Any> response = new GenericResponseDTO<Any>()
       .setError(status.isError())
       .setStatus(status.value())
       .setStatusText(status.getReasonPhrase())
       .setResponse(body);
-    return new ResponseEntity<GenericResponse<Any>>(response, status);
+    return new ResponseEntity<GenericResponseDTO<Any>>(response, status);
   }
 
 }

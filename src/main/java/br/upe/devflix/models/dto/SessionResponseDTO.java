@@ -1,4 +1,4 @@
-package br.upe.devflix.models.serializables;
+package br.upe.devflix.models.dto;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class SessionResponse {
+public class SessionResponseDTO {
   
   private String token;
   private Map<String, String> claims;

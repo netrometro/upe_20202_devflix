@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.upe.devflix.models.serializables.ExceptionResponse;
 import br.upe.devflix.base.exceptions.CategoryNotFoundException;
+import br.upe.devflix.models.dto.ExceptionResponseDTO;
 
 @Slf4j
 @RestControllerAdvice
@@ -19,13 +19,13 @@ public class CategoryExceptionHandler {
   
   @ExceptionHandler(CategoryNotFoundException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  protected ExceptionResponse categoryNotFound(
+  protected ExceptionResponseDTO categoryNotFound(
     Exception exception,
     WebRequest request) 
   {
     log.warn("Error, category not found.", exception);
     
-    ExceptionResponse response = new ExceptionResponse()
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle(exception.getMessage())
       .setStatus(HttpStatus.NOT_FOUND.value())
       .setError(true)
