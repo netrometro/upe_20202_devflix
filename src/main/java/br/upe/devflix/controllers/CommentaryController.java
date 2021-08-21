@@ -61,7 +61,7 @@ public class CommentaryController {
     @RequestBody @Valid Commentary commentary) 
   {
     return responseService.create(
-      commentaryService.update(authorization, commentaryId, commentary), HttpStatus.OK);
+      commentaryService.protectedUpdate(authorization, commentaryId, commentary), HttpStatus.OK);
   }
 
   @DeleteMapping("/{commentaryId}")
@@ -70,7 +70,7 @@ public class CommentaryController {
     @PathVariable Long commentaryId) 
   {
     return responseService.create(
-      commentaryService.delete(authorization, commentaryId), HttpStatus.OK);
+      commentaryService.protectedDelete(authorization, commentaryId), HttpStatus.OK);
   }
 
 }
