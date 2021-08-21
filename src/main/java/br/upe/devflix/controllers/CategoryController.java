@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,7 @@ public class CategoryController {
     return responseService.create(categoryService.protectedCreate(authorization, category), HttpStatus.OK);
   }
 
+  @PutMapping("/{categoryId}")
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long categoryId,
@@ -51,7 +53,7 @@ public class CategoryController {
   {
     return responseService.create(categoryService.protectedUpdate(authorization, categoryId, category), HttpStatus.OK);
   }
-
+  
   @DeleteMapping("/{categoryId}")
   public ResponseEntity<?> delete(
     @RequestHeader("authorization") String authorization,
