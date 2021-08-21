@@ -3,6 +3,7 @@ package br.upe.devflix.models.entities;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,16 +80,16 @@ public class User extends GenericEntity {
   @Column(name = "user_confirmation_token")
   private String confirmationToken = UUID.randomUUID().toString();
 
-  @OneToMany(mappedBy = "author")
+  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   private List<Commentary> commentaries;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<RecoveryAccount> recoveries;
 
-  @OneToMany(mappedBy = "owner")
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private List<Video> videos;
 
-  @OneToMany(mappedBy = "owner")
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private List<Category> categories;
 
 }
