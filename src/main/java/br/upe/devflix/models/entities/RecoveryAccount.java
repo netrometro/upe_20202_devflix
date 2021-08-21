@@ -2,6 +2,7 @@ package br.upe.devflix.models.entities;
 
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,7 +44,7 @@ public class RecoveryAccount extends GenericEntity {
   private Boolean expired = false;
   
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private User user;
   
