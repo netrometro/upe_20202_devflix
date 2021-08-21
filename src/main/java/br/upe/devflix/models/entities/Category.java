@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -57,14 +58,14 @@ public class Category extends GenericEntity {
   @Column(name = "category_visibility")
   private int visibility = 1;
 
-  @OneToMany(mappedBy = "category")
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
   private List<Commentary> commentaries;
 
-  @OneToMany(mappedBy = "category")
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
   private List<Video> videos;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private User owner;
 
 }
