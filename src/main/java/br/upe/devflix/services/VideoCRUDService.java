@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class VideoCRUDService implements IVideoCRUDService {
 
   @Autowired private IVideoDao Videos;
+  @Autowired private MetadataCRUDService metadataService;
   @Autowired private UserCRUDService userService;
   @Autowired private VideoCRUDService videoService;
   @Autowired private CategoryCRUDService categoryService;
@@ -91,6 +92,7 @@ public class VideoCRUDService implements IVideoCRUDService {
       //Usuário não está autenticado...
       throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
     }
+
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
     if (owner.getId() != category.getOwner().getId()){
@@ -99,12 +101,13 @@ public class VideoCRUDService implements IVideoCRUDService {
     }
 
     List<Video> categoryVideos = category.getVideos();
+    Metadata metadata = metadataService.create(video.getMetadata());
     Video addedVideo = videoService.insert(
-      video.setCategory(category).setOwner(owner));
+      video.setCategory(category).setOwner(owner).setMetadata(metadata));
     categoryVideos.add(addedVideo);
     categoryService.update(category.setVideos(categoryVideos));
 
-    return video;
+    return addedVideo;
   }
 
   public Video protectedUpdate(
@@ -125,11 +128,21 @@ public class VideoCRUDService implements IVideoCRUDService {
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
+    /*
+    -----------------------------------
+    Não está funcionando
+    -----------------------------------
+    */
     if (owner.getId() != video.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
       throw new AccessDeniedException("Você não é proprietário deste vídeo para alterá-lo.");
     }
-    return update(videoId, video);
+
+    Metadata metadata = metadataService.update(foundVideo.getMetadata().getId(),foundVideo.getMetadata());
+    Video addedVideo = videoService.update(foundVideo.getId(),
+      video.setCategory(foundVideo.getCategory()).setOwner(foundVideo.getOwner()).setMetadata(metadata));
+
+    return update(videoId, addedVideo);
   }
 
   public Video protectedDelete(
@@ -148,6 +161,11 @@ public class VideoCRUDService implements IVideoCRUDService {
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
+    /*
+    -----------------------------------
+    Não está funcionando
+    -----------------------------------
+    */
     if (owner.getId() != foundVideo.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
       throw new AccessDeniedException("Você não é proprietário deste vídeo para excluí-lo.");
