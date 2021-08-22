@@ -23,7 +23,7 @@ public class MetadataController {
   @Autowired private MetadataCRUDService metadataService;
   @Autowired private ResponseService responseService;
 
-  @GetMapping("/{metadaId}")
+  @GetMapping("/{metadataId}")
   public ResponseEntity<?> fetch(
     @PathVariable Long metadataId)
   {
