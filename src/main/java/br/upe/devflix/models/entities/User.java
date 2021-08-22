@@ -88,9 +88,11 @@ public class User extends GenericEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<RecoveryAccount> recoveries;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private List<Video> videos;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private List<Category> categories;
 
