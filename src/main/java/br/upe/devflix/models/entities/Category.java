@@ -65,7 +65,7 @@ public class Category extends GenericEntity {
   private List<Video> videos;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private User owner;
 
 }
