@@ -146,10 +146,6 @@ public class VideoCRUDService implements IVideoCRUDService {
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
-    /*
-     * ----------------------------------- Não está funcionando
-     * -----------------------------------
-     */
     if (owner.getId() != foundVideo.getOwner().getId()) {
       // Usuário não é o proprietário do vídeo...
       throw new AccessDeniedException("Você não é proprietário deste vídeo para excluí-lo.");
