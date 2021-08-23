@@ -6,8 +6,6 @@ import javax.validation.constraints.*;
 import br.upe.devflix.base.GenericEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -35,17 +33,17 @@ public class Commentary extends GenericEntity {
   private String text;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id")
   private User author;
-  
-  @JsonProperty(access = Access.READ_ONLY)
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "video_id")
   private Video video;
 
-  @JsonProperty(access = Access.READ_ONLY)
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
   private Category category;
 }

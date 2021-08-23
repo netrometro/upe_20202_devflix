@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,15 +47,15 @@ public class Video extends GenericEntity {
   @OneToOne
   private Metadata metadata;
   
-  @OneToMany(mappedBy = "video")
+  @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
   private List<Commentary> commentaries;
   
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private Category category;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private User owner;
   
 }
