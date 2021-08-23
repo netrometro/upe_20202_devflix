@@ -62,7 +62,7 @@ public class VideoCRUDService implements IVideoCRUDService {
       log.warn("Video not found in database.");
       return null;
     }
-    return Videos.save(videoData.get().setId(videoId));
+    return Videos.save(video.setId(videoId));
   }
 
   public Video delete(Long videoId)
@@ -128,21 +128,17 @@ public class VideoCRUDService implements IVideoCRUDService {
 
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
-    /*
-    -----------------------------------
-    Não está funcionando
-    -----------------------------------
-    */
-    if (owner.getId() != video.getOwner().getId()){
+    
+    if (owner.getId() != foundVideo.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...
       throw new AccessDeniedException("Você não é proprietário deste vídeo para alterá-lo.");
     }
 
-    Metadata metadata = metadataService.update(foundVideo.getMetadata().getId(),foundVideo.getMetadata());
+    Metadata metadata = metadataService.update(foundVideo.getMetadata().getId(),video.getMetadata());
     Video addedVideo = videoService.update(foundVideo.getId(),
       video.setCategory(foundVideo.getCategory()).setOwner(foundVideo.getOwner()).setMetadata(metadata));
 
-    return update(videoId, addedVideo);
+    return addedVideo;
   }
 
   public Video protectedDelete(
