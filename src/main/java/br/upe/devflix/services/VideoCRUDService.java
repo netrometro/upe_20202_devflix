@@ -75,6 +75,7 @@ public class VideoCRUDService implements IVideoCRUDService {
       return null;
     }
     Videos.delete(video.get());
+    metadataService.delete(video.get().getMetadata().getId());
     return video.get();
   }
 
