@@ -13,6 +13,8 @@ const FORMFIELDS = [
   {type: 'psw_conf', icon: <LockIcon />, text: 'Confirmar senha'},
 ]
 
+const LOGO_HEIGHT = 100
+
 const SignUp = () => {
   return (
     <>
@@ -25,10 +27,10 @@ const SignUp = () => {
         width="100%">
         <Center>
           <Image
-            src={require('images/logo.svg')}
+            src="https://i.ibb.co/XjngWm9/logo.png"
             alt="logo"
-            width={500}
-            height={125}
+            width={LOGO_HEIGHT * 3}
+            height={LOGO_HEIGHT}
             mb={5}
             display="inline-block"
           />
