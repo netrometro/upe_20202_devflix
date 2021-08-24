@@ -18,8 +18,8 @@ module.exports = withOptimizedImages({
 
     return {
       '/': {page: '/'},
-      '/sign-in': {page: '/authentication/sign-in'},
-      '/sign-up': {page: '/authentication/sign-up'},
+      '/authentication/sign-in': {page: '/authentication/sign-in'},
+      '/authentication/sign-up': {page: '/authentication/sign-up'},
     }
   },
 })
