@@ -6,6 +6,7 @@ import java.util.Optional;
 import br.upe.devflix.dao.IUserDao;
 import br.upe.devflix.models.entities.User;
 import br.upe.devflix.base.exceptions.AccessDeniedException;
+import br.upe.devflix.base.exceptions.UserNotFoundException;
 import br.upe.devflix.services.interfaces.IUserCRUDService;
 import br.upe.devflix.services.security.AuthorizationService;
 
@@ -32,7 +33,7 @@ public class UserCRUDService implements IUserCRUDService {
     log.info("Returning a specific user from database.");
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
-      return null;
+      throw new UserNotFoundException("Usuário não encontrado no DevFlix.");
     }
     return user.get();
   }
@@ -50,7 +51,7 @@ public class UserCRUDService implements IUserCRUDService {
     Optional<User> userData = Users.findById(userId);
     if (!userData.isPresent()){
       log.warn("User not found in database.");
-      return null;
+      throw new UserNotFoundException("Usuário não encontrado no DevFlix.");
     }
     return Users.save(userData.get().setId(userId));
   }
@@ -61,7 +62,7 @@ public class UserCRUDService implements IUserCRUDService {
     Optional<User> user = Users.findById(userId);
     if (!user.isPresent()){
       log.warn("User not found in database.");
-      return null;
+      throw new UserNotFoundException("Usuário não encontrado no DevFlix.");
     }
     Users.delete(user.get());
     return user.get();

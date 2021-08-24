@@ -19,18 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class VideoCRUDService implements IVideoCRUDService {
 
-  @Autowired
-  private IVideoDao Videos;
-  @Autowired
-  private MetadataCRUDService metadataService;
-  @Autowired
-  private UserCRUDService userService;
-  @Autowired
-  private VideoCRUDService videoService;
-  @Autowired
-  private CategoryCRUDService categoryService;
-  @Autowired
-  private AuthorizationService authorizationService;
+  @Autowired private IVideoDao Videos; 
+  @Autowired private MetadataCRUDService metadataService; 
+  @Autowired private UserCRUDService userService; 
+  @Autowired private VideoCRUDService videoService; 
+  @Autowired private CategoryCRUDService categoryService; 
+  @Autowired private AuthorizationService authorizationService;
 
   public List<Video> search(String keyword) {
     log.info("Returning all videos by searching for keywords.");

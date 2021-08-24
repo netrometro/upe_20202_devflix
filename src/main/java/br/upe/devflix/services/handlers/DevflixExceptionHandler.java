@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.upe.devflix.base.exceptions.ServiceUnavailableException;
 import br.upe.devflix.models.dto.ExceptionResponseDTO;
 import br.upe.devflix.models.dto.ExceptionResponseDTO.FieldException;
 
@@ -97,6 +98,23 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+      .setError(true)
+      .setTimestamp(LocalDateTime.now());
+
+    return response;
+  }
+
+  @ExceptionHandler(ServiceUnavailableException.class)
+  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
+  protected ExceptionResponseDTO serviceUnavailable(
+    Exception exception,
+    WebRequest request) 
+  {
+    log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
+    exception.printStackTrace();
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
+      .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
+      .setStatus(HttpStatus.SERVICE_UNAVAILABLE.value())
       .setError(true)
       .setTimestamp(LocalDateTime.now());
 

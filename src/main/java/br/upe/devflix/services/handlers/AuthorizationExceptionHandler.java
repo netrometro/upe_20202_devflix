@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import br.upe.devflix.base.exceptions.AccessDeniedException;
+import br.upe.devflix.base.exceptions.UnauthorizedException;
 import br.upe.devflix.models.dto.ExceptionResponseDTO;
 
 @Slf4j
@@ -19,7 +20,7 @@ public class AuthorizationExceptionHandler {
   
   @ExceptionHandler(AccessDeniedException.class)
   @ResponseStatus(value = HttpStatus.FORBIDDEN)
-  protected ExceptionResponseDTO userNotFound(
+  protected ExceptionResponseDTO accessDenied(
     Exception exception,
     WebRequest request) 
   {
@@ -28,6 +29,23 @@ public class AuthorizationExceptionHandler {
     ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle(exception.getMessage())
       .setStatus(HttpStatus.FORBIDDEN.value())
+      .setError(true)
+      .setTimestamp(LocalDateTime.now());
+
+    return response;
+  }
+
+  @ExceptionHandler(UnauthorizedException.class)
+  @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+  protected ExceptionResponseDTO unauthorized(
+    Exception exception,
+    WebRequest request) 
+  {
+    log.warn("Error, unauthorized login attempt to specific resource.", exception);
+    
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
+      .setTitle(exception.getMessage())
+      .setStatus(HttpStatus.UNAUTHORIZED.value())
       .setError(true)
       .setTimestamp(LocalDateTime.now());
 

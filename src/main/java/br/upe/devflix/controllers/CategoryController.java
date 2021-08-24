@@ -22,6 +22,7 @@ import br.upe.devflix.services.serializers.ResponseService;
 @RequestMapping("/api/v1/category")
 @RestController
 public class CategoryController {
+  
   @Autowired private ResponseService responseService;
   @Autowired private CategoryCRUDService categoryService;
   
