@@ -25,12 +25,12 @@ const MenuWidget = (props) => {
         variant="outline"
       />
       <MenuList>
-        <Link href="/sign-in">
+        <Link href="/authentication/sign-in" passHref>
           <MenuItem icon={<ExitToApp style={iconStyle} />}>
             Realizar login
           </MenuItem>
         </Link>
-        <Link href="/sign-up">
+        <Link href="/authentication/sign-up" passHref>
           <MenuItem icon={<PersonAdd style={iconStyle} />}>
             Realizar cadastro
           </MenuItem>
