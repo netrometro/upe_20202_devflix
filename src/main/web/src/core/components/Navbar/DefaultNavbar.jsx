@@ -8,6 +8,8 @@ import ActionsButtons from './ActionsButtons'
 import Leading from './Leading'
 import Image from '../Image'
 
+const LOGO_HEIGHT = 50
+
 const DefaultNavbar = ({onClickSwitchNavbar}) => {
   return (
     <Flex alignItems="center" justifyContent="space-between">
@@ -15,10 +17,10 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
         <MenuWidget />
         <Box color="red" m={4}>
           <Image
-            src={require('images/logo.svg')}
+            src="https://i.ibb.co/XjngWm9/logo.png"
             alt="logo"
-            width={200}
-            height={50}
+            width={LOGO_HEIGHT * 3}
+            height={LOGO_HEIGHT}
           />
         </Box>
       </Leading>
