@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.upe.devflix.dao.IUserDao;
+import br.upe.devflix.dao.IRecoveryDao;
 import br.upe.devflix.base.exceptions.ServiceUnavailableException;
 import br.upe.devflix.base.exceptions.UnauthorizedException;
 import br.upe.devflix.base.exceptions.UserAlreadyExistsException;
 import br.upe.devflix.base.exceptions.UserNotFoundException;
-import br.upe.devflix.dao.IRecoveryDao;
-import br.upe.devflix.dao.IUserDao;
 import br.upe.devflix.models.dto.CredentialDTO;
 import br.upe.devflix.models.dto.ForgotDTO;
 import br.upe.devflix.models.dto.RecoveryDTO;
