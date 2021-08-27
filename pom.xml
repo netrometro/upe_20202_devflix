@@ -138,20 +138,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/src/main/resources/static</directory>
-							<includes>
-								<include>**</include>
-							</includes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
@@ -215,7 +201,7 @@
 						<fileset>
 							<directory>${basedir}/src/main/resources/static</directory>
 							<includes>
-								<include>**</include>
+								<include>*.*</include>
 							</includes>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
