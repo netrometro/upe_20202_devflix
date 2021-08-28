@@ -1,8 +1,11 @@
 import {React} from 'react'
-import {Button, Text, Input, Select, HStack} from "@chakra-ui/react"
+import {Button, Text, Input, Select, HStack, useDisclosure} from "@chakra-ui/react"
 import {Modal} from "core/components"
+import ModalMyVideos from './ModalMyVideos'
 
 const ModalVideo = ({...props}) => {
+
+  const { isOpen: isVideoOpen , onOpen: onVideoOpen, onClose: onVideoClose } = useDisclosure()
 
   const header = ({title, ...props}) => {
     return(
@@ -38,9 +41,10 @@ const ModalVideo = ({...props}) => {
           borderColor="primary"
           variant="outline"
           size="lg"
-          onClick={onOpen}>
+          onClick={onVideoOpen}>
           Meus Vídeos
         </Button>
+        <ModalMyVideos isOpen={isVideoOpen} onClose={onVideoClose}/>
       </HStack>
       
     </Modal>
