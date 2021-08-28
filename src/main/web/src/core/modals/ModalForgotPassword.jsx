@@ -3,6 +3,7 @@ import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
 import FormField from 'core/components/Form/FormField';
+import { Container } from '@material-ui/core';
 
 const ModalForgotPassword = ({...props}) => {
 
@@ -33,18 +34,17 @@ const ModalForgotPassword = ({...props}) => {
             ml="5px"
             mt="10px">
 
-          <FormField 
-            width="70%"
+          <FormField
             type="email"
-            icon={<EmailIcon/>}
+            icon={<EmailIcon />}
             text="Email"
             onChange={event => setEmail(event.target.value)}
             value={email}>
           </FormField>
-
           <Button size="lg">
             Confirmar
           </Button>
+          
         </VStack>
       </Center>
       
