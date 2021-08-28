@@ -1,23 +1,29 @@
 import {React, useState} from 'react';
 import {Modal} from 'core/components';
-import {Center, VStack} from '@chakra-ui/react';
+import {Center, VStack, Text, Box, Image} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
-import {FormField} from 'core/components/Form/FormField';
+import FormField from 'core/components/Form/FormField';
 
 const ModalForgotPassword = ({...props}) => {
 
   const header = () => {
     return (
-      <>
-        Solicitar nova senha
-      </>
+      <Center>
+        <VStack mt="1rem">
+          <Center>
+            <Image src="https://i.ibb.co/XjngWm9/logo.png" alt="Devflix" />
+          </Center>
+          <Text color="whiteLight" fontSize="32px">Solicitar nova senha</Text>
+
+        </VStack>
+      </Center>
     );
   }
 
   return (
     <Modal 
       size="2xl"
-      header="fgdfg"
+      header={header()}
       scrollBehavior="inside" 
       {...props}>
 
@@ -27,6 +33,7 @@ const ModalForgotPassword = ({...props}) => {
             mt="10px">
 
           <FormField 
+            width="70%"
             type="email"
             icon={<EmailIcon/>}
             text="Email">
