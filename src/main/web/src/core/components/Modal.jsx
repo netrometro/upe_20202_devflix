@@ -14,6 +14,7 @@ const Modal = ({
   header,
   children,
   footer,
+  size,
   bg = "background",
   ...props
 }) => {
@@ -23,7 +24,7 @@ const Modal = ({
         onClose={onClose}
         isOpen={isOpen}
         isCentered
-        size="4xl"
+        size={size || "4xl"}
         {...props}
       >
         <ModalOverlay />
