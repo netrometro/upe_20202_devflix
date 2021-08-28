@@ -59,6 +59,7 @@ public class YouTubeService {
       metadata.put("title", video.getSnippet().getTitle());
       metadata.put("description", video.getSnippet().getDescription());
       metadata.put("thumb", video.getSnippet().getThumbnails().getHigh().getUrl());
+      metadata.put("channelName", video.getSnippet().getChannelTitle());
   
       return metadata;
     } catch (Exception exception){
@@ -93,6 +94,7 @@ public class YouTubeService {
         metadata.put("title", video.getSnippet().getTitle());
         metadata.put("description", video.getSnippet().getDescription());
         metadata.put("thumb", video.getSnippet().getThumbnails().getHigh().getUrl());
+        metadata.put("channelName", video.getSnippet().getChannelTitle());
         videoMetadataList.add(metadata);
       }
       return videoMetadataList;
