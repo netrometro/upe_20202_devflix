@@ -16,7 +16,7 @@ const ModalConfirmEmail = ({...props}) => {
           <Center>
             <Image src="https://i.imgur.com/J1ymksl.png" alt="Devflix" />
           </Center>
-          <Text color="whiteLight" fontSize="32px">Solicitar nova senha</Text>
+          <Text color="whiteLight" fontSize="32px">Verifique seu Email</Text>
         </VStack>
       </Center>
     );
