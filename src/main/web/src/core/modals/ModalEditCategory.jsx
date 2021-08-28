@@ -1,10 +1,8 @@
 import {React} from 'react'
-import {Button, Text, Input, Select, HStack, useDisclosure} from "@chakra-ui/react"
+import {Button, Text, Input, Select, HStack,} from "@chakra-ui/react"
 import {Modal} from "core/components"
-import {ModalMyCategories} from 'core/modals'
 
 const ModalEditCategory = ({...props}) => {
-  const { isOpen: isMyCategoriesOpen , onOpen: onMyCategoriesOpen, onClose: onMyCategoriesClose } = useDisclosure()
   const header = ({title, ...props}) => {
     return(
       <Text {...props} color="whiteLight" fontSize="32px">{title}</Text>
@@ -13,7 +11,7 @@ const ModalEditCategory = ({...props}) => {
 
   return(
     <Modal 
-      header={header({title : "Cadastro de Categoria"})}
+      header={header({title : "Editar Categoria"})}
       scrollBehavior="inside" 
       {...props}
       >
@@ -27,17 +25,7 @@ const ModalEditCategory = ({...props}) => {
         <Button
           size="lg"
           >
-            Cadastrar
-        </Button>
-        <ModalMyCategories isOpen={isMyCategoriesOpen} onClose={onMyCategoriesClose}></ModalMyCategories>
-        <Button
-          onClick={onMyCategoriesOpen}
-          _hover={{ bg: "#EC00254F" }}
-          color="primary"
-          borderColor="primary"
-          variant="outline"
-          size="lg">
-          Minhas Categorias
+            Editar
         </Button>
       </HStack>
       
