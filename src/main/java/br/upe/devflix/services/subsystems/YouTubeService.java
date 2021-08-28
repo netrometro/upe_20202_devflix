@@ -59,6 +59,7 @@ public class YouTubeService {
       metadata.put("title", video.getSnippet().getTitle());
       metadata.put("description", video.getSnippet().getDescription());
       metadata.put("thumb", video.getSnippet().getThumbnails().getHigh().getUrl());
+      metadata.put("channelName", video.getSnippet().getChannelTitle());
   
       return metadata;
     } catch (Exception exception){
@@ -79,7 +80,7 @@ public class YouTubeService {
         .setKey(YoutubeApiKey)
         .setQ(query)
         .setType("video")
-        .setFields("items(id/videoId,snippet/title,snippet/description,snippet/thumbnails/high/url)")
+        .setFields("items(id/videoId,snippet/title,snippet/description,snippet/channelTitle,snippet/thumbnails/high/url)")
         .setMaxResults(MaxVideosPerPage);
 
       SearchListResponse searchResponse = search.execute();
@@ -93,6 +94,7 @@ public class YouTubeService {
         metadata.put("title", video.getSnippet().getTitle());
         metadata.put("description", video.getSnippet().getDescription());
         metadata.put("thumb", video.getSnippet().getThumbnails().getHigh().getUrl());
+        metadata.put("channelName", video.getSnippet().getChannelTitle());
         videoMetadataList.add(metadata);
       }
       return videoMetadataList;
