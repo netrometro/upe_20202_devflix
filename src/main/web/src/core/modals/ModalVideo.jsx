@@ -1,5 +1,5 @@
 import {React} from 'react'
-import {Button, Text, Input, Select, Box, Container, HStack} from "@chakra-ui/react"
+import {Button, Text, Input, Select, HStack} from "@chakra-ui/react"
 import {Modal} from "core/components"
 
 const ModalVideo = ({...props}) => {
@@ -37,7 +37,8 @@ const ModalVideo = ({...props}) => {
           color="primary"
           borderColor="primary"
           variant="outline"
-          size="lg">
+          size="lg"
+          onClick={onOpen}>
           Meus Vídeos
         </Button>
       </HStack>
