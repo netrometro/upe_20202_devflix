@@ -80,7 +80,7 @@ public class YouTubeService {
         .setKey(YoutubeApiKey)
         .setQ(query)
         .setType("video")
-        .setFields("items(id/videoId,snippet/title,snippet/description,snippet/thumbnails/high/url)")
+        .setFields("items(id/videoId,snippet/title,snippet/description,snippet/channelTitle,snippet/thumbnails/high/url)")
         .setMaxResults(MaxVideosPerPage);
 
       SearchListResponse searchResponse = search.execute();
