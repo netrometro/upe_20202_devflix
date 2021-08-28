@@ -2,14 +2,16 @@ import {React, useState} from 'react';
 import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
 import {EmailIcon, LockIcon} from '@chakra-ui/icons';
+import {VpnKey} from '@material-ui/icons';
 import FormField from 'core/components/Form/FormField';
-import { VpnKey } from '@material-ui/icons';
 
 const ModalRecoveryPassword = ({...props}) => {
 
   const [recoveryCode, setRecoveryCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const header = () => {
     return (
@@ -23,16 +25,28 @@ const ModalRecoveryPassword = ({...props}) => {
       </Center>
     );
   }
-
-  const onChangePassword = () => {
-    if (newPassword != confirmPassword){
-      
-    }
+  
+  const changePassword = (code, password) => {
     //Implementar lógica de mudar a senha.
+    //password é a nova senha escolhida pelo usuário,
+    //code é o código usado na API para redefinir a senha.
   }
 
-  const changePassword = (desiredPassword) => {
+  const onClickChangePassword = () => {
+    if (newPassword != confirmPassword){
+      return; 
+    }
+    changePassword(recoveryCode, newPassword);
+  }
 
+  const onChangeNewPassword = (value) => {
+    setNewPassword(value);
+    setIsDisabled(value != confirmPassword);
+  }
+
+  const onChangeConfirmPassword = (value) => {
+    setConfirmPassword();
+    setIsDisabled(newPassword != value);
   }
 
   return ( 
@@ -57,21 +71,24 @@ const ModalRecoveryPassword = ({...props}) => {
 
           <FormField
             type="psw"
-            icon={<LockIcon />}
+            icon={<LockIcon/>}
             text="Nova senha"
-            onChange={event => setNewPassword(event.target.value)}
+            onChange={event => onChangeNewPassword(event.target.value)}
             value={newPassword}>
           </FormField>
 
           <FormField
             type="psw"
-            icon={<LockIcon />}
+            icon={<LockIcon/>}
             text="Repita a nova senha"
-            onChange={event => setConfirmPassword(event.target.value)}
+            onChange={event => onChangeConfirmPassword(event.target.value)}
             value={confirmPassword}>
           </FormField>
 
-          <Button size="lg" onClick={onChangePassword}>
+          <Button 
+            disabled={isDisabled} 
+            size="lg" 
+            onClick={onClickChangePassword}>
             Confirmar
           </Button>
 

@@ -33,7 +33,7 @@ const HomePage = () => {
         })}
         {/* <ModalVideo isOpen={isOpen} onClose={onClose} /> */}
         {/* <ModalShare isOpen={isOpen} onClose={onClose} /> */}
-        <ModalMyVideos isOpen={isOpen} onClose={onClose}></ModalMyVideos>
+        <ModalForgotPassword isOpen={isOpen} onClose={onClose}></ModalForgotPassword>
         <Button onClick={onOpen}>Modal</Button>
       </Box>
     </>
