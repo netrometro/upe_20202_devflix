@@ -10,7 +10,7 @@ const Category = ({title, color, videos}) => {
       {/**
        * FIX: Needs to adds the video object to be pass as props to Carousel.Videos
        */}
-      <Carousel.Videos height={200} visibleSlides={3} items={videos} />
+      <Carousel.Videos visibleSlides={3} items={videos} />
     </Box>
   )
 }
