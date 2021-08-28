@@ -1,8 +1,9 @@
 import React from 'react'
-import {Box, Flex} from '@chakra-ui/react'
+import {Box, Flex, useDisclosure} from '@chakra-ui/react'
 import {SearchIcon} from '@chakra-ui/icons'
 
 import {Button, MenuWidget, IconButton} from 'core/components'
+import {ModalVideo} from 'core/modals'
 
 import ActionsButtons from './ActionsButtons'
 import Leading from './Leading'
@@ -11,6 +12,8 @@ import Image from '../Image'
 const LOGO_HEIGHT = 50
 
 const DefaultNavbar = ({onClickSwitchNavbar}) => {
+  const { isOpen: isVideoOpen , onOpen: onVideoOpen, onClose: onVideoClose } = useDisclosure()
+  const { isOpen: isCategoryOpen , onOpen: onCategoryOpen, onClose: onCategoryClose } = useDisclosure()
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Leading>
@@ -33,7 +36,8 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
           size="lg"
           onClick={onClickSwitchNavbar}
         />
-        <Button>Novo vídeo</Button>
+        <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose}></ModalVideo>
+        <Button onClick={onVideoOpen}>Novo vídeo</Button>
         <Button>Nova categoria</Button>
       </ActionsButtons>
     </Flex>
