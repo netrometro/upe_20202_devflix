@@ -1,14 +1,8 @@
 import {React, useState} from 'react';
 import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
-import {EmailIcon} from '@chakra-ui/icons';
-import FormField from 'core/components/Form/FormField';
 
 const ModalConfirmEmail = ({...props}) => {
-
-  const [email, setEmail] = useState('');
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
   const header = () => {
     return (
       <Center>
@@ -34,16 +28,12 @@ const ModalConfirmEmail = ({...props}) => {
             ml="5px"
             mt="10px">
 
-          <FormField
-            type="email"
-            icon={<EmailIcon />}
-            text="Email"
-            onChange={event => setEmail(event.target.value)}
-            value={email}>
-          </FormField>
+          <Box mt="4" mb="4" bg="#292929" p="3">
+            <Text color="whiteLight" fontSize="24px">Olá, verifique seu Email e confirme sua conta para ter acesso ao Devflix 😉</Text>
+          </Box>
 
-          <Button size="lg" onClick={onOpen}>
-            Confirmar
+          <Button size="lg">
+            Entendi
           </Button>
 
         </VStack>
