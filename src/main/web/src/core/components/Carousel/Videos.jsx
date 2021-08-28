@@ -10,7 +10,7 @@ import THUMB_ONE from 'images/thumb-one.svg'
 const Slide = (props) => {
   return (
     <Carousel.Item hasSpace {...props}>
-      <Image src={THUMB_ONE} alt="thumb_one" height={350} />
+      <Image mt="10" htmlWidth="333" htmlHeight="200" src={THUMB_ONE} alt="thumb_one"/>
     </Carousel.Item>
   )
 }

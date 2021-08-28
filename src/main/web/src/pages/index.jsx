@@ -3,7 +3,7 @@ import {Box, useDisclosure} from '@chakra-ui/react'
 import {Category, Navbar, Button} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 import {useUser} from 'core/hooks'
-import {ModalShare, ModalVideo} from 'core/modals'
+import {ModalShare} from 'core/modals'
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
