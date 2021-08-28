@@ -1,18 +1,23 @@
 import {React, useState} from 'react';
 import {Modal} from 'core/components';
-import {IconButton, Text, Input, HStack, Center, VStack} from '@chakra-ui/react';
+import {Center, VStack} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
-import {WhatsApp} from '@material-ui/icons';
-import FormField from 'core/components/Form/FormField';
+import {FormField} from 'core/components/Form/FormField';
 
 const ModalForgotPassword = ({...props}) => {
 
-
+  const header = () => {
+    return (
+      <>
+        Solicitar nova senha
+      </>
+    );
+  }
 
   return (
     <Modal 
       size="2xl"
-      header={header({title : "Compartilhar " + shareTitle})}
+      header="fgdfg"
       scrollBehavior="inside" 
       {...props}>
 
@@ -21,8 +26,10 @@ const ModalForgotPassword = ({...props}) => {
             ml="5px"
             mt="10px">
 
-          <FormField>
-            
+          <FormField 
+            type="email"
+            icon={<EmailIcon/>}
+            text="Email">
           </FormField>
 
         </VStack>
@@ -32,4 +39,4 @@ const ModalForgotPassword = ({...props}) => {
   );
 }
  
-export default ModalForgotPassword;
+export default ModalForgotPassword
