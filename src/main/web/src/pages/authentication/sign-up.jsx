@@ -1,10 +1,11 @@
 import React from 'react'
-import {Box, Center, Container} from '@chakra-ui/react'
+import {Box, Center, Container, useDisclosure} from '@chakra-ui/react'
 import PersonIcon from '@material-ui/icons/Person'
 import {Image, Button, Navbar} from 'core/components'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
+import {ModalConfirmEmail} from 'core/modals'
 
 const FORMFIELDS = [
   {type: 'name', icon: <PersonIcon />, text: 'Nome completo'},
@@ -16,6 +17,7 @@ const FORMFIELDS = [
 const LOGO_HEIGHT = 100
 
 const SignUp = () => {
+  const { isOpen: isConfirmOpen , onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure()
   return (
     <>
       <Navbar.BackBar />
@@ -56,7 +58,8 @@ const SignUp = () => {
           />
         </Center>
         <Center>
-          <Button size="lg">Cadastrar</Button>
+          <ModalConfirmEmail isOpen={isConfirmOpen} onClose={onConfirmClose}></ModalConfirmEmail>
+          <Button size="lg" onClick={onConfirmOpen}>Cadastrar</Button>
         </Center>
       </Box>
     </>
