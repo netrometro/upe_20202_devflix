@@ -1,10 +1,12 @@
 import {React, useState} from 'react';
-import {Modal} from 'core/components';
+import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
 import FormField from 'core/components/Form/FormField';
 
 const ModalForgotPassword = ({...props}) => {
+
+  const [email, setEmail] = useState('');
 
   const header = () => {
     return (
@@ -14,7 +16,6 @@ const ModalForgotPassword = ({...props}) => {
             <Image src="https://i.imgur.com/J1ymksl.png" alt="Devflix" />
           </Center>
           <Text color="whiteLight" fontSize="32px">Solicitar nova senha</Text>
-
         </VStack>
       </Center>
     );
@@ -36,9 +37,14 @@ const ModalForgotPassword = ({...props}) => {
             width="70%"
             type="email"
             icon={<EmailIcon/>}
-            text="Email">
+            text="Email"
+            onChange={event => setEmail(event.target.value)}
+            value={email}>
           </FormField>
 
+          <Button size="lg">
+            Confirmar
+          </Button>
         </VStack>
       </Center>
       
