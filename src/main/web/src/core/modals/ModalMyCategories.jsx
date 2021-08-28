@@ -3,9 +3,9 @@ import {Box, Text} from "@chakra-ui/react"
 import {Modal, Category} from "core/components"
 
 const CATEGORIES = [
-  {color: 'green', title: 'Back end'},
-  {color: 'blue', title: 'Front end'},
-  {color: 'orange', title: 'Full end'},
+  {color: 'green', title: 'Back end', deleteIcon: false, editIcon: false},
+  {color: 'blue', title: 'Front end', deleteIcon: false, editIcon: false},
+  {color: 'orange', title: 'Full end', deleteIcon: false, editIcon: false},
 ]
 
 const ModalMyCategories = ({...props}) => {
@@ -27,7 +27,7 @@ const ModalMyCategories = ({...props}) => {
           const isLastCategory = categories.length - 1 === index
           return (
             <Box key={`${index}`}>
-              <Category {...category} />
+              <Category {...category} deleteIcon={category.deleteIcon = true} editIcon={category.editIcon = true}/>
               {!isLastCategory && <Box height={10} />}
             </Box>
           )
