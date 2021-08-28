@@ -1,8 +1,8 @@
 import {React, useState} from 'react';
 import {Modal} from 'core/components';
-import {IconButton, Text, Input, HStack, Center, VStack} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
 import {WhatsApp} from '@material-ui/icons';
+import {IconButton, Text, Input, HStack, Center, VStack} from '@chakra-ui/react';
 
 const ModalShare = ({shareLink, shareTitle, ...props}) => {
   shareTitle = shareTitle || "";
