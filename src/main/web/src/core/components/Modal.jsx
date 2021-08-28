@@ -23,13 +23,13 @@ const Modal = ({
         onClose={onClose}
         isOpen={isOpen}
         isCentered
-        m={100}
+        size="4xl"
         {...props}
       >
         <ModalOverlay />
         <ModalContent bg={bg}>
           <ModalHeader>{header}</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color="whiteLight"/>
           <ModalBody>{children}</ModalBody>
           <ModalFooter>{footer}</ModalFooter>
         </ModalContent>

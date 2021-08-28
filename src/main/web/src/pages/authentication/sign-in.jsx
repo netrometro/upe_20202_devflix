@@ -63,6 +63,7 @@ const SignIn = () => {
           </Center>
           <Center>
             <Button
+              _hover={{ bg: "#EC00254F" }}
               color="primary"
               borderColor="primary"
               variant="outline"
