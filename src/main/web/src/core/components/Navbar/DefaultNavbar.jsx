@@ -3,7 +3,7 @@ import {Box, Flex, useDisclosure} from '@chakra-ui/react'
 import {SearchIcon} from '@chakra-ui/icons'
 
 import {Button, MenuWidget, IconButton} from 'core/components'
-import {ModalVideo} from 'core/modals'
+import {ModalVideo, ModalCategory} from 'core/modals'
 
 import ActionsButtons from './ActionsButtons'
 import Leading from './Leading'
@@ -38,7 +38,9 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
         />
         <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose}></ModalVideo>
         <Button onClick={onVideoOpen}>Novo vídeo</Button>
-        <Button>Nova categoria</Button>
+
+        <ModalCategory isOpen={isCategoryOpen} onClose={onCategoryClose}></ModalCategory>
+        <Button onClick={onCategoryOpen}>Nova categoria</Button>
       </ActionsButtons>
     </Flex>
   )
