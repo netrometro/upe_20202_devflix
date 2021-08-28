@@ -11,7 +11,7 @@ const ModalForgotPassword = ({...props}) => {
       <Center>
         <VStack mt="1rem">
           <Center>
-            <Image src="https://i.ibb.co/XjngWm9/logo.png" alt="Devflix" />
+            <Image src="https://i.imgur.com/J1ymksl.png" alt="Devflix" />
           </Center>
           <Text color="whiteLight" fontSize="32px">Solicitar nova senha</Text>
 
