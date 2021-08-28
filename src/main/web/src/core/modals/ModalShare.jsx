@@ -1,14 +1,17 @@
-import {React} from 'react';
+import {React, useState} from 'react';
 import {Modal} from 'core/components';
 import {IconButton, Text, Input, HStack, Center, VStack} from '@chakra-ui/react';
-import { EmailIcon } from '@chakra-ui/icons';
-import { WhatsApp } from '@material-ui/icons';
+import {EmailIcon} from '@chakra-ui/icons';
+import {WhatsApp} from '@material-ui/icons';
 
 const ModalShare = ({shareLink, shareTitle, ...props}) => {
   shareTitle = shareTitle || "";
 
-  const buildBody = () => {
+  const [ email, setEmail ] = useState("");
 
+  const buildBody = () => {
+    return "Olá, quero compartilhar este(s) vídeo(s) com você pois gostei muito dele(s)! " +
+    "Acompanhe o conteúdo exclusivo dentro do Devflix: " + shareLink;
   }
 
   const header = ({title}) => {
@@ -17,7 +20,15 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
     )
   }
 
-  
+  const onWhatsShare = () => {
+    window.open("https://wa.me/?text=" + encodeURIComponent(buildBody()), "__blank");
+  }
+
+  const onEmailShare = () => {
+    //Lógica de envio de e-mail aqui...
+    //Implementar a requisição de compartilhar video pelo email
+    alert("Enviando e-mail para... " + email);
+  }
 
   return (
     <Modal 
@@ -36,6 +47,8 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
             pelo e-mail da pessoa, preencha-o abaixo.
           </Text>
           <Input 
+            value={email}
+            onChange={event => setEmail(event.target.value)}
             type="email"
             w="75%"
             ml="5px"
@@ -49,6 +62,7 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
 
           <HStack>
             <IconButton
+              onClick={onWhatsShare}
               color="background"
               bgColor="primary"
               opacity="75%"
@@ -61,6 +75,7 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
               mr="0.5rem"
             />
             <IconButton
+              onClick={onEmailShare}
               color="background"
               bgColor="primary"
               opacity="75%"
