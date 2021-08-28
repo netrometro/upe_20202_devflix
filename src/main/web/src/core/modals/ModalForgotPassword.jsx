@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
 import {EmailIcon} from '@chakra-ui/icons';
+import ModalRecoveryPassword from './ModalRecoveryPassword';
 import FormField from 'core/components/Form/FormField';
 
 const ModalForgotPassword = ({...props}) => {
@@ -42,10 +43,10 @@ const ModalForgotPassword = ({...props}) => {
             value={email}>
           </FormField>
 
-          {/* <ModalRecoveryPassword 
+          <ModalRecoveryPassword 
             isOpen={isOpen} 
             onClose={onClose}>
-          </ModalRecoveryPassword> */}
+          </ModalRecoveryPassword>
 
           <Button size="lg" onClick={onOpen}>
             Confirmar
