@@ -1,9 +1,10 @@
 import React from 'react'
 import {Box, useDisclosure} from '@chakra-ui/react'
-import {Category, Navbar, Button} from 'core/components'
+import {Category, Navbar, Button, HStack} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 import {useUser} from 'core/hooks'
 import {ModalForgotPassword, ModalShare} from 'core/modals'
+import ModalMyVideos from 'core/modals/ModalMyVideos'
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
@@ -32,7 +33,7 @@ const HomePage = () => {
         })}
         {/* <ModalVideo isOpen={isOpen} onClose={onClose} /> */}
         {/* <ModalShare isOpen={isOpen} onClose={onClose} /> */}
-        <ModalForgotPassword isOpen={isOpen} onClose={onClose}></ModalForgotPassword>
+        <ModalMyVideos isOpen={isOpen} onClose={onClose}></ModalMyVideos>
         <Button onClick={onOpen}>Modal</Button>
       </Box>
     </>
