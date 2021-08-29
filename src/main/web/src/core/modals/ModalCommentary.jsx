@@ -2,9 +2,8 @@ import {React, useState} from 'react';
 import {Button, Modal} from 'core/components';
 import {
   Textarea, Text, 
-  Center, VStack, 
-  Spacer, Flex, Box,
-  Container
+  VStack, Spacer, 
+  Flex, Box, Container
 } from '@chakra-ui/react';
 
 const ModalCommentary = ({commentaries, ...props}) => {
@@ -43,8 +42,7 @@ const ModalCommentary = ({commentaries, ...props}) => {
       scrollBehavior="inside" 
       {...props}>
 
-      <VStack w="100%"
-        mt="10px">
+      <VStack w="100%" mt="10px">
 
         {commentaries.map((commentary) => renderCommentary(commentary))}
 
