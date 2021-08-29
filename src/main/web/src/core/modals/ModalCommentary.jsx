@@ -39,7 +39,7 @@ const ModalCommentary = ({commentaries, ...props}) => {
   return (
     <Modal 
       size="2xl"
-      header={header({title : "Comentários dos usuários"})}
+      header={header({title : "Comentários"})}
       scrollBehavior="inside" 
       {...props}>
 
