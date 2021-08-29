@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,8 @@ public class UserCRUDService implements IUserCRUDService {
       log.warn("User not found in database.");
       throw new UserNotFoundException("Usuário não encontrado no DevFlix.");
     }
-    return Users.save(userData.get().setId(userId));
+    user.setLastChangedDate(LocalDateTime.now());
+    return Users.save(user.setId(userId));
   }
 
   public User delete(Long userId)
