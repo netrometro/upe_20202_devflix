@@ -5,7 +5,7 @@ import ModalMyVideos from './ModalMyVideos'
 
 const ModalVideo = ({...props}) => {
 
-  const { isOpen: isVideoOpen , onOpen: onVideoOpen, onClose: onVideoClose } = useDisclosure()
+  const { isOpen: isMyVideoOpen , onOpen: onMyVideoOpen, onClose: onMyVideoClose } = useDisclosure()
 
   const header = ({title, ...props}) => {
     return(
@@ -41,10 +41,10 @@ const ModalVideo = ({...props}) => {
           borderColor="primary"
           variant="outline"
           size="lg"
-          onClick={onVideoOpen}>
+          onClick={onMyVideoOpen}>
           Meus Vídeos
         </Button>
-        <ModalMyVideos isOpen={isVideoOpen} onClose={onVideoClose}/>
+        <ModalMyVideos isOpen={isMyVideoOpen} onClose={onMyVideoClose}/>
       </HStack>
       
     </Modal>

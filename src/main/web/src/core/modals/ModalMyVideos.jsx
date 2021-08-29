@@ -1,9 +1,10 @@
 import {React} from 'react'
-import {Box, Text, HStack, Image, VStack, IconButton} from "@chakra-ui/react"
+import {Box, Text, HStack, Image, VStack, IconButton, useDisclosure} from "@chakra-ui/react"
 import {Modal} from "core/components"
 import THUMB_ONE from 'images/thumb-one.svg'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ModalEditVideo from './ModalEditVideo';
 
 const VIDEOS = [
   {title: 'Back end', url: "aaaaaaaaaaaaa"},
@@ -12,6 +13,9 @@ const VIDEOS = [
 ]
 
 const ModalMyVideos = ({...props}) => {
+
+  const { isOpen: isEditVideoOpen , onOpen: onEditVideoOpen, onClose: onEditVideoClose } = useDisclosure()
+
   const header = ({title, ...props}) => {
     return(
       <Text {...props} color="whiteLight" fontSize="32px">{title}</Text>
@@ -46,7 +50,9 @@ const ModalMyVideos = ({...props}) => {
                     _hover="background"
                     bg="background"
                     icon={<EditIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}/>}
+                    onClick={onEditVideoOpen}
                     />
+                    <ModalEditVideo isOpen={isEditVideoOpen} onClose={onEditVideoClose}/>
                   </HStack>
                 </VStack>
               </HStack>
