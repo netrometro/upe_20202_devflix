@@ -1,10 +1,9 @@
 import React from 'react'
 import {Box, useDisclosure} from '@chakra-ui/react'
-import {Category, Navbar, Button, HStack} from 'core/components'
+import {Category, Navbar, Button} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 import {useUser} from 'core/hooks'
-import {ModalForgotPassword, ModalShare} from 'core/modals'
-import ModalMyVideos from 'core/modals/ModalMyVideos'
+import {ModalForgotPassword} from 'core/modals'
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
