@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +56,7 @@ public class CategoryCRUDService implements ICategoryCRUDService{
       log.warn("Category not found in database.");
       throw new CategoryNotFoundException("Categoria não encontrada.");
     }
-
+    category.setLastChangedDate(LocalDateTime.now());
     return Categories.save(category.setId(categoryId));
   }
 

@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,8 @@ public class MetadataCRUDService implements IMetadataCRUDService {
       return null;
     }
     metadata.setId(metadataId);
-    Metadata.save(metadata);
-    return Metadata.save(metadataData.get().setId(metadataId));
+    metadata.setLastChangedDate(LocalDateTime.now());
+    return Metadata.save(metadata);
   }
 
   public Metadata delete(Long metadataId)

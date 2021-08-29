@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,7 @@ public class VideoCRUDService implements IVideoCRUDService {
       log.warn("Video not found in database.");
       return null;
     }
+    video.setLastChangedDate(LocalDateTime.now());
     return Videos.save(video.setId(videoId));
   }
 
