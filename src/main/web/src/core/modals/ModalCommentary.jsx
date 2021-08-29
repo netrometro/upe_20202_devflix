@@ -7,17 +7,33 @@ import {
   Container
 } from '@chakra-ui/react';
 
-const ModalCommentary = ({...props}) => {
-
-  const header = ({title}) => {
-    return(
-      <Text color="whiteLight" fontSize="32px">{title}</Text>
-    )
-  }
+const ModalCommentary = ({commentaries, ...props}) => {
+  commentaries = commentaries || [{ 
+    userName: 'Muryllo', 
+    body: 'Excelente exemplo de integração Jwt. Parabéns pelo vídeo!',
+    canDelete: true
+  }]; //Remover esta lista de exemplo quando for integrar...
 
   const onCommentClick = () => {
     //Implementar lógica de enviar comentário
     //ao servidor pelo Axios...
+  }
+
+  const header = ({title}) => {
+    return (
+      <Text color="whiteLight" fontSize="32px">{title}</Text>
+    )
+  }
+
+  const renderCommentary = ({userName, body, canDelete, ...commentProps}) => {
+    return (
+      <VStack mt="10px" w="100%" bgColor="#292929" borderRadius="6px">
+        <Box p={3}>
+          <Text mb="2px" color="whiteLight" fontSize="18px">{userName}</Text>
+          <Text mt="2px" color="whiteLight" fontSize="14px">{body}</Text>
+        </Box>
+      </VStack>
+    )
   }
 
   return (
@@ -27,37 +43,38 @@ const ModalCommentary = ({...props}) => {
       scrollBehavior="inside" 
       {...props}>
 
-      <Center>
-        <VStack w="100%"
-            ml="5px"
-            mt="10px">
+      <VStack w="100%"
+        mt="10px">
 
-          <Textarea
-            w="100%"
-            mt="10px"
-            variant="flushed"
-            color="gray"
-            bgColor="whiteLight"
-            borderRadius="4px"
-            placeholder="Adicionar um comentário..."
-            _placeholder={{ color: 'gray', textIndent: '4px' }}
-            borderColor="whiteLight"
-            focusBorderColor="whiteLight" />
+        {commentaries.map((commentary) => renderCommentary(commentary))}
 
-          <Container w="100%" height="1rem" />
+        <Container w="100%" height="1rem" />
 
-          <Flex w="100%">
-            <Box p="1"/>
-            <Spacer />
-            <Button
-              size="lg"
-              onClick={onCommentClick}>
-              Comentar
-            </Button>
-          </Flex>
-          
-        </VStack>
-      </Center>
+        <Textarea
+          w="100%"
+          mt="10px"
+          variant="flushed"
+          color="gray"
+          bgColor="whiteLight"
+          borderRadius="6px"
+          placeholder="Adicionar um comentário..."
+          _placeholder={{ color: 'gray', textIndent: '4px' }}
+          borderColor="whiteLight"
+          focusBorderColor="whiteLight" />
+
+        <Container w="100%" height="0.5rem" />
+
+        <Flex w="100%">
+          <Box p="1" />
+          <Spacer />
+          <Button
+            size="lg"
+            onClick={onCommentClick}>
+            Comentar
+          </Button>
+        </Flex>
+
+      </VStack>
       
     </Modal>
   );
