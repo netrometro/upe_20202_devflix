@@ -2,7 +2,8 @@ import {React} from 'react'
 import {Box, Text, HStack, Image, VStack, IconButton} from "@chakra-ui/react"
 import {Modal} from "core/components"
 import THUMB_ONE from 'images/thumb-one.svg'
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const VIDEOS = [
   {title: 'Back end', url: "aaaaaaaaaaaaa"},
@@ -34,15 +35,17 @@ const ModalMyVideos = ({...props}) => {
                   <HStack w="100%">
                     <Text color="whiteLight" fontSize="30px" w="90%">{video.title}</Text>
                     <IconButton
+                    _hover="background"
                     bg="background"
-                    icon={<DeleteIcon color="whiteLight" boxSize="40px" _hover={{ bg: "background" }}/>}
+                    icon={<DeleteIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}/>}
                     />
                   </HStack>
                   <HStack w="100%">
                     <Text color="whiteLight" pr="5px" w="90%">{video.url}</Text>
                     <IconButton
+                    _hover="background"
                     bg="background"
-                    icon={<EditIcon color="whiteLight" boxSize="40px" _hover={{ bg: "background" }}/>}
+                    icon={<EditIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}/>}
                     />
                   </HStack>
                 </VStack>
