@@ -1,6 +1,11 @@
 import {React, useState} from 'react';
-import {Modal} from 'core/components';
-import {Textarea, Text, Input, Center, VStack, HStack} from '@chakra-ui/react';
+import {Button, Modal} from 'core/components';
+import {
+  Textarea, Text, 
+  Center, VStack, 
+  Spacer, Flex, Box,
+  Container
+} from '@chakra-ui/react';
 
 const ModalCommentary = ({...props}) => {
 
@@ -8,6 +13,11 @@ const ModalCommentary = ({...props}) => {
     return(
       <Text color="whiteLight" fontSize="32px">{title}</Text>
     )
+  }
+
+  const onCommentClick = () => {
+    //Implementar lógica de enviar comentário
+    //ao servidor pelo Axios...
   }
 
   return (
@@ -34,6 +44,18 @@ const ModalCommentary = ({...props}) => {
             borderColor="whiteLight"
             focusBorderColor="whiteLight" />
 
+          <Container w="100%" height="1rem" />
+
+          <Flex w="100%">
+            <Box p="1"/>
+            <Spacer />
+            <Button
+              size="lg"
+              onClick={onCommentClick}>
+              Comentar
+            </Button>
+          </Flex>
+          
         </VStack>
       </Center>
       
