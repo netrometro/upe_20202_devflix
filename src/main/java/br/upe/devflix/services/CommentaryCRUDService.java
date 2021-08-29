@@ -1,5 +1,6 @@
 package br.upe.devflix.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,7 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
     }
     Commentary newCommentary = existingComment.get()
       .setText(commentary.getText());
+    newCommentary.setLastChangedDate(LocalDateTime.now());
     return Commentaries.save(newCommentary);
   }
 
