@@ -22,20 +22,17 @@ const ModalCommentary = ({...props}) => {
             ml="5px"
             mt="10px">
 
-          <HStack>
-            <Textarea
-              w="75%"
-              ml="5px"
-              mt="10px"
-              variant="flushed"
-              color="black"
-              bgColor="gray"
-              borderRadius="4px"
-              _placeholder={{ color: 'whiteLight' }}
-              borderColor="primary"
-              focusBorderColor="primary">
-            </Textarea>
-          </HStack>
+          <Textarea
+            w="100%"
+            mt="10px"
+            variant="flushed"
+            color="gray"
+            bgColor="whiteLight"
+            borderRadius="4px"
+            placeholder="Adicionar um comentário..."
+            _placeholder={{ color: 'gray', textIndent: '4px' }}
+            borderColor="whiteLight"
+            focusBorderColor="whiteLight" />
 
         </VStack>
       </Center>
