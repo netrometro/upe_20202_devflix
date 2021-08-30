@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {Button, Modal} from 'core/components';
+import {Modal} from 'core/components';
 import {Center, VStack, HStack, Text, Box, Image, IconButton, useDisclosure} from '@chakra-ui/react';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -8,9 +8,28 @@ import {ModalShare, ModalCommentary} from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
-const ModalVideoDetails = ({...props}) => {
+const ModalVideoDetails = ({details, ...props}) => {
   const { isOpen: isCommentaryOpen , onOpen: onCommentaryOpen, onClose: onCommentaryClose } = useDisclosure()
   const { isOpen: isShareOpen , onOpen: onShareOpen, onClose: onShareClose } = useDisclosure()
+
+  details = details || [{
+    title: 'O que faz uma desenvolvedora front-end?', 
+    description: 'O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!'
+  }];
+
+  const detailVideo = ({title, description, ...videoProps}) => {
+    return (
+      <>
+        <Text color="whiteLight" fontSize="24px" as="strong">{title}</Text>
+        <Text color="whiteLight" fontSize="18px">{description}</Text>
+      </>
+    )
+  }
+
+  const onPlaylick = () => {
+
+  }
+
   const header = () => {
     return (
       <Box>
@@ -32,14 +51,15 @@ const ModalVideoDetails = ({...props}) => {
         <VStack w="100%"
             ml="5px"
             mt="10px">
-          <Text color="whiteLight" fontSize="24px" as="strong">O que faz uma desenvolvedora front-end?</Text>
-          <Text color="whiteLight" fontSize="18px">O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa! </Text>
+
+          {details.map((detail) => detailVideo(detail))}
+
           <HStack>
             <IconButton
               _hover="background"
               bg="background"
               icon={<PlayCircleFilledIcon style={{ color: "#EC0025", marginLeft: "9", fontSize: "38px"}}/>}
-              
+              onClick={onPlaylick}
             />
               <ModalCommentary isOpen={isCommentaryOpen} onClose={onCommentaryClose}></ModalCommentary>
               <IconButton

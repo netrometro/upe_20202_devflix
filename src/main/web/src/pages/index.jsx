@@ -1,9 +1,8 @@
 import React from 'react'
 import {Box, useDisclosure} from '@chakra-ui/react'
-import {Category, Navbar, Button} from 'core/components'
+import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 import {useUser} from 'core/hooks'
-import {ModalCommentary} from 'core/modals'
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
@@ -30,10 +29,6 @@ const HomePage = () => {
             </Box>
           )
         })}
-        {/* <ModalVideo isOpen={isOpen} onClose={onClose} /> */}
-        {/* <ModalShare isOpen={isOpen} onClose={onClose} /> */}
-        <ModalCommentary isOpen={isOpen} onClose={onClose} />
-        <Button onClick={onOpen}>Modal</Button>
       </Box>
     </>
   )
