@@ -4,10 +4,13 @@ import {Center, VStack, HStack, Text, Box, Image, IconButton, useDisclosure} fro
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ShareIcon from '@material-ui/icons/Share';
+import {ModalShare, ModalCommentary} from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
 const ModalVideoDetails = ({...props}) => {
+  const { isOpen: isCommentaryOpen , onOpen: onCommentaryOpen, onClose: onCommentaryClose } = useDisclosure()
+  const { isOpen: isShareOpen , onOpen: onShareOpen, onClose: onShareClose } = useDisclosure()
   const header = () => {
     return (
       <Box>
@@ -38,20 +41,21 @@ const ModalVideoDetails = ({...props}) => {
               icon={<PlayCircleFilledIcon style={{ color: "#EC0025", marginLeft: "9", fontSize: "38px"}}/>}
               
             />
+              <ModalCommentary isOpen={isCommentaryOpen} onClose={onCommentaryClose}></ModalCommentary>
               <IconButton
               _hover="background"
               bg="background"
               icon={<ChatBubbleIcon style={{ color: "#EC0025", marginLeft: "9", fontSize: "38px"}}/>}
-              
+              onClick={onCommentaryOpen}
             />
+              <ModalShare isOpen={isShareOpen} onClose={onShareClose}></ModalShare>
               <IconButton
               _hover="background"
               bg="background"
               icon={<ShareIcon style={{ color: "#EC0025", marginLeft: "9", fontSize: "38px"}}/>}
-              
+              onClick={onShareOpen}
             />
-          </HStack>
-          
+          </HStack>    
         </VStack>
       </Center>
     </Modal>
