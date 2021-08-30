@@ -2,9 +2,9 @@ import {React} from 'react'
 import {Box, Text, HStack, Image, VStack, IconButton, useDisclosure} from "@chakra-ui/react"
 import {Modal} from "core/components"
 import THUMB_ONE from 'images/thumb-one.svg'
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import ModalEditVideo from './ModalEditVideo';
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import ModalEditVideo from './ModalEditVideo'
 
 const VIDEOS = [
   {title: 'Back end', url: "aaaaaaaaaaaaa"},
