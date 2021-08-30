@@ -2,10 +2,13 @@ import {React} from 'react'
 import {Button, Text, Input, Select, HStack, useDisclosure} from "@chakra-ui/react"
 import {Modal} from "core/components"
 import ModalMyVideos from './ModalMyVideos'
+import ModalYoutubeSearch from './ModalYoutubeSearch'
 
 const ModalVideo = ({...props}) => {
 
   const { isOpen: isMyVideoOpen , onOpen: onMyVideoOpen, onClose: onMyVideoClose } = useDisclosure()
+
+  const { isOpen: isYoutubeSearchOpen , onOpen: onYoutubeSearchOpen, onClose: onYoutubeSearchClose } = useDisclosure()
 
   const header = ({title, ...props}) => {
     return(
@@ -32,9 +35,11 @@ const ModalVideo = ({...props}) => {
         </Button>
         <Button
           size="lg"
+          onClick={onYoutubeSearchOpen}
           >
             Buscar Vídeo
         </Button>
+        <ModalYoutubeSearch isOpen={isYoutubeSearchOpen} onClose={onYoutubeSearchClose}/>
         <Button
           _hover={{ bg: "#EC00254F" }}
           color="primary"
