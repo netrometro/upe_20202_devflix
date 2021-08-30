@@ -1,4 +1,4 @@
-import {Box, Flex, HStack, useDisclosure} from '@chakra-ui/react'
+import {Box, Flex, HStack, useDisclosure, IconButton} from '@chakra-ui/react'
 import React from 'react'
 import Text from '../Text'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -15,9 +15,20 @@ const Title = ({text, color, deleteIcon, editIcon}) => {
       </Text>
       <HStack>
         <Box mt="1" ml="3">
-          {deleteIcon && <DeleteIcon style={{ color: "#BDBDBD", marginRight: "3", fontSize: "38px"}}></DeleteIcon>}
+          {deleteIcon && 
+            <IconButton
+              _hover="background"
+              bg="background"
+              icon={<DeleteIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}/>}
+            />}
           <ModalEditCategory isOpen={isEditCategoryOpen} onClose={onEditCategoryClose}></ModalEditCategory>
-          {editIcon && <EditIcon onClick={onEditCategoryOpen} style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}></EditIcon>}
+          {editIcon && 
+            <IconButton
+              _hover="background"
+              bg="background"
+              icon={<EditIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px"}}/>}
+              onClick={onEditCategoryOpen}
+            />}
         </Box>
       </HStack>
     </Flex>
