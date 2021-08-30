@@ -4,13 +4,17 @@ import {Range} from 'core/utils'
 
 import Image from '../Image'
 import Carousel from './Carousel'
+import {useDisclosure} from "@chakra-ui/react"
+import {ModalVideoDatails} from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
 const Slide = (props) => {
+  const { isOpen: isVideoDetailsOpen , onOpen: onVideoDetailsOpen, onClose: onVideoDetailsClose } = useDisclosure()
   return (
     <Carousel.Item hasSpace {...props}>
-      <Image mt="10" htmlWidth="333" htmlHeight="200" src={THUMB_ONE} alt="thumb_one"/>
+      <ModalVideoDatails isOpen={isVideoDetailsOpen} onClose={onVideoDetailsClose}></ModalVideoDatails>
+      <Image onClick={onVideoDetailsOpen} mt="10" htmlWidth="333" htmlHeight="200" src={THUMB_ONE} alt="thumb_one"/>
     </Carousel.Item>
   )
 }
