@@ -26,7 +26,7 @@ const ModalVideoDetails = ({details, ...props}) => {
     )
   }
 
-  const onPlaylick = () => {
+  const onPlayClick = () => {
 
   }
 
@@ -59,7 +59,7 @@ const ModalVideoDetails = ({details, ...props}) => {
               _hover="background"
               bg="background"
               icon={<PlayCircleFilledIcon style={{ color: "#EC0025", marginLeft: "9", fontSize: "38px"}}/>}
-              onClick={onPlaylick}
+              onClick={onPlayClick}
             />
               <ModalCommentary isOpen={isCommentaryOpen} onClose={onCommentaryClose}></ModalCommentary>
               <IconButton

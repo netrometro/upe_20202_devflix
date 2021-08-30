@@ -11,6 +11,10 @@ const ModalCategory = ({...props}) => {
     )
   }
 
+  const onRegisterClick = () => {
+
+  }
+
   return(
     <Modal 
       header={header({title : "Cadastro de Categoria"})}
@@ -26,6 +30,7 @@ const ModalCategory = ({...props}) => {
       spacing="5%"> 
         <Button
           size="lg"
+          onClick={onRegisterClick}
           >
             Cadastrar
         </Button>

@@ -9,6 +9,10 @@ const ModalEditCategory = ({...props}) => {
     )
   }
 
+  const onEditCategoryClick = () => {
+
+  }
+
   return(
     <Modal 
       header={header({title : "Editar Categoria"})}
@@ -24,6 +28,7 @@ const ModalEditCategory = ({...props}) => {
       spacing="5%"> 
         <Button
           size="lg"
+          onClick={onEditCategoryClick}
           >
             Editar
         </Button>
