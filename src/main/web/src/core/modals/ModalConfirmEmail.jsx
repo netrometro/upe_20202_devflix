@@ -22,23 +22,18 @@ const ModalConfirmEmail = ({...props}) => {
       header={header()}
       scrollBehavior="inside" 
       {...props}>
-
       <Center>
         <VStack w="100%"
             ml="5px"
             mt="10px">
-
           <Box mt="4" mb="4" bg="#292929" p="3">
             <Text color="whiteLight" fontSize="24px">Olá, verifique seu Email e confirme sua conta para ter acesso ao Devflix 😉</Text>
           </Box>
-
           <Button size="lg">
             Entendi
           </Button>
-
         </VStack>
-      </Center>
-      
+      </Center>      
     </Modal>
   );
 }

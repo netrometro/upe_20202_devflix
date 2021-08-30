@@ -27,7 +27,7 @@ const ModalCommentary = ({commentaries, ...props}) => {
   const renderCommentary = ({userName, body, canDelete, ...commentProps}) => {
     return (
       <VStack mt="10px" w="100%" bgColor="#292929" borderRadius="6px">
-        <Box p={3}>
+        <Box p={3} textAlign={'left'}>
           <Text mb="2px" color="whiteLight" fontSize="18px">{userName}</Text>
           <Text mt="2px" color="whiteLight" fontSize="14px">{body}</Text>
         </Box>
@@ -51,6 +51,7 @@ const ModalCommentary = ({commentaries, ...props}) => {
         <Textarea
           w="100%"
           mt="10px"
+          p="3"
           variant="flushed"
           color="gray"
           bgColor="whiteLight"
