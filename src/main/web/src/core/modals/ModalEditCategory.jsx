@@ -1,4 +1,4 @@
-import {React} from 'react'
+import React from 'react'
 import {Button, Text, Input, Select, HStack,} from "@chakra-ui/react"
 import {Modal} from "core/components"
 

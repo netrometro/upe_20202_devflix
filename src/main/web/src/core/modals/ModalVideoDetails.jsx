@@ -1,5 +1,5 @@
-import {React} from 'react'
-import {Modal} from 'core/components'
+import React from 'react'
+import { Modal } from 'core/components'
 import {
   Center,
   VStack,
@@ -13,11 +13,11 @@ import {
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import ShareIcon from '@material-ui/icons/Share'
-import {ModalShare, ModalCommentary} from 'core/modals'
+import { ModalShare, ModalCommentary } from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
-const ModalVideoDetails = ({details, ...props}) => {
+const ModalVideoDetails = ({ details, ...props }) => {
   const {
     isOpen: isCommentaryOpen,
     onOpen: onCommentaryOpen,
@@ -35,9 +35,9 @@ const ModalVideoDetails = ({details, ...props}) => {
       'O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!',
   }
 
-  const {title, description} = DATA
+  const { title, description } = DATA
 
-  const onPlayClick = () => {}
+  const onPlayClick = () => { }
 
   const header = () => {
     return (
@@ -78,7 +78,7 @@ const ModalVideoDetails = ({details, ...props}) => {
               bg="background"
               icon={
                 <PlayCircleFilledIcon
-                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
+                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
                 />
               }
               onClick={onPlayClick}
@@ -91,7 +91,7 @@ const ModalVideoDetails = ({details, ...props}) => {
               bg="background"
               icon={
                 <ChatBubbleIcon
-                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
+                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
                 />
               }
               onClick={onCommentaryOpen}
@@ -104,7 +104,7 @@ const ModalVideoDetails = ({details, ...props}) => {
               bg="background"
               icon={
                 <ShareIcon
-                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
+                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
                 />
               }
               onClick={onShareOpen}
