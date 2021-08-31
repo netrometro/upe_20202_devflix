@@ -5,3 +5,5 @@ export {default as useUser} from './useUser'
 export {default as useReducerActions} from './useReducerActions'
 export {default as useForm} from './useForm'
 export {default as useStorage} from './useStorage'
+
+export * from './authentication'
