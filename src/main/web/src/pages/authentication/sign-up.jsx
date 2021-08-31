@@ -7,7 +7,7 @@ import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
 import {ModalConfirmEmail} from 'core/modals'
 
-const FORMFIELDS = [
+const FORM_FIELDS = [
   {type: 'name', icon: <PersonIcon />, text: 'Nome completo'},
   {type: 'email', icon: <EmailIcon />, text: 'Email'},
   {type: 'psw', icon: <LockIcon />, text: 'Senha'},
@@ -17,7 +17,11 @@ const FORMFIELDS = [
 const LOGO_HEIGHT = 100
 
 const SignUp = () => {
-  const { isOpen: isConfirmOpen , onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure()
+  const {
+    isOpen: isConfirmOpen,
+    onOpen: onConfirmOpen,
+    onClose: onConfirmClose,
+  } = useDisclosure()
   return (
     <>
       <Navbar.BackBar />
@@ -38,7 +42,7 @@ const SignUp = () => {
           />
         </Center>
         <Container>
-          {FORMFIELDS.map((formfield, index) => {
+          {FORM_FIELDS.map((formfield, index) => {
             return (
               <form key={`${index}`}>
                 <FormField {...formfield} />
@@ -58,8 +62,12 @@ const SignUp = () => {
           />
         </Center>
         <Center>
-          <ModalConfirmEmail isOpen={isConfirmOpen} onClose={onConfirmClose}></ModalConfirmEmail>
-          <Button size="lg" onClick={onConfirmOpen}>Cadastrar</Button>
+          <ModalConfirmEmail
+            isOpen={isConfirmOpen}
+            onClose={onConfirmClose}></ModalConfirmEmail>
+          <Button size="lg" onClick={onConfirmOpen}>
+            Cadastrar
+          </Button>
         </Center>
       </Box>
     </>
