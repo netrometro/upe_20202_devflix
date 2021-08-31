@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +20,7 @@ import br.upe.devflix.models.entities.Category;
 import br.upe.devflix.services.CategoryCRUDService;
 import br.upe.devflix.services.serializers.ResponseService;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/category")
 @RestController
 public class CategoryController {

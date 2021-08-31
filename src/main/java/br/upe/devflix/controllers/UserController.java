@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserController {

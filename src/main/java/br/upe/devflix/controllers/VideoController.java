@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +23,7 @@ import br.upe.devflix.services.CategoryCRUDService;
 import br.upe.devflix.services.subsystems.YouTubeService;
 import br.upe.devflix.services.serializers.ResponseService;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/video")
 @RestController
 public class VideoController {
