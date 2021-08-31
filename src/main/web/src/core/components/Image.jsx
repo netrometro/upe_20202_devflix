@@ -1,6 +1,11 @@
 import React from 'react'
-import {Image as ChakraImage} from '@chakra-ui/image'
-
+// eslint-disable-next-line no-unused-vars
+import {Image as ChakraImage, ImageProps} from '@chakra-ui/image'
+/**
+ *
+ * @param {ImageProps} props
+ * @returns
+ */
 const Image = (props) => {
   return <ChakraImage {...props} />
 }
