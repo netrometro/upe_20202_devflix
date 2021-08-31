@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React from 'react';
 import {Button, Modal} from 'core/components';
 import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
 
