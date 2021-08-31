@@ -2,17 +2,27 @@ import {PagesTitles} from 'core/utils/constants'
 import React from 'react'
 import {Box, Center, Container, Flex} from '@chakra-ui/react'
 import {Image, Button, Navbar} from 'core/components'
+import {useForm} from 'core/hooks'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 
 const FORMFIELDS = [
-  {type: 'email', icon: <EmailIcon />, text: 'Email'},
-  {type: 'psw', icon: <LockIcon />, text: 'Senha'},
+  {type: 'email', icon: <EmailIcon />, text: 'Email', fieldName: 'email'},
+  {type: 'psw', icon: <LockIcon />, text: 'Senha', fieldName: 'password'},
 ]
 
 const LOGO_HEIGHT = 100
 
+const INITIAL_VALUES = {
+  email: '',
+  password: '',
+}
+
 const SignIn = () => {
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_VALUES)
+
+  console.log(fields)
+
   return (
     <>
       <Navbar.BackBar />
@@ -34,10 +44,15 @@ const SignIn = () => {
             />
           </Center>
           <Container>
-            {FORMFIELDS.map((formfield, index) => {
+            {FORMFIELDS.map((formField, index) => {
+              const {fieldName} = formField
+
               return (
                 <form key={`${index}`}>
-                  <FormField {...formfield} />
+                  <FormField
+                    {...formField}
+                    {...getFieldProperties(fieldName)}
+                  />
                 </form>
               )
             })}
@@ -63,7 +78,7 @@ const SignIn = () => {
           </Center>
           <Center>
             <Button
-              _hover={{ bg: "#EC00254F" }}
+              _hover={{bg: '#EC00254F'}}
               color="primary"
               borderColor="primary"
               variant="outline"
