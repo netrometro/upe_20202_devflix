@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, useDisclosure} from '@chakra-ui/react'
+import {Box} from '@chakra-ui/react'
 import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 import {useUser} from 'core/hooks'
@@ -12,7 +12,6 @@ const CATEGORIES = [
 
 const HomePage = () => {
   const [state, actions] = useUser()
-  const { isOpen, onClose, onOpen } = useDisclosure();
 
   console.log({state, actions})
 
