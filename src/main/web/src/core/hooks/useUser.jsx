@@ -6,7 +6,6 @@ const useUser = () => {
   if (!context) {
     return new Error('This hook must be wrapped by the UserProvider')
   }
-
   return context
 }
 

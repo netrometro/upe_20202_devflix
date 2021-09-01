@@ -139,7 +139,7 @@ const SignUp = () => {
             mb={10}
           />
         </Center>
-        <VStack mx="600" pb="4">
+        <VStack mx="auto" maxWidth="500px" pb="4">
           {renderAlert()}
         </VStack>
         <Center>
