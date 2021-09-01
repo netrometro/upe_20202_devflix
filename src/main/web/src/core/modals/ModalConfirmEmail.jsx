@@ -1,8 +1,10 @@
-import {React, useState} from 'react';
-import {Button, Modal} from 'core/components';
-import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
+import React from 'react'
+import {Button, Modal} from 'core/components'
+import {Center, VStack, Text, Box, Image} from '@chakra-ui/react'
 
 const ModalConfirmEmail = ({...props}) => {
+  const {onClose} = props
+
   const header = () => {
     return (
       <Center>
@@ -10,32 +12,31 @@ const ModalConfirmEmail = ({...props}) => {
           <Center>
             <Image src="https://i.imgur.com/J1ymksl.png" alt="Devflix" />
           </Center>
-          <Text color="whiteLight" fontSize="32px">Verifique seu Email</Text>
+          <Text color="whiteLight" fontSize="32px">
+            Verifique seu Email
+          </Text>
         </VStack>
       </Center>
-    );
+    )
   }
 
   return (
-    <Modal 
-      size="2xl"
-      header={header()}
-      scrollBehavior="inside" 
-      {...props}>
+    <Modal size="2xl" header={header()} scrollBehavior="inside" {...props}>
       <Center>
-        <VStack w="100%"
-            ml="5px"
-            mt="10px">
+        <VStack w="100%" ml="5px" mt="10px">
           <Box mt="4" mb="4" bg="#292929" p="3">
-            <Text color="whiteLight" fontSize="24px">Olá, verifique seu Email e confirme sua conta para ter acesso ao Devflix 😉</Text>
+            <Text color="whiteLight" fontSize="24px">
+              Olá, verifique seu Email e confirme sua conta para ter acesso ao
+              Devflix 😉
+            </Text>
           </Box>
-          <Button size="lg">
+          <Button size="lg" onClick={() => onClose()}>
             Entendi
           </Button>
         </VStack>
-      </Center>      
+      </Center>
     </Modal>
-  );
+  )
 }
- 
+
 export default ModalConfirmEmail
