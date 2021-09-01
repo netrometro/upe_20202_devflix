@@ -17,11 +17,6 @@ const HomePage = () => {
 
   console.log({state, actions})
 
-  get('/api/v1/category', 
-    null, null, function(data, status){
-    console.log(data, status)
-  });
-
   return (
     <>
       <Navbar />
