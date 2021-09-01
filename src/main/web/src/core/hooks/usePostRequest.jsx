@@ -2,6 +2,7 @@
 import {useMutation, UseMutationOptions, UseMutationResult} from 'react-query'
 import {AxiosResponse} from 'axios'
 import {Api} from 'core/services'
+import useToken from './useToken'
 
 /**
  *
@@ -11,10 +12,16 @@ import {Api} from 'core/services'
  * @returns UseMutationResult
  */
 const usePostRequest = (url, options = {}) => {
+  const token = useToken()
+
+  const personalizedConfig = {
+    headers: {Authorization: `Bearer ${token}`},
+  }
+
   return useMutation((args) => {
     const {config = {}, ...data} = args ?? {}
 
-    return Api.post(url, data, config)
+    return Api.post(url, data, {...config, ...personalizedConfig})
   }, options)
 }
 
