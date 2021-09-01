@@ -38,7 +38,9 @@ const SignIn = () => {
     [setItem],
   )
 
-  const onClickDoLogin = () => requestLogin()
+  const onClickDoLogin = () => {
+    requestLogin()
+  }
 
   const renderAlert = () => {
     const error = {

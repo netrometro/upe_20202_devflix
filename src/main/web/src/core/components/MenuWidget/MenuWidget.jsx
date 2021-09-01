@@ -3,6 +3,7 @@ import {Menu as ChakraMenu, Flex, Link} from '@chakra-ui/react'
 import {HamburgerIcon} from '@chakra-ui/icons'
 import {PersonAdd, Info, ExitToApp} from '@material-ui/icons'
 import {useTheme} from 'core/hooks'
+import NextLink from 'next/link'
 
 import MenuButton from './Button'
 import MenuItem from './Item'
@@ -24,16 +25,16 @@ const MenuWidget = (props) => {
         variant="outline"
       />
       <MenuList>
-        <Link href="/authentication/sign-in" passHref>
+        <NextLink href="/authentication/sign-in" passHref>
           <MenuItem icon={<ExitToApp style={iconStyle} />}>
             Realizar login
           </MenuItem>
-        </Link>
-        <Link href="/authentication/sign-up" passHref>
+        </NextLink>
+        <NextLink href="/authentication/sign-up" passHref>
           <MenuItem icon={<PersonAdd style={iconStyle} />}>
             Realizar cadastro
           </MenuItem>
-        </Link>
+        </NextLink>
         <Link href="https://github.com/netrometro/upe_20202_devflix#readme" target="_blank">
           <MenuItem icon={<Info style={iconStyle} />}>Sobre</MenuItem>
         </Link>
