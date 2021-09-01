@@ -38,9 +38,7 @@ const SignIn = () => {
     [setItem],
   )
 
-  const onClickDoLogin = () => {
-    requestLogin()
-  }
+  const onClickDoLogin = () => requestLogin()
 
   const renderAlert = () => {
     const error = {
@@ -78,11 +76,11 @@ const SignIn = () => {
 
       login(user)
       onSaveCredentials(token)
-      return null
+      return router.push('/')
     }
 
     return null
-  }, [isError, isSuccess, login, onSaveCredentials, password, response])
+  }, [isError, isSuccess, login, onSaveCredentials, password, response, router])
 
   const isButtonDisabled = !(email && password)
 
