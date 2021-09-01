@@ -5,10 +5,8 @@ import {Image, Button, Navbar} from 'core/components'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
-import {ModalConfirmEmail} from 'core/modals'
 import {useForm, useSignUp} from 'core/hooks'
 import Alert from 'core/components/Alert'
-import {useRouter} from 'next/dist/client/router'
 
 const FORM_FIELDS = [
   {
@@ -37,19 +35,13 @@ const INITIAL_VALUES = {
 }
 
 const SignUp = () => {
-  const {
-    isOpen: isConfirmOpen,
-    onOpen: onConfirmOpen,
-    onClose: onConfirmClose,
-  } = useDisclosure()
+  const {onOpen: onConfirmOpen} = useDisclosure()
 
   const [{fields}, {getFieldProperties}] = useForm(INITIAL_VALUES)
   const {name, email, password, confirmPassword} = fields
 
   const [{response, isError, isLoading, isSuccess}, {requestSignUp}] =
     useSignUp({name, email, password})
-
-  const router = useRouter()
 
   console.log(response)
 
@@ -58,11 +50,6 @@ const SignUp = () => {
     if (isSuccess) {
       onConfirmOpen()
     }
-  }
-
-  const _onConfirmClose = () => {
-    onConfirmClose()
-    return router.push('/authentication/sign-in/')
   }
 
   const renderAlert = () => {
@@ -143,7 +130,6 @@ const SignUp = () => {
           {renderAlert()}
         </VStack>
         <Center>
-          <ModalConfirmEmail isOpen={isConfirmOpen} onClose={_onConfirmClose} />
           <Button size="lg" onClick={onClickSignUp} isLoading={isLoading}>
             Cadastrar
           </Button>
