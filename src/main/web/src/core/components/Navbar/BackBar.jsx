@@ -1,10 +1,11 @@
 import React from 'react'
 import {Flex} from '@chakra-ui/layout'
-import {ArrowBackIcon, InfoOutlineIcon, Link} from '@chakra-ui/icons'
+import {ArrowBackIcon, InfoOutlineIcon} from '@chakra-ui/icons'
 
 import Leading from './Leading'
 import {IconButton} from 'core/components'
 import ActionsButtons from './ActionsButtons'
+import {Link} from '@chakra-ui/react'
 
 const BackBar = () => {
   return (
@@ -12,7 +13,7 @@ const BackBar = () => {
       <Leading>
         <Link href="/" passHref>
           <IconButton
-            icon={<ArrowBackIcon boxSize="1.75rem"/>}
+            icon={<ArrowBackIcon boxSize="1.75rem" />}
             bg="black"
             color="secondary"
             size="lg"
@@ -21,9 +22,11 @@ const BackBar = () => {
         </Link>
       </Leading>
       <ActionsButtons>
-        <Link href="https://github.com/netrometro/upe_20202_devflix#readme" target="_blank">
+        <Link
+          href="https://github.com/netrometro/upe_20202_devflix#readme"
+          target="_blank">
           <IconButton
-            icon={<InfoOutlineIcon boxSize="1.75rem"/>}
+            icon={<InfoOutlineIcon boxSize="1.75rem" />}
             bg="black"
             color="secondary"
             size="lg"

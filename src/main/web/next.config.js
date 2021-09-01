@@ -20,6 +20,7 @@ module.exports = withOptimizedImages({
       '/': {page: '/'},
       '/authentication/sign-in': {page: '/authentication/sign-in'},
       '/authentication/sign-up': {page: '/authentication/sign-up'},
+      '/authentication/confirmation': {page: '/authentication/confirmation'},
     }
   },
 })
