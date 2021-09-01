@@ -1,7 +1,6 @@
 import React from 'react'
 import {Flex} from '@chakra-ui/layout'
-import {ArrowBackIcon, InfoOutlineIcon} from '@chakra-ui/icons'
-import Link from 'next/link'
+import {ArrowBackIcon, InfoOutlineIcon, Link} from '@chakra-ui/icons'
 
 import Leading from './Leading'
 import {IconButton} from 'core/components'
@@ -22,13 +21,14 @@ const BackBar = () => {
         </Link>
       </Leading>
       <ActionsButtons>
-        <IconButton
-          aria-label="Procurar vídeo"
-          icon={<InfoOutlineIcon boxSize="1.75rem"/>}
-          bg="black"
-          color="secondary"
-          size="lg"
-        />
+        <Link href="https://github.com/netrometro/upe_20202_devflix#readme" target="_blank">
+          <IconButton
+            icon={<InfoOutlineIcon boxSize="1.75rem"/>}
+            bg="black"
+            color="secondary"
+            size="lg"
+          />
+        </Link>
       </ActionsButtons>
     </Flex>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Menu as ChakraMenu, Flex} from '@chakra-ui/react'
+import {Menu as ChakraMenu, Flex, Link} from '@chakra-ui/react'
 import {HamburgerIcon} from '@chakra-ui/icons'
 import {PersonAdd, Info, ExitToApp} from '@material-ui/icons'
 import {useTheme} from 'core/hooks'
@@ -9,7 +9,6 @@ import MenuItem from './Item'
 import MenuList from './List'
 import IconButton from '../IconButton'
 import Text from '../Text'
-import Link from 'next/link'
 
 const MenuWidget = (props) => {
   const {colors} = useTheme()
@@ -35,7 +34,9 @@ const MenuWidget = (props) => {
             Realizar cadastro
           </MenuItem>
         </Link>
-        <MenuItem icon={<Info style={iconStyle} />}>Sobre</MenuItem>
+        <Link href="https://github.com/netrometro/upe_20202_devflix#readme" target="_blank">
+          <MenuItem icon={<Info style={iconStyle} />}>Sobre</MenuItem>
+        </Link>
         <Flex flexDirection="column" alignItems="center" mt={10}>
           <Text color="secondary">Versão 0.0.1</Text>
         </Flex>

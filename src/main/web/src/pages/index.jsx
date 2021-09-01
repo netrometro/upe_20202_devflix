@@ -2,7 +2,6 @@ import React from 'react'
 import {Box} from '@chakra-ui/react'
 import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
-import useToken from 'core/hooks/useToken'
 // import { useUser } from 'core/hooks'
 
 
@@ -15,8 +14,6 @@ const CATEGORIES = [
 const HomePage = () => {
   // const [state, actions] = useUser()
   // console.log({state, actions})
-
-  console.log(useToken())
 
   return (
     <>
