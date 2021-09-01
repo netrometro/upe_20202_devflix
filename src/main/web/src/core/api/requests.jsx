@@ -9,7 +9,7 @@ export function get(url, params, bearer, response){
       'Authorization': 'Bearer ' + bearer || ''
     }
   }).then((res) => response(res.data, res.status))
-  .catch((err) => response(err.response.data, err.response.status));
+  .catch((err) => response(err.response?.data, err.response?.status));
 }
 
 export function post(url, params, body, bearer, response){
@@ -20,7 +20,7 @@ export function post(url, params, body, bearer, response){
       'Authorization': 'Bearer ' + bearer || ''
     }
   }).then((res) => response(res.data, res.status))
-  .catch((err) => response(err.response.data, err.response.status));
+  .catch((err) => response(err.response?.data, err.response.status));
 }
 
 export function put(url, params, body, bearer, response){
@@ -31,7 +31,7 @@ export function put(url, params, body, bearer, response){
       'Authorization': 'Bearer ' + bearer || ''
     }
   }).then((res) => response(res.data, res.status))
-  .catch((err) => response(err.response.data, err.response.status));
+  .catch((err) => response(err.response?.data, err.response.status));
 }
 
 export function del(url, params, bearer, response){
@@ -41,5 +41,5 @@ export function del(url, params, bearer, response){
       'Authorization': 'Bearer ' + bearer || ''
     }
   }).then((res) => response(res.data, res.status))
-  .catch((err) => response(err.response.data, err.response.status));
+  .catch((err) => response(err.response?.data, err.response.status));
 }
