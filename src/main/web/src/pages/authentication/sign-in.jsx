@@ -40,9 +40,6 @@ const SignIn = () => {
 
   const onClickDoLogin = () => {
     requestLogin()
-    if (isSuccess){
-      return router.push('/')
-    }
   }
 
   const renderAlert = () => {
@@ -81,7 +78,7 @@ const SignIn = () => {
 
       login(user)
       onSaveCredentials(token)
-      return null
+      return router.push('/')
     }
 
     return null
