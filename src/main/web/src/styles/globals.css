@@ -7,6 +7,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  min-width: 600px!important;
+}
+
 #logo {
   width: 75%;
 }

@@ -47,18 +47,15 @@ const SignIn = () => {
       status: 'error',
       body: 'Eita! Ocorreu um erro ao processar a sua solicitação de login. Por favor, cheque as suas credenciais de acesso e tente novamente!',
     }
-
     const success = {
       status: 'success',
       body: 'Login realizado com sucesso!',
     }
-
     const buildMessage = () => {
       return isError ? error : success
     }
 
     const {status, body} = buildMessage()
-
     return (isError || isSuccess) && <Alert status={status} message={body} />
   }
 
@@ -121,7 +118,7 @@ const SignIn = () => {
               )
             })}
           </Container>
-          <VStack mx="600" py="4">
+          <VStack mx="auto" maxWidth="500px" py="4">
             {renderAlert()}
           </VStack>
           <Center>
