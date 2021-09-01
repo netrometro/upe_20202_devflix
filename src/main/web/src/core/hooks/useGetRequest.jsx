@@ -2,6 +2,7 @@
 import {useQuery, UseQueryOptions} from 'react-query'
 import {Api} from 'core/services'
 import {AxiosRequestConfig} from 'axios'
+import useToken from './useToken'
 
 /**
  *
@@ -12,9 +13,15 @@ import {AxiosRequestConfig} from 'axios'
  * @returns UseQueryResult
  */
 const useGetRequest = (url, configs = {}, options = {}) => {
+  const token = useToken()
+
+  const personalizedConfigs = {
+    headers: {Authorization: `Bearer ${token}`},
+  }
+
   return useQuery({
     ...options,
-    queryKey: [url, configs],
+    queryKey: [url, {configs, ...personalizedConfigs}],
     queryFn: () => Api.get(url, configs),
   })
 }

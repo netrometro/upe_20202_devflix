@@ -5,7 +5,8 @@ const Types = {
 
 /**
  * @typedef User
- * @property {string} name
+ * @property {string} id
+ * @property {number} roles
  * @property {string} email
  * @property {string} token
  */
@@ -33,7 +34,8 @@ const Actions = {
  * @typedef {User} UserReducerState
  */
 const INITIAL_STATE = {
-  name: undefined,
+  id: undefined,
+  roles: undefined,
   email: undefined,
   token: undefined,
 }
