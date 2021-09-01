@@ -5,20 +5,20 @@ import useStorage from './useStorage'
 import {LOCAL_STORAGES_LOCATIONS} from 'core/utils/constants'
 
 const useToken = () => {
-  const [{token}] = useUser()
-  const [getItem] = useStorage()
-  const [actualToken, setActualToken] = useState('')
+  const [{token}] = useUser();
+  const [getItem] = useStorage();
+  const [actualToken, setActualToken] = useState('');
 
   useEffect(() => {
     if (token) {
-      setActualToken(token)
-      return
+      setActualToken(token);
+      return;
     }
 
     setActualToken(getItem(LOCAL_STORAGES_LOCATIONS.BEARER_TOKEN))
-  }, [getItem, token])
+  }, [getItem, token]);
 
-  return actualToken
+  return actualToken || '';
 }
 
-export default useToken
+export default useToken;

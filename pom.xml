@@ -8,7 +8,6 @@
 	<artifactId>upe_20202_devflix</artifactId>
 	<version>1.0</version>
 	<name>upe_20202_devflix</name>
-	<!-- Em caso de problemas, remover -->
 	<packaging>war</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -157,6 +156,7 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<!-- Baixa o node e o yarn -->
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend.version}</version>
@@ -195,6 +195,7 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<!-- Gera o conteúdo estático do react e copia na pasta webapp -->
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
@@ -204,19 +205,27 @@
 						</goals>
 						<phase>compile</phase>
 						<configuration>
-							<outputDirectory>${basedir}/src/main/resources/static</outputDirectory>
+							<outputDirectory>${basedir}/src/main/webapp</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${frontend-src-dir}/build</directory>
 									<filtering>true</filtering>
-									<includes>
-										<include>**</include>
-									</includes>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<!-- Limpa o diretório webapp para receber o build estático do react -->
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}/src/main/webapp</directory>
+						</fileset>
+					</filesets>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

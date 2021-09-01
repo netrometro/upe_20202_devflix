@@ -1,8 +1,10 @@
 import React from 'react'
-import {Box, useDisclosure} from '@chakra-ui/react'
+import {Box} from '@chakra-ui/react'
 import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
-import {useUser} from 'core/hooks'
+import useToken from 'core/hooks/useToken'
+// import { useUser } from 'core/hooks'
+
 
 const CATEGORIES = [
   {color: 'green', title: 'Back end'},
@@ -11,10 +13,10 @@ const CATEGORIES = [
 ]
 
 const HomePage = () => {
-  const [state, actions] = useUser()
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  // const [state, actions] = useUser()
+  // console.log({state, actions})
 
-  console.log({state, actions})
+  console.log(useToken())
 
   return (
     <>
