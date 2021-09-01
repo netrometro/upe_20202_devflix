@@ -1,20 +1,40 @@
 import React from 'react'
-import {Box, Center, Container, useDisclosure} from '@chakra-ui/react'
+import {Box, Center, Container, useDisclosure, VStack} from '@chakra-ui/react'
 import PersonIcon from '@material-ui/icons/Person'
 import {Image, Button, Navbar} from 'core/components'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
 import {ModalConfirmEmail} from 'core/modals'
+import {useForm, useSignUp} from 'core/hooks'
+import Alert from 'core/components/Alert'
+import {useRouter} from 'next/dist/client/router'
 
 const FORM_FIELDS = [
-  {type: 'name', icon: <PersonIcon />, text: 'Nome completo'},
-  {type: 'email', icon: <EmailIcon />, text: 'Email'},
-  {type: 'psw', icon: <LockIcon />, text: 'Senha'},
-  {type: 'psw_conf', icon: <LockIcon />, text: 'Confirmar senha'},
+  {
+    type: 'name',
+    icon: <PersonIcon />,
+    text: 'Nome completo',
+    fieldName: 'name',
+  },
+  {type: 'email', icon: <EmailIcon />, text: 'Email', fieldName: 'email'},
+  {type: 'psw', icon: <LockIcon />, text: 'Senha', fieldName: 'password'},
+  {
+    type: 'psw_conf',
+    icon: <LockIcon />,
+    text: 'Confirmar senha',
+    fieldName: 'confirmPassword',
+  },
 ]
 
 const LOGO_HEIGHT = 100
+
+const INITIAL_VALUES = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+}
 
 const SignUp = () => {
   const {
@@ -22,6 +42,64 @@ const SignUp = () => {
     onOpen: onConfirmOpen,
     onClose: onConfirmClose,
   } = useDisclosure()
+
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_VALUES)
+  const {name, email, password, confirmPassword} = fields
+
+  const [{response, isError, isLoading, isSuccess}, {requestSignUp}] =
+    useSignUp({name, email, password})
+
+  const router = useRouter()
+
+  console.log(response)
+
+  const onClickSignUp = () => {
+    requestSignUp()
+    if (isSuccess) {
+      onConfirmOpen()
+    }
+  }
+
+  const _onConfirmClose = () => {
+    onConfirmClose()
+    return router.push('/authentication/sign-in/')
+  }
+
+  const renderAlert = () => {
+    const error = {
+      status: 'error',
+      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de cadastro. Por favor, tente mais tarde!',
+    }
+
+    const success = {
+      status: 'success',
+      body: 'Cadastro realizado com sucesso!',
+    }
+
+    const warning = {
+      status: 'warning',
+      body: 'As senhas devem ser iguais.',
+    }
+
+    const isPasswordsEquals = password === confirmPassword
+
+    const buildMessage = () => {
+      if (!isPasswordsEquals) {
+        return warning
+      }
+
+      return isError ? error : success
+    }
+
+    const {status, body} = buildMessage()
+
+    return (
+      (isError || isSuccess || !isPasswordsEquals) && (
+        <Alert status={status} message={body} />
+      )
+    )
+  }
+
   return (
     <>
       <Navbar.BackBar />
@@ -42,10 +120,10 @@ const SignUp = () => {
           />
         </Center>
         <Container>
-          {FORM_FIELDS.map((formfield, index) => {
+          {FORM_FIELDS.map(({fieldName, ...formField}, index) => {
             return (
               <form key={`${index}`}>
-                <FormField {...formfield} />
+                <FormField {...getFieldProperties(fieldName)} {...formField} />
               </form>
             )
           })}
@@ -61,11 +139,12 @@ const SignUp = () => {
             mb={10}
           />
         </Center>
+        <VStack mx="600" pb="4">
+          {renderAlert()}
+        </VStack>
         <Center>
-          <ModalConfirmEmail
-            isOpen={isConfirmOpen}
-            onClose={onConfirmClose}></ModalConfirmEmail>
-          <Button size="lg" onClick={onConfirmOpen}>
+          <ModalConfirmEmail isOpen={isConfirmOpen} onClose={_onConfirmClose} />
+          <Button size="lg" onClick={onClickSignUp} isLoading={isLoading}>
             Cadastrar
           </Button>
         </Center>
