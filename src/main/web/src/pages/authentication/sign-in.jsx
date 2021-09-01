@@ -40,6 +40,9 @@ const SignIn = () => {
 
   const onClickDoLogin = () => {
     requestLogin()
+    if (isSuccess){
+      return router.push('/')
+    }
   }
 
   const renderAlert = () => {
