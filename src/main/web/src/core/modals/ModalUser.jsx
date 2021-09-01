@@ -42,15 +42,6 @@ const ModalUser = ({ ...props }) => {
         <Button
           size="lg"
         >
-          Editar senha
-        </Button>
-        <Button
-          _hover={{ bg: "#EC00254F" }}
-          color="primary"
-          borderColor="primary"
-          variant="outline"
-          size="lg"
-        >
           Confirmar
         </Button>
       </HStack>
