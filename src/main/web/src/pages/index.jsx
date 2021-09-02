@@ -3,27 +3,20 @@ import {Box} from '@chakra-ui/react'
 import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 // import { useUser } from 'core/hooks'
-
-
-const CATEGORIES = [
-  {color: 'green', title: 'Back end'},
-  {color: 'blue', title: 'Front end'},
-  {color: 'orange', title: 'Full end'},
-]
+import {useGetAllCategories} from 'core/hooks'
 
 const HomePage = () => {
-  // const [state, actions] = useUser()
-  // console.log({state, actions})
+  const [{ response: categories = [], isLoading, ...rest }] = useGetAllCategories()
 
   return (
     <>
       <Navbar />
       <Box bg="background" py={20}>
-        {CATEGORIES.map((category, index, categories) => {
+        {categories.map((category, index, categories) => {
           const isLastCategory = categories.length - 1 === index
           return (
             <Box key={`${index}`}>
-              <Category {...category} />
+              <Category {...category} isLoading={isLoading}/>
               {!isLastCategory && <Box height={20} />}
             </Box>
           )
