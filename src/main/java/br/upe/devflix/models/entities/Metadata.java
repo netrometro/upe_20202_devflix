@@ -40,6 +40,11 @@ public class Metadata extends GenericEntity {
 
   @NotNull
   @NotBlank
+  @Column(name = "metadata_video_thumbnail")
+  private String videoThumbnail;
+
+  @NotNull
+  @NotBlank
   @Column(name = "metadata_description")
   private String description;
 
