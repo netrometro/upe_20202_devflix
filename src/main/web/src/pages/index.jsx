@@ -5,34 +5,18 @@ import {PagesTitles} from 'core/utils/constants'
 // import { useUser } from 'core/hooks'
 import {useGetAllCategories} from 'core/hooks'
 
-const CATEGORIES = [{
-  color: "f4f5f8",
-  commentaries: [],
-  creationDate: "2021-09-02T19:29:52.791",
-  id: 2,
-  lastChangedDate: null,
-  title: "BUCETA MARROM DO CARALHO",
-  videos: [],
-  visibility: 1,
-}
-  
-]
-
 const HomePage = () => {
-
-  //const [{ response, ...rest }]  = useGetAllCategories()
-
-  //console.log(response)
+  const [{ response: categories = [], isLoading, ...rest }] = useGetAllCategories()
 
   return (
     <>
       <Navbar />
       <Box bg="background" py={20}>
-        {CATEGORIES.map((category, index, categories) => {
+        {categories.map((category, index, categories) => {
           const isLastCategory = categories.length - 1 === index
           return (
             <Box key={`${index}`}>
-              <Category {...category} />
+              <Category {...category} isLoading={isLoading}/>
               {!isLastCategory && <Box height={20} />}
             </Box>
           )

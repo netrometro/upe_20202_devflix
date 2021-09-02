@@ -10,19 +10,27 @@ import {ModalVideoDetails} from 'core/modals'
 import THUMB_ONE from 'images/thumb-one.svg'
 
 // {
+//   "creationDate": "2021-09-02T22:24:35.422",
+//   "lastChangedDate": null,
+//   "id": 4,
 //   "visibility": 1,
 //   "metadata": {
-//     "videoLink": "https://www.youtube.com/watch?v=EJxcisbhEVs",
-//     "title": "aaaaaaaaa",
-//     "description": "aaaaaaaaaaaaaaaaaaaa",
-//     "videoYoutubeChannel": "CrazyBrown",
-//     "tags": "danca,video"
+//       "creationDate": "2021-09-02T22:24:35.224",
+//       "lastChangedDate": null,
+//       "id": 3,
+//       "videoLink": "https://www.youtube.com/watch?v=3FkWddODLno",
+//       "title": "Visual Basic Tutorial 2017",
+//       "videoThumbnail": "https://i.ytimg.com/vi/3FkWddODLno/hqdefault.jpg",
+//       "description": "Get the Code Here : https://goo.gl/4mqeZT Subscribe to Me: http://bit.ly/2FWQZTx Best Visual Basic Book : http://amzn.to/2fL5N8w MY UDEMY COURSES ARE ...",
+//       "videoYoutubeChannel": "Derek Banas",
+//       "tags": "code"
 //   },
-//   "commentaries": []
+//   "commentaries": null
 // }
 
-const Slide = ({commentaries, id, visibility, metadata,...props}) => {
-  const {videoLink, title, description, videoYoutubeChannel, tags} = metadata??{}
+const Slide = ({item,...props}) => {
+  const {metadata} = item??{}
+  const {videoLink, title, description, videoYoutubeChannel, tags, videoThumbnail} = metadata??{}
 
   const {
     isOpen: isVideoDetailsOpen,
@@ -38,15 +46,16 @@ const Slide = ({commentaries, id, visibility, metadata,...props}) => {
         onClick={onVideoDetailsOpen}
         mt="10"
         width="100%"
-        src={THUMB_ONE}
+        src={videoThumbnail}
         alt="thumb_one"
       />
     </Carousel.Item>
   )
 }
 
-const VideosCarousel = ({commentaries, id,...props}) => {
-  const slides = Range().map((_, i) => <Slide key={i} />)
+const VideosCarousel = ({commentaries, id, items, ...props}) => {
+  const slides = items.map((item, index, items) => <Slide key={`${index}`} item={item}/>)
+
 
   return (
     <Carousel
