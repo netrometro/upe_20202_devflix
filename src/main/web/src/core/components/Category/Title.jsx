@@ -9,7 +9,7 @@ const Title = ({text, color, deleteIcon, editIcon}) => {
   const { isOpen: isEditCategoryOpen , onOpen: onEditCategoryOpen, onClose: onEditCategoryClose } = useDisclosure()
   return (
     <Flex pl={35} flexDirection="row">
-      <Box width={4} bg={color} mr={4} />
+      <Box width={4} bg={"#" + color} mr={4} />
       <Text color="secondary" fontSize={40} fontWeight={700}>
         {text}
       </Text>
