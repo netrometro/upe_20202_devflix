@@ -21,11 +21,6 @@ const Select = ({ items, defaultValue, label, ...props }) => {
     <Stack>
       {renderLabel()}
       <ChakraSelect
-        borderWidth={3}
-        variant="outline"
-        width="80%"
-        fontSize="1xl"
-        size="lg"
         {...props}
       >
         {items.map(renderOptionElement)}

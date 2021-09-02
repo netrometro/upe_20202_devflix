@@ -69,7 +69,7 @@ const ModalCategory = (props) => {
       >
       <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" {...getFieldProperties("title")}/>
       <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" {...getFieldProperties("color")}/>
-      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" items={OPTIONS_VISIBILITY}
+      <Select w="65%" ml="5px" mt="10px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" items={OPTIONS_VISIBILITY}
       onChange={(event) => setVisibility(event.target.value)}/>
       {renderAlert()}
       <HStack
