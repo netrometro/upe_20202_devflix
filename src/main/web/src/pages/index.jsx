@@ -3,17 +3,26 @@ import {Box} from '@chakra-ui/react'
 import {Category, Navbar} from 'core/components'
 import {PagesTitles} from 'core/utils/constants'
 // import { useUser } from 'core/hooks'
+import {useGetAllCategories} from 'core/hooks'
 
-
-const CATEGORIES = [
-  {color: 'green', title: 'Back end'},
-  {color: 'blue', title: 'Front end'},
-  {color: 'orange', title: 'Full end'},
+const CATEGORIES = [{
+  color: "f4f5f8",
+  commentaries: [],
+  creationDate: "2021-09-02T19:29:52.791",
+  id: 2,
+  lastChangedDate: null,
+  title: "BUCETA MARROM DO CARALHO",
+  videos: [],
+  visibility: 1,
+}
+  
 ]
 
 const HomePage = () => {
-  // const [state, actions] = useUser()
-  // console.log({state, actions})
+
+  //const [{ response, ...rest }]  = useGetAllCategories()
+
+  //console.log(response)
 
   return (
     <>

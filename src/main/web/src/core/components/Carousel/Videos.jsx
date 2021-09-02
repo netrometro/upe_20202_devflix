@@ -9,7 +9,21 @@ import {ModalVideoDetails} from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
-const Slide = (props) => {
+// {
+//   "visibility": 1,
+//   "metadata": {
+//     "videoLink": "https://www.youtube.com/watch?v=EJxcisbhEVs",
+//     "title": "aaaaaaaaa",
+//     "description": "aaaaaaaaaaaaaaaaaaaa",
+//     "videoYoutubeChannel": "CrazyBrown",
+//     "tags": "danca,video"
+//   },
+//   "commentaries": []
+// }
+
+const Slide = ({commentaries, id, visibility, metadata,...props}) => {
+  const {videoLink, title, description, videoYoutubeChannel, tags} = metadata??{}
+
   const {
     isOpen: isVideoDetailsOpen,
     onOpen: onVideoDetailsOpen,
@@ -31,7 +45,7 @@ const Slide = (props) => {
   )
 }
 
-const VideosCarousel = (props) => {
+const VideosCarousel = ({commentaries, id,...props}) => {
   const slides = Range().map((_, i) => <Slide key={i} />)
 
   return (

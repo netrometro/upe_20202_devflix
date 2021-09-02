@@ -7,5 +7,6 @@ export {default as useForm} from './useForm'
 export {default as useStorage} from './useStorage'
 export {default as useGetAllVideos} from './videos/useGetAllVideos'
 export {default as useAddVideo} from './videos/useAddVideo'
+export {default as useGetAllCategories} from './useGetAllCategories'
 
 export * from './authentication'
