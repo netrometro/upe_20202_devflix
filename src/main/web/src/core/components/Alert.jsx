@@ -8,7 +8,7 @@ import React from "react";
  */
 const Alert = ({ message, status, ...props }) => {
   return (
-    <ChakraAlert status={status} {...props}>
+    <ChakraAlert status={status} borderRadius="5px" {...props}>
       <AlertIcon />
       {message}
     </ChakraAlert>
