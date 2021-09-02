@@ -1,8 +1,7 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import {Button, Text, Input, HStack, useDisclosure} from "@chakra-ui/react"
 import {Modal, Select} from "core/components"
 import {ModalMyCategories} from 'core/modals'
-import { addCategory } from 'core/api/categories'
 import { useForm, usePostRequest } from 'core/hooks'
 import Alert from 'core/components/Alert'
 
@@ -16,11 +15,14 @@ const OPTIONS_VISIBILITY = [
   { label: "Privado", value: 2 },
 ];
 
-const ModalCategory = ({...props}) => {
-  const { isOpen: isMyCategoriesOpen , onOpen: onMyCategoriesOpen, onClose: onMyCategoriesClose } = useDisclosure()
+const ModalCategory = (props) => {
+  const {onClose} = props; 
+  const {isOpen: isMyCategoriesOpen , onOpen: onMyCategoriesOpen, onClose: onMyCategoriesClose } = useDisclosure()
   const [{fields}, {updateField, getFieldProperties, cleanUp}] = useForm(INITIAL_STATE);
   const {title, color} = fields;
   const {mutate: createCategory, data: response, isLoading, isError, isSuccess} = usePostRequest("/v1/category");
+  const [visibility, setVisibility] = useState('');
+  const [isShowingAlert, setIsShowingAlert] = useState(true);
 
   const header = ({title, ...props}) => {
     return(
@@ -41,14 +43,21 @@ const ModalCategory = ({...props}) => {
       return isError ? error : success
     }
     const {status, body} = buildMessage()
-    return (isError || isSuccess) && <Alert status={status} message={body} />
+    const isRequesting = isError || isSuccess
+    return (isRequesting && isShowingAlert) && <Alert status={status} message={body} />
   }
-
-  const [visibility, setVisibility] = useState('');
 
   const onRegisterClick = () => {
     createCategory({title, color, visibility})
   }
+
+  useEffect(()=>{
+    if (isSuccess && response){
+      cleanUp();
+      onClose();
+      setIsShowingAlert(false);
+    }
+  }, [isSuccess, response, cleanUp, onClose, setIsShowingAlert])
 
   console.log(response?.data)
 

@@ -36,10 +36,10 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
           size="lg"
           onClick={onClickSwitchNavbar}
         />
-        <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose}></ModalVideo>
+        <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose}/>
         <Button onClick={onVideoOpen}>Novo vídeo</Button>
 
-        <ModalCategory isOpen={isCategoryOpen} onClose={onCategoryClose}></ModalCategory>
+        <ModalCategory isOpen={isCategoryOpen} onClose={onCategoryClose}/>
         <Button onClick={onCategoryOpen}>Nova categoria</Button>
       </ActionsButtons>
     </Flex>
