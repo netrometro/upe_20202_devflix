@@ -30,7 +30,6 @@ public class ShareController {
     @RequestBody @Valid ShareContentDTO content) 
   { 
     shareContentService.shareLinkByEmail(authorization, 
-      content.getUserName(), 
       content.getUserEmail(), 
       content.getLink());
     return responseService.create(null, HttpStatus.OK);
