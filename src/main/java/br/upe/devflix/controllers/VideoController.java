@@ -4,17 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.upe.devflix.models.entities.Video;
@@ -83,7 +73,7 @@ public class VideoController {
       videoService.protectedUpdate(authorization, videoId, video), HttpStatus.OK);
   }
 
-  @DeleteMapping("/{videoId}")
+  @PostMapping("/{videoId}/delete")
   public ResponseEntity<?> delete(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long videoId)

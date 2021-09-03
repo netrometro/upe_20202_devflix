@@ -65,7 +65,7 @@ public class CommentaryController {
       commentaryService.protectedUpdate(authorization, commentaryId, commentary), HttpStatus.OK);
   }
 
-  @DeleteMapping("/{commentaryId}")
+  @PostMapping("/{commentaryId}/delete")
   public ResponseEntity<?> delete(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long commentaryId) 

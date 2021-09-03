@@ -44,7 +44,7 @@ public class UserController {
       userService.adminUpdateUser(authorization, userId, user), HttpStatus.OK);
   }
 
-  @DeleteMapping("/{userId}")
+  @PostMapping("/{userId}/delete")
   public ResponseEntity<?> delete(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long userId)
