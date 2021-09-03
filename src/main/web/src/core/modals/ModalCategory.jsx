@@ -18,7 +18,7 @@ const OPTIONS_VISIBILITY = [
 const ModalCategory = (props) => {
   const {onClose} = props; 
   const {isOpen: isMyCategoriesOpen , onOpen: onMyCategoriesOpen, onClose: onMyCategoriesClose } = useDisclosure()
-  const [{fields}, {updateField, getFieldProperties, cleanUp}] = useForm(INITIAL_STATE);
+  const [{fields}, {getFieldProperties, cleanUp}] = useForm(INITIAL_STATE);
   const {title, color} = fields;
   const {mutate: createCategory, data: response, isLoading, isError, isSuccess} = usePostRequest("/v1/category");
   const [visibility, setVisibility] = useState('');

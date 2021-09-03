@@ -54,7 +54,7 @@ const Slide = ({item,...props}) => {
 const VideosCarousel = ({commentaries, id, items = [], ...props}) => {
   const slides = items.map((item, index, items) => <Slide key={`${index}`} item={item}/>)
   if (slides.length === 0) {
-    return <Center my="5%" size="xl" color="primary"><Text fontSize="2xl">Vish! Você não possui nenhum vídeo nessa categoria ainda.</Text></Center>
+    return <Center my="5%" size="xl" color="primary"><Text fontSize="2xl">Vish! Você não possui nenhum vídeo nessa categoria ainda 🤗</Text></Center>
   }
 
 

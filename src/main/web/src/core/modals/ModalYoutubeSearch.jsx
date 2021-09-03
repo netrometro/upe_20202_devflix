@@ -1,59 +1,57 @@
-import { Box, Radio, RadioGroup, Input, VStack, HStack, Image, Text } from '@chakra-ui/react'
+import { Box, Radio, RadioGroup, Input, VStack, HStack, Image, Text, IconButton, Spinner, Center } from '@chakra-ui/react'
 import { Modal } from 'core/components'
-import React from 'react'
-import THUMB_ONE from 'images/thumb-one.svg'
+import React, { useState, useEffect } from 'react'
 import SearchIcon from '@material-ui/icons/Search'
+import { useForm, useGetRequest } from 'core/hooks'
 
-const VIDEOS = [
-  { title: 'O que faz uma desenvolvedora front-end?', url: "aaaaaaaaaaaaa" },
-  { title: 'Front end', url: "aaaaaaaaaaaaa" },
-  { title: 'Full end', url: "aaaaaaaaaaaaa" },
-]
+const INITIAL_STATE = {
+  keyword: ""
+}
 
 const ModalYoutubeSearch = ({ ...props }) => {
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_STATE);
+  const {keyword} = fields;
+  const [enabled, setEnabled] = useState(false);
+  const {data: response, isLoading, isError, isSuccess} = useGetRequest("/v1/video/youtube/search", {params: {keyword}}, {enabled});
+  const VIDEOS = response?.data?.response ??[]
+
+  const onClickSearchVideo = () => {
+    setEnabled(true);
+  }
 
   const header = ({ ...props }) => {
     return (
-      <HStack mx="10%">
-        <SearchIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px" }} />
-        <Input size='lg' ml="5px" mt="10px" variant="outline" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Buscar" />
+      <HStack mx="10%" align="center" mt="3">
+        <Input size='lg' ml="5px" variant="outline" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Buscar" {...getFieldProperties("keyword")}/>
+        <IconButton bg="background" icon={<SearchIcon style={{ color: "#BDBDBD", fontSize: "38px"}} />} onClick = {onClickSearchVideo} isLoading = {isLoading}/>
       </HStack>
     )
   }
 
-  const videoRender = ({ title, url, ...props }) => {
-    return (
-      <HStack w="100%">
-        <Image src={THUMB_ONE} htmlWidth="200" htmlHeight="120" mr="3%"></Image>
-        <VStack w="100%">
-          <HStack w="100%">
-            <Text color="whiteLight" fontSize="30px" w="90%">{title}</Text>
-          </HStack>
-          <HStack w="100%">
-            <Text color="whiteLight" pr="5px" w="90%">{url}</Text>
-          </HStack>
-        </VStack>
-      </HStack>
-    )
-  }
+  useEffect(()=>{
+    if (isSuccess && response){
+      setEnabled(false);
+    }
+  }, [isSuccess, response, setEnabled])
 
-  return (
-    <Modal
-      header={header()}
-      scrollBehavior="inside"
-      {...props}
-    >
-      <RadioGroup>
-        <VStack>
-          {VIDEOS.map((video, index, videos) => {
-            const isLastVideo = videos.length - 1 === index
+  const videoRender = ({thumb, title, url}, index, videos) => {
+    const isLastVideo = videos.length - 1 === index
             return (
               <Box key={`${index}`} width="90%">
                 <HStack width="100%">
                   <Radio value={`${index}`} width="10%"></Radio>
-                  {videoRender({ title: video.title, url: video.url })}
+                  <HStack w="100%">
+                    <Image src={thumb} htmlWidth="200" htmlHeight="120" mr="3%"></Image>
+                    <VStack w="100%">
+                      <HStack w="100%">
+                        <Text color="whiteLight" fontSize="30px" w="90%">{title}</Text>
+                      </HStack>
+                      <HStack w="100%">
+                        <Text color="whiteLight" pr="5px" w="90%">{url}</Text>
+                      </HStack>
+                    </VStack>
+                  </HStack>
                 </HStack>
-
                 <Box
                   py={0.5}
                   px={3}
@@ -65,11 +63,22 @@ const ModalYoutubeSearch = ({ ...props }) => {
                 />
                 {!isLastVideo && <Box height={5} />}
               </Box>
-
             )
-          })}
+          }
+
+  return (
+    <Modal
+      header={header()}
+      scrollBehavior="inside"
+      {...props}
+    >
+     {VIDEOS.length === 0 ? (<Center my="5%" size="xl" color="primary"><Text fontSize="2xl">Eita! Lista de vídeos vazia 🤔</Text></Center>):( 
+     <RadioGroup>
+        <VStack>
+          {isLoading?<Spinner color="primary" size="lg"/>: VIDEOS.map(videoRender)}
         </VStack>
       </RadioGroup>
+      )}
     </Modal>
   )
 }
