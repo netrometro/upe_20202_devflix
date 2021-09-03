@@ -4,10 +4,8 @@ import {Range} from 'core/utils'
 
 import Image from '../Image'
 import Carousel from './Carousel'
-import {useDisclosure} from '@chakra-ui/react'
+import {useDisclosure, Center, Text} from '@chakra-ui/react'
 import {ModalVideoDetails} from 'core/modals'
-
-import THUMB_ONE from 'images/thumb-one.svg'
 
 // {
 //   "creationDate": "2021-09-02T22:24:35.422",
@@ -53,8 +51,11 @@ const Slide = ({item,...props}) => {
   )
 }
 
-const VideosCarousel = ({commentaries, id, items, ...props}) => {
+const VideosCarousel = ({commentaries, id, items = [], ...props}) => {
   const slides = items.map((item, index, items) => <Slide key={`${index}`} item={item}/>)
+  if (slides.length === 0) {
+    return <Center my="5%" size="xl" color="primary"><Text fontSize="2xl">Vish! Você não possui nenhum vídeo nessa categoria ainda.</Text></Center>
+  }
 
 
   return (
