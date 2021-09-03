@@ -17,7 +17,11 @@ import { ModalShare, ModalCommentary } from 'core/modals'
 
 import THUMB_ONE from 'images/thumb-one.svg'
 
-const ModalVideoDetails = ({ details, ...props }) => {
+const ModalVideoDetails = ({ details, metadata, ...props }) => {
+  console.log(metadata)
+  const {videoLink, title, description, videoYoutubeChannel, tags, videoThumbnail} = metadata??{}
+  console.log(videoLink)
+
   const {
     isOpen: isCommentaryOpen,
     onOpen: onCommentaryOpen,
@@ -29,21 +33,15 @@ const ModalVideoDetails = ({ details, ...props }) => {
     onClose: onShareClose,
   } = useDisclosure()
 
-  const DATA = {
-    title: 'O que faz uma desenvolvedora front-end?',
-    description:
-      'O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!',
+  const onPlayClick = () => { 
+    window.open(videoLink, "__blank");
   }
-
-  const { title, description } = DATA
-
-  const onPlayClick = () => { }
 
   const header = () => {
     return (
       <Box>
         <Center>
-          <Image src={THUMB_ONE} alt="Devflix" fit="cover" />
+          <Image src={videoThumbnail} alt="Devflix" fit="cover" />
         </Center>
       </Box>
     )
