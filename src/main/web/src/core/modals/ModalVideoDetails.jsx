@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
-import { Modal } from 'core/components'
+import {Modal} from 'core/components'
 import {
   Center,
   VStack,
@@ -13,13 +14,18 @@ import {
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import ShareIcon from '@material-ui/icons/Share'
-import { ModalShare, ModalCommentary } from 'core/modals'
+import {ModalShare, ModalCommentary} from 'core/modals'
 
-import THUMB_ONE from 'images/thumb-one.svg'
-
-const ModalVideoDetails = ({ details, metadata, ...props }) => {
+const ModalVideoDetails = ({details, metadata, ...props}) => {
   console.log(metadata)
-  const {videoLink, title, description, videoYoutubeChannel, tags, videoThumbnail} = metadata??{}
+  const {
+    videoLink,
+    title,
+    description,
+    videoYoutubeChannel,
+    tags,
+    videoThumbnail,
+  } = metadata ?? {}
   console.log(videoLink)
 
   const {
@@ -33,8 +39,8 @@ const ModalVideoDetails = ({ details, metadata, ...props }) => {
     onClose: onShareClose,
   } = useDisclosure()
 
-  const onPlayClick = () => { 
-    window.open(videoLink, "__blank");
+  const onPlayClick = () => {
+    window.open(videoLink, '__blank')
   }
 
   const header = () => {
@@ -76,7 +82,7 @@ const ModalVideoDetails = ({ details, metadata, ...props }) => {
               bg="background"
               icon={
                 <PlayCircleFilledIcon
-                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
+                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
                 />
               }
               onClick={onPlayClick}
@@ -89,7 +95,7 @@ const ModalVideoDetails = ({ details, metadata, ...props }) => {
               bg="background"
               icon={
                 <ChatBubbleIcon
-                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
+                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
                 />
               }
               onClick={onCommentaryOpen}
@@ -102,7 +108,7 @@ const ModalVideoDetails = ({ details, metadata, ...props }) => {
               bg="background"
               icon={
                 <ShareIcon
-                  style={{ color: '#EC0025', marginLeft: '9', fontSize: '38px' }}
+                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
                 />
               }
               onClick={onShareOpen}

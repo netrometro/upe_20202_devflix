@@ -1,14 +1,13 @@
-import {React, useState} from 'react';
-import {Button, Modal} from 'core/components';
-import {Center, VStack, Text, Box, Image, useDisclosure} from '@chakra-ui/react';
-import {EmailIcon} from '@chakra-ui/icons';
-import ModalRecoveryPassword from './ModalRecoveryPassword';
-import FormField from 'core/components/Form/FormField';
+import {React, useState} from 'react'
+import {Button, Modal} from 'core/components'
+import {Center, VStack, Text, Image, useDisclosure} from '@chakra-ui/react'
+import {EmailIcon} from '@chakra-ui/icons'
+import ModalRecoveryPassword from './ModalRecoveryPassword'
+import FormField from 'core/components/Form/FormField'
 
 const ModalForgotPassword = ({...props}) => {
-
-  const [email, setEmail] = useState('');
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [email, setEmail] = useState('')
+  const {isOpen, onClose, onOpen} = useDisclosure()
 
   const header = () => {
     return (
@@ -17,46 +16,36 @@ const ModalForgotPassword = ({...props}) => {
           <Center>
             <Image src="https://i.imgur.com/J1ymksl.png" alt="Devflix" />
           </Center>
-          <Text color="whiteLight" fontSize="32px">Solicitar nova senha</Text>
+          <Text color="whiteLight" fontSize="32px">
+            Solicitar nova senha
+          </Text>
         </VStack>
       </Center>
-    );
+    )
   }
 
   return (
-    <Modal 
-      size="2xl"
-      header={header()}
-      scrollBehavior="inside" 
-      {...props}>
-
+    <Modal size="2xl" header={header()} scrollBehavior="inside" {...props}>
       <Center>
-        <VStack w="100%"
-            ml="5px"
-            mt="10px">
-
+        <VStack w="100%" ml="5px" mt="10px">
           <FormField
             type="email"
             icon={<EmailIcon />}
             text="Email"
-            onChange={event => setEmail(event.target.value)}
-            value={email}>
-          </FormField>
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}></FormField>
 
-          <ModalRecoveryPassword 
-            isOpen={isOpen} 
-            onClose={onClose}>
-          </ModalRecoveryPassword>
+          <ModalRecoveryPassword
+            isOpen={isOpen}
+            onClose={onClose}></ModalRecoveryPassword>
 
           <Button size="lg" onClick={onOpen}>
             Confirmar
           </Button>
-
         </VStack>
       </Center>
-      
     </Modal>
-  );
+  )
 }
- 
+
 export default ModalForgotPassword
