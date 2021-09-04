@@ -1,5 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,17 +9,18 @@
   <meta name="description" content="Seria legal poder registrar e administrar em um lugar todos os videos relacionados à dev que eu desejo/quero aprender. Os vídeos poderiam ser catalogados, relacionados, buscados e gerenciados de acordo com algum contexto/necessidade em um determinado momento. Imagina se a gente tivesse isso para o nosso contexto de curso, por exemplo? Vamos montar o nosso DevFlix?.">
   <meta name="author" content="Muryllo Pimenta, Kelvin Vasconcelos, Luiz Gustavo, Lucas Henrique">
 
-	<meta property="og:site_name" content="Devflix" />
-	<meta property="og:site" content="https://upedevflix.herokuapp.com/" /> 
-	<meta property="og:title" content="Devflix, um repositório de vídeos feito para você e por você!"/> 
-	<meta property="og:description" content="Seria legal poder registrar e administrar em um lugar todos os videos relacionados à dev que eu desejo/quero aprender. Os vídeos poderiam ser catalogados, relacionados, buscados e gerenciados de acordo com algum contexto/necessidade em um determinado momento. Imagina se a gente tivesse isso para o nosso contexto de curso, por exemplo? Vamos montar o nosso DevFlix?" />
-	<meta property="og:image" content="https://i.imgur.com/GSjZQJp.png" /> 
-	<meta property="og:url" content="https://upedevflix.herokuapp.com/" /> 
-	<meta property="og:type" content="article" />
-
+  <meta property="og:site_name" content="Devflix" />
+  <meta property="og:site" content="https://upedevflix.herokuapp.com/" />
+  <meta property="og:title" content="Devflix, um repositório de vídeos feito para você e por você!" />
+  <meta property="og:description" content="Seria legal poder registrar e administrar em um lugar todos os videos relacionados à dev que eu desejo/quero aprender. Os vídeos poderiam ser catalogados, relacionados, buscados e gerenciados de acordo com algum contexto/necessidade em um determinado momento. Imagina se a gente tivesse isso para o nosso contexto de curso, por exemplo? Vamos montar o nosso DevFlix?" />
+  <meta property="og:image" content="https://i.imgur.com/GSjZQJp.png" />
+  <meta property="og:url" content="https://upedevflix.herokuapp.com/" />
+  <meta property="og:type" content="article" />
+  
   <title>Devflix</title>
   <link rel="icon" href="https://i.imgur.com/GSjZQJp.png">
-  
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.js"></script>
   <style type="text/css">
     body,
     html {
@@ -26,7 +29,6 @@
       height: 100%;
       overflow: hidden;
     }
-
     #content {
       position: absolute;
       left: 0;
@@ -40,11 +42,27 @@
 <body>
   <div id="content">
     <iframe 
+      id="frame"
       width="100%" 
       height="100%" 
       frameborder="0" 
-      src="https://upedevflix.vercel.app/">
+      src="about:blank">
     </iframe>
   </div>
+  <script>
+    const BASE_URL = "https://upedevflix.vercel.app";
+    const CONFIRM_URL = BASE_URL + "/authentication/confirmation";
+    let frameUrl = BASE_URL;
+    window.onload = function(){
+      let subroute = window.location.hash;
+      if (subroute.startsWith('#/authentication/confirmation/', 0)) {
+        const parts = subroute.split('/');
+        const token = parts.reverse()[0];
+        frameUrl = `${CONFIRM_URL}/${encodeURIComponent(token)}`;
+      }
+      $("#frame").attr("src", frameUrl);
+    }
+  </script>
 </body>
+
 </html>
