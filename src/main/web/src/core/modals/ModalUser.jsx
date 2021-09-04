@@ -11,8 +11,12 @@ import {Modal} from 'core/components'
 import PersonIcon from '@material-ui/icons/Person'
 import EmailIcon from '@material-ui/icons/Email'
 import EditIcon from '@material-ui/icons/Edit'
+import { useUser } from 'core/hooks'
 
 const ModalUser = ({...props}) => {
+  const [{ name: userName, email: userEmail }] = useUser()
+  console.log(userName)
+
   const header = ({title, ...props}) => {
     return (
       <Text {...props} color="whiteLight" fontSize="32px">
@@ -40,7 +44,7 @@ const ModalUser = ({...props}) => {
             _placeholder={{color: 'whiteLight'}}
             borderColor="primary"
             focusBorderColor="primary"
-            placeholder="nome do usuário"
+            placeholder={userName}
           />
           <InputRightElement>
             <EditIcon
@@ -63,7 +67,7 @@ const ModalUser = ({...props}) => {
             _placeholder={{color: 'whiteLight'}}
             borderColor="primary"
             focusBorderColor="primary"
-            placeholder="email"
+            placeholder={userEmail}
           />
           <InputRightElement>
             <EditIcon
