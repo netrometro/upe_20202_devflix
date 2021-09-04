@@ -104,7 +104,7 @@ const Project = () => {
                   <Box mt="4" mb="4" bg="#292929" p="3">
                     <Text color="whiteLight" fontSize="24px">
                       Olá, digite o código abaixo enviado para o seu e-mail e
-                      confirme sua conta para ter acesso ao Devflix.wwwwwww 😉
+                      confirme sua conta para ter acesso ao Devflix. 😉
                     </Text>
                   </Box>
 
