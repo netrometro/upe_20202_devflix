@@ -1,7 +1,5 @@
 import React from 'react'
 
-import {Range} from 'core/utils'
-
 import Image from '../Image'
 import Carousel from './Carousel'
 import {useDisclosure, Center, Text} from '@chakra-ui/react'
@@ -28,7 +26,7 @@ import {ModalVideoDetails} from 'core/modals'
 
 const Slide = ({item,...props}) => {
   const {metadata} = item??{}
-  const {videoLink, title, description, videoYoutubeChannel, tags, videoThumbnail} = metadata??{}
+  const {videoThumbnail} = metadata??{}
 
   const {
     isOpen: isVideoDetailsOpen,
@@ -39,7 +37,8 @@ const Slide = ({item,...props}) => {
     <Carousel.Item hasSpace {...props}>
       <ModalVideoDetails
         isOpen={isVideoDetailsOpen}
-        onClose={onVideoDetailsClose}></ModalVideoDetails>
+        onClose={onVideoDetailsClose}
+        metadata={metadata}/>
       <Image
         onClick={onVideoDetailsOpen}
         mt="10"

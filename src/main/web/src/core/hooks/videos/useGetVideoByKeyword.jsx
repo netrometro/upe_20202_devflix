@@ -1,18 +1,17 @@
-import React from "react";
-import useGetRequest from "../useGetRequest";
+import useGetRequest from '../useGetRequest'
 
 const useGetVideoByKeyword = (videoId, keyword, configs = {}, options = {}) => {
-  const { data: response, ...rest } = useGetRequest(
+  const {data: response, ...rest} = useGetRequest(
     `video/youtube/search`,
     {
       enabled: videoId && keyword,
-      params: { keyword },
+      params: {keyword},
       ...configs,
     },
-    options
-  );
+    options,
+  )
 
-  return [{ response: response?.data?.data, ...rest }];
-};
+  return [{response: response?.data?.data, ...rest}]
+}
 
-export default useGetVideoByKeyword;
+export default useGetVideoByKeyword

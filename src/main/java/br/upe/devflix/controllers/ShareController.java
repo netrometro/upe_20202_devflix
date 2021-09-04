@@ -9,12 +9,7 @@ import br.upe.devflix.services.serializers.ResponseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/share")
@@ -30,7 +25,6 @@ public class ShareController {
     @RequestBody @Valid ShareContentDTO content) 
   { 
     shareContentService.shareLinkByEmail(authorization, 
-      content.getUserName(), 
       content.getUserEmail(), 
       content.getLink());
     return responseService.create(null, HttpStatus.OK);

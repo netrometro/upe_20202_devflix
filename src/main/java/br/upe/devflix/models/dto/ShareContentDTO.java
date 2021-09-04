@@ -4,7 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import lombok.Data;
@@ -23,10 +22,5 @@ public class ShareContentDTO {
   @NotNull
   @NotBlank
   private String link;
-  
-  @Length(min = 4, max = 32)
-  @NotNull
-  @NotBlank
-  private String userName;
 
 }

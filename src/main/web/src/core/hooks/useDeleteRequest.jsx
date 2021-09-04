@@ -1,11 +1,8 @@
-import {
-  useMutation,
-  UseMutationOptions,
-  UseMutationResult,
-} from "react-query";
-import { AxiosResponse } from "axios";
-import { Api } from "core/services";
-import { useToken } from "./utils";
+/* eslint-disable no-unused-vars */
+import {useMutation, UseMutationOptions, UseMutationResult} from 'react-query'
+import {AxiosResponse} from 'axios'
+import {Api} from 'core/services'
+import {useToken} from './utils'
 
 /**
  *
@@ -15,17 +12,17 @@ import { useToken } from "./utils";
  * @returns UseMutationResult
  */
 const useDeleteRequest = (url, options = {}) => {
-  const token = useToken();
+  const token = useToken()
 
   const personalizedConfig = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
+    headers: {Authorization: `Bearer ${token}`},
+  }
 
   return useMutation((args) => {
-    const { config = {}, ...data } = args ?? {};
+    const {config = {}, ...data} = args ?? {}
 
-    return Api.delete(url, data, { ...config, ...personalizedConfig });
-  }, options);
-};
+    return Api.delete(url, data, {...config, ...personalizedConfig})
+  }, options)
+}
 
-export default useDeleteRequest;
+export default useDeleteRequest

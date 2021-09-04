@@ -31,8 +31,7 @@ public class JwtAPIService {
       log.info("Building claims for user session.");
 
       Algorithm algorithm = Algorithm.HMAC256(JwtSecret);
-      Long now = (new Date()).getTime();
-      Long expiresAtTime = now + 1800000;
+      Long expiresAtTime = Long.MAX_VALUE;
 
       return JWT.create().withPayload(claims)
         .withIssuer(JwtIssuer)

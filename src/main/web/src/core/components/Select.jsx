@@ -1,11 +1,11 @@
-import { Select as ChakraSelect, Text, HStack, Stack } from "@chakra-ui/react";
+import {Select as ChakraSelect, Text, Stack} from '@chakra-ui/react'
 
-const Select = ({ items, defaultValue, label, ...props }) => {
-  const renderOptionElement = ({ value, label }, index) => (
+const Select = ({items, defaultValue, label, ...props}) => {
+  const renderOptionElement = ({value, label}, index) => (
     <option value={value} key={index}>
       {label}
     </option>
-  );
+  )
 
   const renderLabel = () => {
     return (
@@ -14,19 +14,15 @@ const Select = ({ items, defaultValue, label, ...props }) => {
           {label}
         </Text>
       )
-    );
-  };
+    )
+  }
 
   return (
     <Stack>
       {renderLabel()}
-      <ChakraSelect
-        {...props}
-      >
-        {items.map(renderOptionElement)}
-      </ChakraSelect>
+      <ChakraSelect {...props}>{items.map(renderOptionElement)}</ChakraSelect>
     </Stack>
-  );
-};
+  )
+}
 
-export default Select;
+export default Select
