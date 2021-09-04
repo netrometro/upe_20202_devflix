@@ -2,14 +2,12 @@
 import React from 'react'
 import {Box, Text} from '@chakra-ui/react'
 import {Modal, Category} from 'core/components'
-
-const CATEGORIES = [
-  {color: 'green', title: 'Back end', deleteIcon: false, editIcon: false},
-  {color: 'blue', title: 'Front end', deleteIcon: false, editIcon: false},
-  {color: 'orange', title: 'Full end', deleteIcon: false, editIcon: false},
-]
+import {useGetMyCategories, useGetAllCategories} from 'core/hooks'
 
 const ModalMyCategories = ({...props}) => {
+
+  const [{response: categories = [], isLoading}] = useGetMyCategories()
+
   const header = ({title, ...props}) => {
     return (
       <Text {...props} color="whiteLight" fontSize="32px">
@@ -24,16 +22,12 @@ const ModalMyCategories = ({...props}) => {
       scrollBehavior="inside"
       {...props}>
       <Box bg="background" py={5}>
-        {CATEGORIES.map((category, index, categories) => {
+        {categories.map((category, index, categories) => {
           const isLastCategory = categories.length - 1 === index
           return (
             <Box key={`${index}`}>
-              <Category
-                {...category}
-                deleteIcon={(category.deleteIcon = true)}
-                editIcon={(category.editIcon = true)}
-              />
-              {!isLastCategory && <Box height={10} />}
+              <Category {...category} isLoading={isLoading} />
+              {!isLastCategory && <Box height={20} />}
             </Box>
           )
         })}
