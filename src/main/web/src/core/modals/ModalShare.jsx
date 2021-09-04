@@ -25,8 +25,6 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
   }
 
   const onEmailShare = () => {
-    //Lógica de envio de e-mail aqui...
-    //Implementar a requisição de compartilhar video pelo email
     alert("Enviando e-mail para... " + email);
   }
 

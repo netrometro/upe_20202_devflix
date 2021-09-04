@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react'
 import { Button, Text, Input, HStack, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { Modal } from "core/components"
