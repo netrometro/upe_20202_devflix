@@ -57,12 +57,12 @@ const SignUp = () => {
   const renderAlert = () => {
     const error = {
       status: 'error',
-      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de cadastro. Por favor, tente mais tarde!',
+      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de cadastro. Por favor, tente mais tarde.',
     }
 
     const success = {
       status: 'success',
-      body: 'Cadastro realizado com sucesso!',
+      body: 'Cadastro realizado com sucesso! Cheque o seu e-mail com as instruções de como ativar a sua conta.😉',
     }
 
     const warning = {

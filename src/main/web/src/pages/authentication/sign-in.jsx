@@ -1,12 +1,20 @@
 import {LOCAL_STORAGES_LOCATIONS, PagesTitles} from 'core/utils/constants'
 import React, {useCallback, useEffect} from 'react'
-import {Box, Center, Container, Flex, VStack} from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  Container,
+  Flex,
+  useDisclosure,
+  VStack,
+} from '@chakra-ui/react'
 import {Image, Button, Navbar} from 'core/components'
 import {useForm, useLogin, useStorage, useUser} from 'core/hooks'
 import {EmailIcon, LockIcon} from '@chakra-ui/icons'
 import FormField from 'core/components/Form/FormField'
 import Alert from 'core/components/Alert'
 import {useRouter} from 'next/dist/client/router'
+import {ModalForgotPassword} from 'core/modals'
 
 const FORM_FIELDS = [
   {type: 'email', icon: <EmailIcon />, text: 'Email', fieldName: 'email'},
@@ -30,6 +38,8 @@ const SignIn = () => {
   const [, {login}] = useUser()
   const [, {setItem}] = useStorage()
   const router = useRouter()
+
+  const {isOpen, onOpen, onClose} = useDisclosure()
 
   const onSaveCredentials = useCallback(
     (user) => {
@@ -65,6 +75,8 @@ const SignIn = () => {
   const onClickGoToSignUp = () => {
     router.push('/authentication/sign-up')
   }
+
+  const onClickOpenForgotPasswordModal = () => onOpen()
 
   useEffect(() => {
     if (isSuccess && response) {
@@ -136,7 +148,12 @@ const SignIn = () => {
             </Button>
           </Center>
           <Center>
-            <Button color="grayPers" variant="ghost" mt={'20px'} size="lg">
+            <Button
+              color="grayPers"
+              variant="ghost"
+              mt={'20px'}
+              size="lg"
+              onClick={onClickOpenForgotPasswordModal}>
               Esqueceu a senha?
             </Button>
           </Center>
@@ -164,6 +181,7 @@ const SignIn = () => {
           </Center>
         </Box>
       </Flex>
+      <ModalForgotPassword isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
   )
 }
