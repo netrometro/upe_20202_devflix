@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 const { default: useToken } = require("core/hooks/useToken");
 const { get, post, del, put } = require("./requests");
 

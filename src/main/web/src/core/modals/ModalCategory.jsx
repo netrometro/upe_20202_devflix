@@ -16,23 +16,13 @@ const OPTIONS_VISIBILITY = [
 ]
 
 const ModalCategory = (props) => {
-  const {onClose} = props
-  const {
-    isOpen: isMyCategoriesOpen,
-    onOpen: onMyCategoriesOpen,
-    onClose: onMyCategoriesClose,
-  } = useDisclosure()
-  const [{fields}, {getFieldProperties, cleanUp}] = useForm(INITIAL_STATE)
-  const {title, color} = fields
-  const {
-    mutate: createCategory,
-    data: response,
-    isLoading,
-    isError,
-    isSuccess,
-  } = usePostRequest('/v1/category')
-  const [visibility, setVisibility] = useState('')
-  const [isShowingAlert, setIsShowingAlert] = useState(true)
+  const {onClose} = props; 
+  const {isOpen: isMyCategoriesOpen , onOpen: onMyCategoriesOpen, onClose: onMyCategoriesClose } = useDisclosure()
+  const [{fields}, {getFieldProperties, cleanUp}] = useForm(INITIAL_STATE);
+  const {title, color} = fields;
+  const {mutate: createCategory, data: response, isLoading, isError, isSuccess} = usePostRequest("/v1/category");
+  const [visibility, setVisibility] = useState('');
+  const [isShowingAlert, setIsShowingAlert] = useState(true);
 
   const header = ({title, ...props}) => {
     return (
@@ -73,48 +63,18 @@ const ModalCategory = (props) => {
     }
   }, [isSuccess, response, cleanUp, onClose, setIsShowingAlert])
 
-  return (
-    <Modal
-      header={header({title: 'Cadastro de Categoria'})}
-      scrollBehavior="inside"
-      {...props}>
-      <Input
-        w="65%"
-        ml="5px"
-        mt="10px"
-        variant="flushed"
-        color="whiteLight"
-        _placeholder={{color: 'whiteLight'}}
-        borderColor="primary"
-        focusBorderColor="primary"
-        placeholder="Título"
-        {...getFieldProperties('title')}
-      />
-      <Input
-        w="65%"
-        ml="5px"
-        mt="10px"
-        variant="flushed"
-        color="whiteLight"
-        _placeholder={{color: 'whiteLight'}}
-        borderColor="primary"
-        focusBorderColor="primary"
-        placeholder="Cor"
-        {...getFieldProperties('color')}
-      />
-      <Select
-        w="65%"
-        ml="5px"
-        mt="10px"
-        variant="flushed"
-        color="whiteLight"
-        _placeholder={{color: 'whiteLight'}}
-        borderColor="primary"
-        focusBorderColor="primary"
-        placeholder="Selecione a Visibilidade"
-        items={OPTIONS_VISIBILITY}
-        onChange={(event) => setVisibility(event.target.value)}
-      />
+  console.log(response?.data)
+
+  return(
+    <Modal 
+      header={header({title : "Cadastro de Categoria"})}
+      scrollBehavior="inside" 
+      {...props}
+      >
+      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" {...getFieldProperties("title")}/>
+      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" {...getFieldProperties("color")}/>
+      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" items={OPTIONS_VISIBILITY}
+      onChange={(event) => setVisibility(event.target.value)}/>
       {renderAlert()}
       <HStack mt="5%" spacing="5%">
         <Button size="lg" onClick={onRegisterClick} isLoading={isLoading}>
