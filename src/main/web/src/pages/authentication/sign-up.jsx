@@ -40,10 +40,11 @@ const SignUp = () => {
   const [{fields}, {getFieldProperties}] = useForm(INITIAL_VALUES)
   const {name, email, password, confirmPassword} = fields
 
-  const [{response, isError, isLoading, isSuccess}, {requestSignUp}] =
-    useSignUp({name, email, password})
-
-  console.log(response)
+  const [{isError, isLoading, isSuccess}, {requestSignUp}] = useSignUp({
+    name,
+    email,
+    password,
+  })
 
   const onClickSignUp = () => {
     requestSignUp()
