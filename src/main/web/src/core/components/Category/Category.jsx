@@ -1,5 +1,4 @@
 import {Box} from '@chakra-ui/react'
-import { LastPage } from '@material-ui/icons'
 import React from 'react'
 import {Carousel} from '../Carousel'
 import Title from './Title'
