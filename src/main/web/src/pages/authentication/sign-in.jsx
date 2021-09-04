@@ -32,8 +32,11 @@ const SignIn = () => {
   const router = useRouter()
 
   const onSaveCredentials = useCallback(
-    (token) => {
-      setItem(LOCAL_STORAGES_LOCATIONS.BEARER_TOKEN, token)
+    (user) => {
+      setItem(
+        LOCAL_STORAGES_LOCATIONS.USER_ACCESS_CREDENTIALS,
+        JSON.stringify(user),
+      )
     },
     [setItem],
   )
@@ -77,7 +80,7 @@ const SignIn = () => {
       }
 
       login(user)
-      onSaveCredentials(token)
+      onSaveCredentials(user)
       return router.push('/')
     }
 

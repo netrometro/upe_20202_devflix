@@ -1,24 +1,27 @@
-import {useState, useEffect} from 'react'
-import useUser from './useUser'
-import useStorage from './useStorage'
-
+import {useEffect, useState} from 'react'
 import {LOCAL_STORAGES_LOCATIONS} from 'core/utils/constants'
 
+import useStorage from './useStorage'
+import useUser from './useUser'
+
 const useToken = () => {
-  const [{token}] = useUser();
-  const [getItem] = useStorage();
-  const [actualToken, setActualToken] = useState('');
+  const [actualToken, setActualToken] = useState('')
+  const [getItem] = useStorage()
+  const [{token: loggedUserToken}] = useUser()
 
   useEffect(() => {
-    if (token) {
-      setActualToken(token);
-      return;
+    const {token = ''} =
+      JSON.parse(getItem(LOCAL_STORAGES_LOCATIONS.USER_ACCESS_CREDENTIALS)) ??
+      {}
+
+    if (!token) {
+      return setActualToken(loggedUserToken)
     }
 
-    setActualToken(getItem(LOCAL_STORAGES_LOCATIONS.BEARER_TOKEN))
-  }, [getItem, token]);
+    return setActualToken(token)
+  }, [getItem, loggedUserToken])
 
-  return actualToken || '';
+  return actualToken
 }
 
-export default useToken;
+export default useToken

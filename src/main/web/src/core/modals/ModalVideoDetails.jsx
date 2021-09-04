@@ -17,7 +17,6 @@ import ShareIcon from '@material-ui/icons/Share'
 import {ModalShare, ModalCommentary} from 'core/modals'
 
 const ModalVideoDetails = ({details, metadata, ...props}) => {
-  console.log(metadata)
   const {
     videoLink,
     title,
@@ -26,7 +25,6 @@ const ModalVideoDetails = ({details, metadata, ...props}) => {
     tags,
     videoThumbnail,
   } = metadata ?? {}
-  console.log(videoLink)
 
   const {
     isOpen: isCommentaryOpen,

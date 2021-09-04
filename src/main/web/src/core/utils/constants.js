@@ -5,5 +5,5 @@ export const PagesTitles = {
   SIGN_UP: 'Cadastro',
 }
 export const LOCAL_STORAGES_LOCATIONS = {
-  BEARER_TOKEN: '@devflix/bearer-token',
+  USER_ACCESS_CREDENTIALS: '@devflix/user',
 }
