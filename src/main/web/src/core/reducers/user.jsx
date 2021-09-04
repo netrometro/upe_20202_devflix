@@ -34,6 +34,7 @@ const Actions = {
  * @typedef {User} UserReducerState
  */
 const INITIAL_STATE = {
+  name: undefined,
   id: undefined,
   roles: undefined,
   email: undefined,
