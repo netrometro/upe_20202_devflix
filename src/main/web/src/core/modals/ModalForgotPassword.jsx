@@ -35,9 +35,7 @@ const ModalForgotPassword = ({...props}) => {
             onChange={(event) => setEmail(event.target.value)}
             value={email}></FormField>
 
-          <ModalRecoveryPassword
-            isOpen={isOpen}
-            onClose={onClose}></ModalRecoveryPassword>
+          <ModalRecoveryPassword isOpen={isOpen} onClose={onClose} />
 
           <Button size="lg" onClick={onOpen}>
             Confirmar

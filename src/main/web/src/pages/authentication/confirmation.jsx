@@ -1,5 +1,4 @@
-import React from 'react'
-import {useRouter} from 'next/router'
+import React, {useEffect, useState} from 'react'
 
 import {
   Box,
@@ -7,25 +6,37 @@ import {
   Container,
   Flex,
   Image,
+  Input,
   Stack,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import {Navbar} from 'core/components'
-import {useGetRequest} from 'core/hooks'
+
+import {Navbar, Button} from 'core/components'
+import {useForm, useGetRequest} from 'core/hooks'
 import Alert from 'core/components/Alert'
+import router from 'next/router'
 
 const LOGO_HEIGHT = 100
 
-const Project = () => {
-  const router = useRouter()
-  const {token} = router.query
+const INITIAL_STATE = {
+  token: '',
+}
 
-  const {isSuccess, isError} = useGetRequest(
+const Project = () => {
+  const [isRequestEnabled, setIsRequestEnabled] = useState(false)
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_STATE)
+  const {token} = fields
+
+  const {isSuccess, isError, isLoading} = useGetRequest(
     `/v1/authentication/confirm/${token}`,
     {},
-    {enabled: Boolean(token)},
+    {enabled: isRequestEnabled},
   )
+
+  const onClickConfirmAccount = () => {
+    setIsRequestEnabled(true)
+  }
 
   const renderAlert = () => {
     const error = {
@@ -47,22 +58,17 @@ const Project = () => {
     return (isError || isSuccess) && <Alert status={status} message={body} />
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <>
-  //       <Navbar.BackBar />
-  //       <Flex
-  //         flexDirection="column"
-  //         alignItems="center"
-  //         justifyContent="center"
-  //         width="100vw"
-  //         py="100"
-  //         bg="background">
-  //         <Spinner size="xl" color="primary" />
-  //       </Flex>
-  //     </>
-  //   )
-  // }
+  useEffect(() => {
+    if (isError || isSuccess) {
+      return setIsRequestEnabled(false)
+    }
+  }, [isError, isSuccess])
+
+  useEffect(() => {
+    if (isSuccess) {
+      return router.push('/authentication/sign-in')
+    }
+  }, [isSuccess])
 
   return (
     <>
@@ -97,13 +103,31 @@ const Project = () => {
                 <VStack w="100%" ml="5px" mt="10px">
                   <Box mt="4" mb="4" bg="#292929" p="3">
                     <Text color="whiteLight" fontSize="24px">
-                      Olá, verifique seu Email e confirme sua conta para ter
-                      acesso ao Devflix 😉
+                      Olá, digite o código abaixo enviado para o seu e-mail e
+                      confirme sua conta para ter acesso ao Devflix.wwwwwww 😉
                     </Text>
                   </Box>
-                  <VStack mx="600" py="4">
+
+                  <Input
+                    mt="10px"
+                    variant="flushed"
+                    color="whiteLight"
+                    _placeholder={{color: 'whiteLight'}}
+                    borderColor="primary"
+                    focusBorderColor="primary"
+                    placeholder="Digite aqui o código..."
+                    {...getFieldProperties('token')}
+                  />
+                  <Stack py="4" width="100%">
                     {renderAlert()}
-                  </VStack>
+                    <Button
+                      onClick={onClickConfirmAccount}
+                      bg="primary"
+                      color="secondary"
+                      isLoading={isLoading}>
+                      Confirmar conta
+                    </Button>
+                  </Stack>
                 </VStack>
               </Center>
             </Stack>

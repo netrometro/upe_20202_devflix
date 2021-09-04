@@ -78,6 +78,7 @@ const SignIn = () => {
         email,
         token,
         roles,
+        isLogged: true,
       }
 
       login(user)

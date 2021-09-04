@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Box, Center, Container, useDisclosure, VStack} from '@chakra-ui/react'
 import PersonIcon from '@material-ui/icons/Person'
 import {Image, Button, Navbar} from 'core/components'
@@ -7,6 +7,7 @@ import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
 import {useForm, useSignUp} from 'core/hooks'
 import Alert from 'core/components/Alert'
+import router from 'next/router'
 
 const FORM_FIELDS = [
   {
@@ -87,6 +88,12 @@ const SignUp = () => {
       )
     )
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      return router.push('/authentication/confirmation')
+    }
+  }, [isSuccess])
 
   return (
     <>

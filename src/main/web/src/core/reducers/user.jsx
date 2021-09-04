@@ -39,6 +39,7 @@ const INITIAL_STATE = {
   roles: undefined,
   email: undefined,
   token: undefined,
+  isLogged: false,
 }
 
 /**
