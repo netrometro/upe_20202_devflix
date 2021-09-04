@@ -82,4 +82,10 @@ public class VideoController {
       videoService.protectedDelete(authorization, videoId), HttpStatus.OK);
   }
 
+  @GetMapping("/my")
+  public ResponseEntity<?> fetchMyVideos(
+    @RequestHeader("authorization") String authorization){
+    return responseService.create(videoService.fetchMyVideos(authorization), HttpStatus.OK);
+  }
+
 }

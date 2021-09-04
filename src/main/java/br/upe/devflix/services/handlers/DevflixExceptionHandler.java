@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.validation.FieldError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -87,6 +89,23 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
     return super.handleExceptionInternal(ex, response, headers, status, request);
   }
 
+  @ExceptionHandler(ServiceUnavailableException.class)
+  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
+  protected ExceptionResponseDTO serviceUnavailable(
+    Exception exception,
+    WebRequest request) 
+  {
+    log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
+
+    ExceptionResponseDTO response = new ExceptionResponseDTO()
+      .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
+      .setStatus(HttpStatus.SERVICE_UNAVAILABLE.value())
+      .setError(true)
+      .setTimestamp(LocalDateTime.now());
+
+    return response;
+  }
+
   @ExceptionHandler(Throwable.class)
   @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
   protected ExceptionResponseDTO globalExceptionHandler(
@@ -94,7 +113,7 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
     WebRequest request) 
   {
     log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
-    exception.printStackTrace();
+
     ExceptionResponseDTO response = new ExceptionResponseDTO()
       .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
       .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -104,17 +123,17 @@ public class DevflixExceptionHandler extends ResponseEntityExceptionHandler {
     return response;
   }
 
-  @ExceptionHandler(ServiceUnavailableException.class)
-  @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE)
-  protected ExceptionResponseDTO serviceUnavailable(
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  protected ExceptionResponseDTO validationException(
     Exception exception,
     WebRequest request) 
   {
     log.warn("An unhandled exception was caught by ExceptionHandler.", exception);
-    exception.printStackTrace();
+    
     ExceptionResponseDTO response = new ExceptionResponseDTO()
-      .setTitle("Um erro ocorreu ao tentar processar a sua solicitação.")
-      .setStatus(HttpStatus.SERVICE_UNAVAILABLE.value())
+      .setTitle("Os campos que você forneceu são inválidos! Verifique se você não errou no preenchimento de alguma informação.")
+      .setStatus(HttpStatus.BAD_REQUEST.value())
       .setError(true)
       .setTimestamp(LocalDateTime.now());
 

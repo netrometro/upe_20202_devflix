@@ -3,6 +3,8 @@ package br.upe.devflix.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,21 @@ public class VideoCRUDService implements IVideoCRUDService {
     }
     return existingVideo.get();
   }
+
+  public List<Video> fetchMyVideos(String authHeader)
+  {
+    log.info("Returning all my videos.");
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+
+    Predicate<Video> myVideos = myVideo -> myVideo.getOwner().getId() == owner.getId();
+    return fetchAll().stream().filter(myVideos).collect(Collectors.toList());
+  }
+
 
   public Video create(Video video) {
     log.info("Creating a new video in database.");

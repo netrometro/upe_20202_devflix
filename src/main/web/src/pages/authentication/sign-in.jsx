@@ -70,9 +70,10 @@ const SignIn = () => {
     if (isSuccess && response) {
       const {response: data} = response ?? {}
       const {token, claims} = data ?? {}
-      const {email, roles, id} = claims ?? {}
+      const {name, email, roles, id} = claims ?? {}
 
       const user = {
+        name,
         id,
         email,
         token,
