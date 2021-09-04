@@ -24,8 +24,6 @@
 		<webjars-jquery.version>3.3.1-1</webjars-jquery.version>
 		<node.version>v14.17.2</node.version>
 		<yarn.version>v1.22.10</yarn.version>
-		<frontend.version>1.9.1</frontend.version>
-		<frontend-src-dir>${project.basedir}/src/main/web</frontend-src-dir>
 	</properties>
 	<dependencies>
 		<dependency>
