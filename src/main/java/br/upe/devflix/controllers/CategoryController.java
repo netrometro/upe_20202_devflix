@@ -56,4 +56,10 @@ public class CategoryController {
     return responseService.create(categoryService.protectedDelete(authorization, categoryId), HttpStatus.OK);
   }
 
+  @GetMapping("/my")
+  public ResponseEntity<?> fetchMyCategories(
+    @RequestHeader("authorization") String authorization){
+    return responseService.create(categoryService.fetchMyCategories(authorization), HttpStatus.OK);
+  }
+
 }

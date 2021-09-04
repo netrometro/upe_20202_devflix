@@ -3,6 +3,8 @@ package br.upe.devflix.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,20 @@ public class CategoryCRUDService implements ICategoryCRUDService{
   public List<Category> fetchAll() {
     log.info("Returning all categories from database.");
     return Categories.findAll();
+  }
+
+  public List<Category> fetchMyCategories(String authHeader)
+  {
+    log.info("Returning all my categories.");
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
+    }
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = userService.fetch(session.getId());
+
+    Predicate<Category> myCategories = myCategory -> myCategory.getOwner().getId() == owner.getId();
+    return fetchAll().stream().filter(myCategories).collect(Collectors.toList());
   }
 
   public Category fetch(Long categoryId) {
@@ -105,7 +121,6 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     }
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
-    
     
     if (owner.getId() != foundCategory.getOwner().getId()){
       //Usuário não é o proprietário do vídeo...

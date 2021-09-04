@@ -63,6 +63,7 @@ public class AuthenticationService {
     claims.put("id", String.valueOf(fetchedUser.getId()));
     claims.put("roles", String.valueOf(fetchedUser.getType()));
     claims.put("email", fetchedUser.getEmail());
+    claims.put("name", fetchedUser.getName());
 
     String jwtToken = JwtProvider.build(claims);
     SessionResponseDTO session = new SessionResponseDTO()

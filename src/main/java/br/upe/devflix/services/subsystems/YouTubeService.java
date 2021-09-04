@@ -35,7 +35,7 @@ public class YouTubeService {
   private String YoutubeApiKey;
 
   //Número de vídeos que serão retornados na busca
-  private static final long MaxVideosPerPage = 15;
+  private static final long MaxVideosPerPage = 10;
 
   /**
    * Retorna os metadados do vídeo a partir do seu ID
