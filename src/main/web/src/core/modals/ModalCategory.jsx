@@ -73,8 +73,6 @@ const ModalCategory = (props) => {
     }
   }, [isSuccess, response, cleanUp, onClose, setIsShowingAlert])
 
-  console.log(response?.data)
-
   return (
     <Modal
       header={header({title: 'Cadastro de Categoria'})}
