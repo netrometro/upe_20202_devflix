@@ -7,17 +7,7 @@ import Title from './Title'
 import {useUser} from 'core/hooks'
 import {ModalCommentary} from 'core/modals'
 
-const Category = ({
-  title,
-  color,
-  videos,
-  commentaries,
-  creationDate,
-  id,
-  lastChangedDate,
-  visibility,
-  author,
-}) => {
+const Category = ({category, author}) => {
   const {
     isOpen: isCommentaryOpen,
     onOpen: onCommentaryOpen,
@@ -25,8 +15,11 @@ const Category = ({
   } = useDisclosure()
   const [{isLogged, roles, id: userId}] = useUser()
   const {id: authorId = ''} = author ?? {}
+
+  const {title, color, videos, commentaries, id} = category
+
   const isActualUserAdminOrOwner =
-    authorId === userId || roles === USER_ROLES.ADMIN
+    String(authorId) === userId || roles === USER_ROLES.ADMIN
   const canUseDeleteOrEdit = isLogged && isActualUserAdminOrOwner
 
   return (

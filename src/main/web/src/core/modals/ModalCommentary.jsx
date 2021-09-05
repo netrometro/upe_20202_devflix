@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Alert, Button, Modal} from 'core/components'
 import {
   Textarea,
@@ -12,7 +12,6 @@ import {
 import useGetAllCommentaries from 'core/hooks/commentaries/useGetAllCommentaries'
 import useAddCommentary from 'core/hooks/commentaries/useAddCommentary'
 import {useForm, useUser} from 'core/hooks'
-import router from 'next/router'
 
 const Commentary = ({commentary, author}) => {
   const {name} = author ?? {}
@@ -38,13 +37,16 @@ const Commentary = ({commentary, author}) => {
 
 const ModalCommentary = ({commentariesType, id, ...props}) => {
   const [{isLogged}] = useUser()
-  const [{commentaries = []}] = useGetAllCommentaries(commentariesType, id)
+  const [{commentaries = [], refetch}] = useGetAllCommentaries(
+    commentariesType,
+    id,
+  )
   const [{fields}, {getFieldProperties, cleanUp}] = useForm({
     text: '',
   })
   const {text} = fields
 
-  const [{isLoading, isError}, {addCommentary}] = useAddCommentary(
+  const [{isLoading, isError, isSuccess}, {addCommentary}] = useAddCommentary(
     commentariesType,
     {
       id,
@@ -98,9 +100,15 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
 
   const onClickAddCommentary = () => {
     addCommentary()
-    cleanUp()
-    return router.reload()
+    refetch()
+    return cleanUp()
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+  }, [isSuccess, refetch])
 
   return (
     <Modal
