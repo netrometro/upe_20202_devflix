@@ -32,7 +32,6 @@ public class Commentary extends GenericEntity {
   @Column(name = "commentary_text")
   private String text;
 
-  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "user_id")
   private User author;
