@@ -5,14 +5,19 @@ import THUMB_ONE from 'images/thumb-one.svg'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import ModalEditVideo from './ModalEditVideo'
+import { useGetRequest } from 'core/hooks'
 
-const VIDEOS = [
-  { title: 'Back end', url: "aaaaaaaaaaaaa" },
-  { title: 'Front end', url: "aaaaaaaaaaaaa" },
-  { title: 'Full end', url: "aaaaaaaaaaaaa" },
-]
+// const VIDEOS = [
+//   { title: 'Back end', url: "aaaaaaaaaaaaa" },
+//   { title: 'Front end', url: "aaaaaaaaaaaaa" },
+//   { title: 'Full end', url: "aaaaaaaaaaaaa" },
+// ]
 
 const ModalMyVideos = ({ ...props }) => {
+
+  
+  const {data: response, isLoading} = useGetRequest("/v1/video/my");
+  const VIDEOS = response?.data?.response ??[]
 
   const { isOpen: isEditVideoOpen, onOpen: onEditVideoOpen, onClose: onEditVideoClose } = useDisclosure()
 
@@ -34,10 +39,10 @@ const ModalMyVideos = ({ ...props }) => {
           return (
             <Box key={`${index}`}>
               <HStack>
-                <Image src={THUMB_ONE} htmlWidth="200" htmlHeight="120" mr="3%"></Image>
+                <Image src={video.metadata.videoThumbnail} htmlWidth="200" htmlHeight="120" mr="3%" alt="thumb" isLoading={isLoading}></Image>
                 <VStack w="100%">
                   <HStack w="100%">
-                    <Text color="whiteLight" fontSize="30px" w="90%">{video.title}</Text>
+                    <Text color="whiteLight" fontSize="30px" w="90%">{video.metadata.title}</Text>
                     <IconButton
                       _hover="background"
                       bg="background"
@@ -45,7 +50,7 @@ const ModalMyVideos = ({ ...props }) => {
                     />
                   </HStack>
                   <HStack w="100%">
-                    <Text color="whiteLight" pr="5px" w="90%">{video.url}</Text>
+                    <Text color="whiteLight" pr="5px" w="90%">{video.metadata.videoLink}</Text>
                     <IconButton
                       _hover="background"
                       bg="background"
