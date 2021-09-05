@@ -2,6 +2,7 @@ package br.upe.devflix.controllers;
 
 import javax.validation.Valid;
 
+import br.upe.devflix.models.dto.UserEditDTO;
 import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.UserCRUDService;
 import br.upe.devflix.services.serializers.ResponseService;
@@ -38,10 +39,10 @@ public class UserController {
   public ResponseEntity<?> update(
     @RequestHeader("authorization") String authorization,
     @PathVariable Long userId,
-    @RequestBody @Valid User user)
+    @RequestBody @Valid UserEditDTO user)
   {
     return responseService.create(
-      userService.adminUpdateUser(authorization, userId, user), HttpStatus.OK);
+      userService.protectedUpdateUser(authorization, userId, user), HttpStatus.OK);
   }
 
   @PostMapping("/{userId}/delete")

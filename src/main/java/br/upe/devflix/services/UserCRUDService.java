@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import br.upe.devflix.dao.IUserDao;
+import br.upe.devflix.models.dto.UserEditDTO;
 import br.upe.devflix.models.entities.User;
-import br.upe.devflix.base.exceptions.AccessDeniedException;
-import br.upe.devflix.base.exceptions.UserNotFoundException;
+import br.upe.devflix.base.exceptions.*;
+import br.upe.devflix.services.security.*;
+import br.upe.devflix.services.security.payload.*;
 import br.upe.devflix.services.interfaces.IUserCRUDService;
-import br.upe.devflix.services.security.AuthorizationService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,15 +71,25 @@ public class UserCRUDService implements IUserCRUDService {
     return user.get();
   }
 
-  public User adminUpdateUser(
+  public User protectedUpdateUser(
     String authHeader, 
     Long userId, 
-    User user)
+    UserEditDTO user)
   {
-    if (!authorizationService.isAdmin(authHeader)){
-      throw new AccessDeniedException("Você não pode realizar esta ação pois não é um administrador!");
+    if (!authorizationService.isAuthenticated(authHeader)){
+      //Usuário não está autenticado...
+      throw new AccessDeniedException("Você precisa estar logado para acessar esse recurso.");
     }
-    return update(userId, user);
+    JwtPayload session = authorizationService.parseJwtPayload(authHeader);
+    User owner = fetch(session.getId());
+
+    owner.setEmail(user.getEmail());
+    owner.setName(user.getName());
+
+    if (!authorizationService.isAdmin(authHeader) && (owner.getId() != userId)){
+      throw new AccessDeniedException("Você não pode realizar esta ação!");
+    }
+    return update(userId, owner);
   }
 
   public User adminDeleteUser(

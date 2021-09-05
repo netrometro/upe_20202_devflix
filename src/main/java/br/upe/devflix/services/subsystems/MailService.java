@@ -26,7 +26,7 @@ public class MailService {
       .from("Devflix UPE", "noreply@upedevflix.herokuapp.com");
   }
 
-  public boolean sendMailConfirmation(String userName, String userEmail, String link){
+  public boolean sendMailConfirmation(String userName, String userEmail, String confirmationToken){
     String content = ResourceProvider.getFileAllText("mails/welcome.html");
     Mailer mail = createMailer()
       .subject("[DevFlix] Confirmação de Cadastro")
@@ -34,7 +34,7 @@ public class MailService {
       .htmlBody(content
         .replace("{{DEVFLIX_USERNAME}}", userName)
         .replace("{{DEVFLIX_USEREMAIL}}", userEmail)
-        .replace("{{DEVFLIX_CONFIRMATIONURL}}", link));
+        .replace("{{DEVFLIX_CONFIRMATIONTOKEN}}", confirmationToken));
     
     log.debug(String.format("Sending Mail Confirmation to user <%s>", userEmail)); 
     MailerResponse result = mail.send();

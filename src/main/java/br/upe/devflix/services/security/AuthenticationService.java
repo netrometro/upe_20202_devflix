@@ -38,7 +38,7 @@ public class AuthenticationService {
     boolean result = Mailer.sendMailConfirmation(
       newUser.getName().toUpperCase(), 
       newUser.getEmail(), 
-      "https://upedevflix.herokuapp.com/#/authentication/confirmation/" + newUser.getConfirmationToken());
+      newUser.getConfirmationToken());
     if (!result){
       throw new ServiceUnavailableException("Estamos enfrentando problemas ao enviar o email. Tente novamente mais tarde.");
     }
