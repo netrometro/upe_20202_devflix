@@ -6,7 +6,7 @@ import {useDisclosure, Center, Text} from '@chakra-ui/react'
 import {ModalVideoDetails} from 'core/modals'
 
 const Slide = ({item, ...props}) => {
-  const {metadata} = item ?? {}
+  const {metadata, id} = item ?? {}
   const {videoThumbnail} = metadata ?? {}
 
   const {
@@ -34,6 +34,7 @@ const Slide = ({item, ...props}) => {
         isOpen={isVideoDetailsOpen}
         onClose={onVideoDetailsClose}
         metadata={metadata}
+        id={id}
       />
     </Carousel.Item>
   )
