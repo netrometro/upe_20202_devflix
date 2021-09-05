@@ -4,7 +4,7 @@ import {Button, Text, Input, HStack, useDisclosure} from '@chakra-ui/react'
 import {Modal, Select} from 'core/components'
 import ModalMyVideos from './ModalMyVideos'
 import ModalYoutubeSearch from './ModalYoutubeSearch'
-import {useGetAllCategories, useStorage, useForm} from 'core/hooks'
+import {useGetMyCategories, useStorage, useForm} from 'core/hooks'
 import {LOCAL_STORAGES_LOCATIONS} from 'core/utils/constants'
 
 const ModalVideo = ({...props}) => {
@@ -23,7 +23,7 @@ const ModalVideo = ({...props}) => {
   const {tags} = fields
   const [currentCategory, setCurrentCategory] = useState('')
   const [{response: categories = [], isLoading, isSuccess, ...rest}] =
-    useGetAllCategories()
+    useGetMyCategories()
   const [items, setItems] = useState([])
 
   const onChangeSelectCategory = (event) => {
