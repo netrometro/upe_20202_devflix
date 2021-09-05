@@ -44,7 +44,7 @@ const Slide = ({item, ...props}) => {
         alt="thumb_one"
         borderRadius="6px"
         _hover={{
-          transform: 'scale(1.25)',
+          transform: 'scale(1.1)',
           transition: 'transform .2s',
         }}
       />
