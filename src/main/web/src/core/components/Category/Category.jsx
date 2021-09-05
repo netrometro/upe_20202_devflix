@@ -1,10 +1,10 @@
-import { USER_ROLES } from 'core/utils/constants'
+import {USER_ROLES} from 'core/utils/constants'
 import React from 'react'
 import {Box, HStack, IconButton, useDisclosure} from '@chakra-ui/react'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import {Carousel} from '../Carousel'
 import Title from './Title'
-import {useTheme, useUser} from 'core/hooks'
+import {useUser} from 'core/hooks'
 import {ModalCommentary} from 'core/modals'
 
 const Category = ({
@@ -16,7 +16,7 @@ const Category = ({
   id,
   lastChangedDate,
   visibility,
-  author
+  author,
 }) => {
   const {
     isOpen: isCommentaryOpen,
@@ -24,21 +24,25 @@ const Category = ({
     onClose: onCommentaryClose,
   } = useDisclosure()
   const [{isLogged, roles, id: userId}] = useUser()
-  const {colors} = useTheme()
-  const {id: authorId = ""} = author ?? {}
-  const isActualUserAdminOrOwner = authorId === userId || roles === USER_ROLES.ADMIN
+  const {id: authorId = ''} = author ?? {}
+  const isActualUserAdminOrOwner =
+    authorId === userId || roles === USER_ROLES.ADMIN
   const canUseDeleteOrEdit = isLogged && isActualUserAdminOrOwner
 
   return (
     <Box>
       <HStack>
-        <Title text={title} color={color} canUseDeleteOrEdit={canUseDeleteOrEdit}/>
+        <Title
+          text={title}
+          color={color}
+          canUseDeleteOrEdit={canUseDeleteOrEdit}
+        />
         <IconButton
           _hover="background"
           bg="background"
           icon={
             <ChatBubbleIcon
-              style={{color: colors.primary, marginLeft: '9', fontSize: '38px'}}
+              style={{color: '#BDBDBD', marginLeft: '3', fontSize: '38px'}}
             />
           }
           onClick={onCommentaryOpen}
