@@ -55,10 +55,8 @@
     let frameUrl = BASE_URL;
     window.onload = function(){
       let subroute = window.location.hash;
-      if (subroute.startsWith('#/authentication/confirmation/', 0)) {
-        const parts = subroute.split('/');
-        const token = parts.reverse()[0];
-        frameUrl = `${CONFIRM_URL}/${encodeURIComponent(token)}`;
+      if (subroute.startsWith('#/authentication/confirm', 0)) {
+        frameUrl = CONFIRM_URL;
       }
       $("#frame").attr("src", frameUrl);
     }
