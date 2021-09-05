@@ -23,10 +23,9 @@ const Category = ({
     onOpen: onCommentaryOpen,
     onClose: onCommentaryClose,
   } = useDisclosure()
-
+  const [{isLogged, roles, id: userId}] = useUser()
   const {colors} = useTheme()
   const {id: authorId = ""} = author ?? {}
-  const [{isLogged, roles, id: userId}] = useUser()
   const isActualUserAdminOrOwner = authorId === userId || roles === USER_ROLES.ADMIN
   const canUseDeleteOrEdit = isLogged && isActualUserAdminOrOwner
 
