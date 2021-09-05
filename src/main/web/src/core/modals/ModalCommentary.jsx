@@ -74,6 +74,50 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
     )
   }
 
+  const footer = () => {
+    return (
+      <Box width="100%">
+        {isLogged ? (
+          <>
+            <Textarea
+              w="100%"
+              mt="10px"
+              p="3"
+              variant="flushed"
+              color="gray"
+              bgColor="whiteLight"
+              borderRadius="6px"
+              placeholder="Adicionar um comentário..."
+              _placeholder={{color: 'gray', textIndent: '4px'}}
+              borderColor="whiteLight"
+              focusBorderColor="whiteLight"
+              {...getFieldProperties('text')}
+            />
+
+            <Container w="100%" height="0.5rem" />
+
+            <Flex w="100%">
+              <Box p="1" />
+              <Spacer />
+              <Button
+                size="lg"
+                onClick={onClickAddCommentary}
+                isLoading={isLoading}
+                disabled={!text}>
+                Comentar
+              </Button>
+            </Flex>
+          </>
+        ) : (
+          <Text color="primary">
+            Quer adicionar um comentário? Então, realize seu login no sistema!
+            😄
+          </Text>
+        )}
+      </Box>
+    )
+  }
+
   const commentaryTypeValue = {
     video: 'nesse vídeo',
     category: 'nessa categoria',
@@ -114,50 +158,13 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
     <Modal
       size="2xl"
       header={<Header {...{title: 'Comentários'}} />}
+      footer={footer()}
       scrollBehavior="inside"
       {...props}>
       <VStack w="100%" mt="10px">
         {renderCommentaries()}
         <Container w="100%" height="1rem" />
         {renderAlert()}
-
-        {isLogged ? (
-          <>
-            <Textarea
-              w="100%"
-              mt="10px"
-              p="3"
-              variant="flushed"
-              color="gray"
-              bgColor="whiteLight"
-              borderRadius="6px"
-              placeholder="Adicionar um comentário..."
-              _placeholder={{color: 'gray', textIndent: '4px'}}
-              borderColor="whiteLight"
-              focusBorderColor="whiteLight"
-              {...getFieldProperties('text')}
-            />
-
-            <Container w="100%" height="0.5rem" />
-
-            <Flex w="100%">
-              <Box p="1" />
-              <Spacer />
-              <Button
-                size="lg"
-                onClick={onClickAddCommentary}
-                isLoading={isLoading}
-                disabled={!text}>
-                Comentar
-              </Button>
-            </Flex>
-          </>
-        ) : (
-          <Text color="primary">
-            Quer adicionar um comentário? Então, realize seu login no sistema!
-            😄
-          </Text>
-        )}
       </VStack>
     </Modal>
   )
