@@ -44,11 +44,11 @@ const ModalUser = ({...props}) => {
   const renderAlert = () => {
     const error = {
       status: 'error',
-      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de login. Por favor, cheque as suas credenciais de acesso e tente novamente!',
+      body: 'Eita! Ocorreu um erro ao tentar editar suas informações. Por favor, tente novamente!',
     }
     const success = {
       status: 'success',
-      body: 'Login realizado com sucesso!',
+      body: 'Alteração realizada com sucesso!',
     }
     const buildMessage = () => {
       return isError ? error : success
