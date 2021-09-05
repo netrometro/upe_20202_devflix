@@ -24,9 +24,9 @@ import {ModalVideoDetails} from 'core/modals'
 //   "commentaries": null
 // }
 
-const Slide = ({item,...props}) => {
-  const {metadata} = item??{}
-  const {videoThumbnail} = metadata??{}
+const Slide = ({item, ...props}) => {
+  const {metadata} = item ?? {}
+  const {videoThumbnail} = metadata ?? {}
 
   const {
     isOpen: isVideoDetailsOpen,
@@ -38,24 +38,37 @@ const Slide = ({item,...props}) => {
       <ModalVideoDetails
         isOpen={isVideoDetailsOpen}
         onClose={onVideoDetailsClose}
-        metadata={metadata}/>
+        metadata={metadata}
+      />
       <Image
         onClick={onVideoDetailsOpen}
         mt="10"
         width="100%"
         src={videoThumbnail}
         alt="thumb_one"
+        borderRadius="6px"
+        _hover={{
+          transform: 'scale(1.2)',
+          transition: 'transform .2s',
+        }}
       />
     </Carousel.Item>
   )
 }
 
 const VideosCarousel = ({commentaries, id, items = [], ...props}) => {
-  const slides = items.map((item, index, items) => <Slide key={`${index}`} item={item}/>)
+  const slides = items.map((item, index, items) => (
+    <Slide key={`${index}`} item={item} />
+  ))
   if (slides.length === 0) {
-    return <Center my="5%" size="xl" color="primary"><Text fontSize="2xl">Vish! Você não possui nenhum vídeo nessa categoria ainda 🤗</Text></Center>
+    return (
+      <Center my="5%" size="xl" color="primary">
+        <Text fontSize="2xl">
+          Vish! Você não possui nenhum vídeo nessa categoria ainda 🤗
+        </Text>
+      </Center>
+    )
   }
-
 
   return (
     <Carousel
