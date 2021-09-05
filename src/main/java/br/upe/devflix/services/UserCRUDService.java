@@ -47,6 +47,13 @@ public class UserCRUDService implements IUserCRUDService {
     return null;
   }
 
+  public User fetchCategoryAuthor(Category category){
+    List<User> authors = Users.findByCategories_Id(category.getId());
+    if (authors.size() > 0)
+      return authors.get(0);
+    return null;
+  }
+
   public User create(User user)
   {
     log.info("Creating a new user in database.");

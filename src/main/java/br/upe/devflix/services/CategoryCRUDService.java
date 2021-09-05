@@ -1,16 +1,19 @@
 package br.upe.devflix.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.upe.devflix.models.entities.*;
 import br.upe.devflix.base.exceptions.*;
+import br.upe.devflix.models.dto.*;
+import br.upe.devflix.models.entities.*;
+import br.upe.devflix.models.dto.CategoryDTO;
 import br.upe.devflix.services.security.payload.JwtPayload;
 import br.upe.devflix.services.security.AuthorizationService;
 
@@ -34,7 +37,23 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     return Categories.findAll();
   }
 
-  public List<Category> fetchMyCategories(String authHeader)
+  public List<CategoryDTO> fetchAllWithAuthor(){
+    log.info("Returning all categories from database.");
+    List<Category> allCategories = fetchAll();
+    ArrayList<CategoryDTO> response = new ArrayList<>();
+    for (Category category : allCategories){
+      User author = userService.fetchCategoryAuthor(category);
+      CategoryDTO categoryDetail = new CategoryDTO();
+      AuthorDTO authorDetail = new AuthorDTO();
+      authorDetail = authorDetail.setName(author.getName())
+        .setEmail(author.getEmail())
+        .setId(author.getId());
+      response.add(categoryDetail.setAuthor(authorDetail).setCategory(category));
+    }
+    return response;
+  }
+
+  public List<CategoryDTO> fetchMyCategories(String authHeader)
   {
     log.info("Returning all my categories.");
     if (!authorizationService.isAuthenticated(authHeader)){
@@ -44,8 +63,8 @@ public class CategoryCRUDService implements ICategoryCRUDService{
     JwtPayload session = authorizationService.parseJwtPayload(authHeader);
     User owner = userService.fetch(session.getId());
 
-    Predicate<Category> myCategories = myCategory -> myCategory.getOwner().getId() == owner.getId();
-    return fetchAll().stream().filter(myCategories).collect(Collectors.toList());
+    Predicate<CategoryDTO> myCategories = myCategory -> myCategory.getAuthor().getId() == owner.getId();
+    return fetchAllWithAuthor().stream().filter(myCategories).collect(Collectors.toList());
   }
 
   public Category fetch(Long categoryId) {

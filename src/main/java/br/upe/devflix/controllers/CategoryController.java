@@ -21,7 +21,7 @@ public class CategoryController {
   
   @GetMapping
   public ResponseEntity<?> fetchAll() {
-    return responseService.create(categoryService.fetchAll(), HttpStatus.OK);
+    return responseService.create(categoryService.fetchAllWithAuthor(), HttpStatus.OK);
   }
 
   @GetMapping("/{categoryId}")

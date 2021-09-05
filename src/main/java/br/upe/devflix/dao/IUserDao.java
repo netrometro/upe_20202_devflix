@@ -15,6 +15,8 @@ public interface IUserDao extends JpaRepository<User, Long> {
   List<User> findByConfirmationTokenAndConfirmedFalse(String confirmationToken);
   List<User> findByEmailAndConfirmedTrue(String email);
   List<User> findByEmail(String email);
+  List<User> findByCommentaries_Id(Long id);
+  List<User> findByCategories_Id(Long id);
   long countByEmail(String email);
-  List<User> findByCommentaries_Id(Long commentaryId);
+  
 }
