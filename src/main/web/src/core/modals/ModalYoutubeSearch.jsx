@@ -48,7 +48,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
     }
     const success = {
       status: 'success',
-      body: 'Video adicionado com sucesso na categoria!',
+      body: 'Video adicionado com sucesso na categoria! Recarregue a página para ver a alteração.',
     }
     const buildMessage = () => {
       return isError ? error : success

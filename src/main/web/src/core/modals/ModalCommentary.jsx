@@ -12,6 +12,7 @@ import {
 import useGetAllCommentaries from 'core/hooks/commentaries/useGetAllCommentaries'
 import useAddCommentary from 'core/hooks/commentaries/useAddCommentary'
 import {useForm, useUser} from 'core/hooks'
+import router from 'next/router'
 
 const Commentary = ({commentary, author}) => {
   const {name} = author ?? {}
@@ -37,10 +38,7 @@ const Commentary = ({commentary, author}) => {
 
 const ModalCommentary = ({commentariesType, id, ...props}) => {
   const [{isLogged}] = useUser()
-  const [{commentaries = [], refetch}] = useGetAllCommentaries(
-    commentariesType,
-    id,
-  )
+  const [{commentaries = []}] = useGetAllCommentaries(commentariesType, id)
   const [{fields}, {getFieldProperties, cleanUp}] = useForm({
     text: '',
   })
@@ -100,10 +98,9 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
 
   const onClickAddCommentary = () => {
     addCommentary()
-    return cleanUp()
+    cleanUp()
+    return router.reload()
   }
-
-  refetch()
 
   return (
     <Modal

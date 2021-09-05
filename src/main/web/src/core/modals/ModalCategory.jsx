@@ -4,6 +4,7 @@ import {Modal, Select} from 'core/components'
 import {ModalMyCategories} from 'core/modals'
 import {useForm, usePostRequest} from 'core/hooks'
 import Alert from 'core/components/Alert'
+import router from 'next/router'
 
 const INITIAL_STATE = {
   title: '',
@@ -70,6 +71,7 @@ const ModalCategory = (props) => {
       cleanUp()
       onClose()
       setIsShowingAlert(false)
+      return router.reload()
     }
   }, [isSuccess, response, cleanUp, onClose, setIsShowingAlert])
 
