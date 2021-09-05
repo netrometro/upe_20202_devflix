@@ -37,7 +37,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
   } = usePostRequest('/v1/video/' + Number(id))
   const [hasToAddVideo, setHasToAddVideo] = useState(false)
 
-  const onChangeAddVideo = () => {
+  const onClickAddVideo = () => {
     setHasToAddVideo(true)
   }
 
@@ -79,8 +79,6 @@ const Video = ({thumb, title, url, description, channelName}) => {
           tags: tags,
         },
       })
-      setItem(LOCAL_STORAGES_LOCATIONS.CURRENT_CATEGORY, '')
-      setItem(LOCAL_STORAGES_LOCATIONS.CURRENT_TAGS, '')
       return null
     }
   }, [
@@ -100,12 +98,15 @@ const Video = ({thumb, title, url, description, channelName}) => {
   return (
     <Box key={`${id}`} width="90%">
       <HStack width="100%">
-        <Radio
-          onChange={onChangeAddVideo}
-          isDisabled={isSuccess}
-          width="10%"></Radio>
         <HStack w="100%">
-          <Image src={thumb} htmlWidth="200" htmlHeight="120" mr="3%"></Image>
+          <Image
+            src={thumb}
+            htmlWidth="200"
+            htmlHeight="120"
+            mr="3%"
+            cursor="pointer"
+            onClick={onClickAddVideo}
+          />{' '}
           <VStack w="100%">
             <HStack w="100%">
               <Text color="whiteLight" fontSize="30px" w="90%">
@@ -134,7 +135,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
   )
 }
 
-const ModalYoutubeSearch = ({...props}) => {
+const ModalYoutubeSearch = (props) => {
   const [{fields}, {getFieldProperties}] = useForm(INITIAL_STATE)
   const {keyword} = fields
   const [enabled, setEnabled] = useState(false)

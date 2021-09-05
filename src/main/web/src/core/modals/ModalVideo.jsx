@@ -46,7 +46,7 @@ const ModalVideo = ({...props}) => {
   useEffect(() => {
     if (isSuccess && categories) {
       setItems(
-        categories.map((category) => {
+        categories.map(({category, author}) => {
           return {
             label: category.title,
             value: category.id,

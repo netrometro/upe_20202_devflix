@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Alert, Button, Modal} from 'core/components'
 import {
   Textarea,
@@ -12,7 +12,6 @@ import {
 import useGetAllCommentaries from 'core/hooks/commentaries/useGetAllCommentaries'
 import useAddCommentary from 'core/hooks/commentaries/useAddCommentary'
 import {useForm, useUser} from 'core/hooks'
-import router from 'next/router'
 
 const Commentary = ({commentary, author}) => {
   const {name} = author ?? {}
@@ -38,13 +37,16 @@ const Commentary = ({commentary, author}) => {
 
 const ModalCommentary = ({commentariesType, id, ...props}) => {
   const [{isLogged}] = useUser()
-  const [{commentaries = []}] = useGetAllCommentaries(commentariesType, id)
+  const [{commentaries = [], refetch}] = useGetAllCommentaries(
+    commentariesType,
+    id,
+  )
   const [{fields}, {getFieldProperties, cleanUp}] = useForm({
     text: '',
   })
   const {text} = fields
 
-  const [{isLoading, isError}, {addCommentary}] = useAddCommentary(
+  const [{isLoading, isError, isSuccess}, {addCommentary}] = useAddCommentary(
     commentariesType,
     {
       id,
@@ -72,47 +74,9 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
     )
   }
 
-  const commentaryTypeValue = {
-    video: 'nesse vídeo',
-    category: 'nessa categoria',
-  }[commentariesType]
-
-  const EmptyText = () => (
-    <Text color="primary">
-      Vish! Parece que ainda não existe nenhum comentário {commentaryTypeValue}.
-    </Text>
-  )
-
-  const renderCommentaries = () =>
-    commentaries.length === 0 ? (
-      <EmptyText />
-    ) : (
-      commentaries.map((commentary, index) => (
-        <Commentary
-          key={`${index}`}
-          commentaryType={commentariesType}
-          {...commentary}
-        />
-      ))
-    )
-
-  const onClickAddCommentary = () => {
-    addCommentary()
-    cleanUp()
-    return router.reload()
-  }
-
-  return (
-    <Modal
-      size="2xl"
-      header={<Header {...{title: 'Comentários'}} />}
-      scrollBehavior="inside"
-      {...props}>
-      <VStack w="100%" mt="10px">
-        {renderCommentaries()}
-        <Container w="100%" height="1rem" />
-        {renderAlert()}
-
+  const footer = () => {
+    return (
+      <Box width="100%">
         {isLogged ? (
           <>
             <Textarea
@@ -150,6 +114,57 @@ const ModalCommentary = ({commentariesType, id, ...props}) => {
             😄
           </Text>
         )}
+      </Box>
+    )
+  }
+
+  const commentaryTypeValue = {
+    video: 'nesse vídeo',
+    category: 'nessa categoria',
+  }[commentariesType]
+
+  const EmptyText = () => (
+    <Text color="primary">
+      Vish! Parece que ainda não existe nenhum comentário {commentaryTypeValue}.
+    </Text>
+  )
+
+  const renderCommentaries = () =>
+    commentaries.length === 0 ? (
+      <EmptyText />
+    ) : (
+      commentaries.map((commentary, index) => (
+        <Commentary
+          key={`${index}`}
+          commentaryType={commentariesType}
+          {...commentary}
+        />
+      ))
+    )
+
+  const onClickAddCommentary = () => {
+    addCommentary()
+    refetch()
+    return cleanUp()
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+  }, [isSuccess, refetch])
+
+  return (
+    <Modal
+      size="2xl"
+      header={<Header {...{title: 'Comentários'}} />}
+      footer={footer()}
+      scrollBehavior="inside"
+      {...props}>
+      <VStack w="100%" mt="10px">
+        {renderCommentaries()}
+        <Container w="100%" height="1rem" />
+        {renderAlert()}
       </VStack>
     </Modal>
   )
