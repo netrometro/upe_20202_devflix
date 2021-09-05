@@ -1,8 +1,9 @@
 import React from 'react'
-import {Menu as ChakraMenu, Flex, Link} from '@chakra-ui/react'
+import {Menu as ChakraMenu, Flex, Link, useDisclosure} from '@chakra-ui/react'
 import {HamburgerIcon} from '@chakra-ui/icons'
 import {PersonAdd, Info, ExitToApp} from '@material-ui/icons'
-import {useTheme} from 'core/hooks'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {useTheme, useUser} from 'core/hooks'
 import NextLink from 'next/link'
 
 import MenuButton from './Button'
@@ -10,10 +11,17 @@ import MenuItem from './Item'
 import MenuList from './List'
 import IconButton from '../IconButton'
 import Text from '../Text'
+import { ModalUser } from 'core/modals'
 
 const MenuWidget = (props) => {
+  const [{isLogged, name: userName, email: userEmail}] = useUser()
   const {colors} = useTheme()
   const iconStyle = {color: colors.primary}
+  const {
+    isOpen: isUserOpen,
+    onOpen: onUserOpen,
+    onClose: onUserClose,
+  } = useDisclosure()
 
   return (
     <ChakraMenu {...props}>
@@ -25,16 +33,35 @@ const MenuWidget = (props) => {
         variant="outline"
       />
       <MenuList>
-        <NextLink href="/authentication/sign-in" passHref>
-          <MenuItem icon={<ExitToApp style={iconStyle} />}>
-            Realizar login
-          </MenuItem>
-        </NextLink>
-        <NextLink href="/authentication/sign-up" passHref>
-          <MenuItem icon={<PersonAdd style={iconStyle} />}>
-            Realizar cadastro
-          </MenuItem>
-        </NextLink>
+        {!isLogged && (
+          <>
+            <NextLink href="/authentication/sign-in" passHref>
+              <MenuItem icon={<ExitToApp style={iconStyle} />}>
+                Realizar login
+              </MenuItem>
+            </NextLink>
+            <NextLink href="/authentication/sign-up" passHref>
+              <MenuItem icon={<PersonAdd style={iconStyle} />}>
+                Realizar cadastro
+              </MenuItem>
+            </NextLink>
+          </>
+        )}
+        {isLogged && (
+          <>
+            <MenuItem icon={<AccountCircleIcon style={iconStyle}/>} onClick={onUserOpen}>
+              <Text>
+                {userName}
+              </Text>
+                
+              <Text fontSize="xs">
+                {userEmail}
+              </Text>
+            </MenuItem>
+            <ModalUser isOpen={isUserOpen} onClose={onUserClose}/>
+          </>
+        )}
+        
         <Link href="https://github.com/netrometro/upe_20202_devflix#readme" target="_blank">
           <MenuItem icon={<Info style={iconStyle} />}>Sobre</MenuItem>
         </Link>
