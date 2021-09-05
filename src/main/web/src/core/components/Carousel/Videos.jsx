@@ -5,25 +5,6 @@ import Carousel from './Carousel'
 import {useDisclosure, Center, Text} from '@chakra-ui/react'
 import {ModalVideoDetails} from 'core/modals'
 
-// {
-//   "creationDate": "2021-09-02T22:24:35.422",
-//   "lastChangedDate": null,
-//   "id": 4,
-//   "visibility": 1,
-//   "metadata": {
-//       "creationDate": "2021-09-02T22:24:35.224",
-//       "lastChangedDate": null,
-//       "id": 3,
-//       "videoLink": "https://www.youtube.com/watch?v=3FkWddODLno",
-//       "title": "Visual Basic Tutorial 2017",
-//       "videoThumbnail": "https://i.ytimg.com/vi/3FkWddODLno/hqdefault.jpg",
-//       "description": "Get the Code Here : https://goo.gl/4mqeZT Subscribe to Me: http://bit.ly/2FWQZTx Best Visual Basic Book : http://amzn.to/2fL5N8w MY UDEMY COURSES ARE ...",
-//       "videoYoutubeChannel": "Derek Banas",
-//       "tags": "code"
-//   },
-//   "commentaries": null
-// }
-
 const Slide = ({item, ...props}) => {
   const {metadata} = item ?? {}
   const {videoThumbnail} = metadata ?? {}
