@@ -1,14 +1,14 @@
 package br.upe.devflix.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDateTime;
 
 import br.upe.devflix.dao.IUserDao;
-import br.upe.devflix.models.dto.UserEditDTO;
-import br.upe.devflix.models.entities.User;
+import br.upe.devflix.models.entities.*;
 import br.upe.devflix.base.exceptions.*;
 import br.upe.devflix.services.security.*;
+import br.upe.devflix.models.dto.UserEditDTO;
 import br.upe.devflix.services.security.payload.*;
 import br.upe.devflix.services.interfaces.IUserCRUDService;
 
@@ -40,6 +40,13 @@ public class UserCRUDService implements IUserCRUDService {
     return user.get();
   }
   
+  public User fetchCommentaryAuthor(Commentary commentary){
+    List<User> authors = Users.findByCommentaries_Id(commentary.getId());
+    if (authors.size() > 0)
+      return authors.get(0);
+    return null;
+  }
+
   public User create(User user)
   {
     log.info("Creating a new user in database.");
