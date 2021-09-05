@@ -22,8 +22,6 @@ const ModalShare = ({videoLink: link, shareTitle, ...props}) => {
     )
   }
 
-  console.log()
-
   const header = ({title}) => {
     return (
       <Text color="whiteLight" fontSize="32px">
@@ -59,7 +57,7 @@ const ModalShare = ({videoLink: link, shareTitle, ...props}) => {
   }
 
   const onClickEmailShare = () => {
-    shareEmail({userEmail, link});
+    shareEmail({userEmail, link})
   }
 
   return (

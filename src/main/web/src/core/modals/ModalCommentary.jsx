@@ -13,8 +13,9 @@ import useGetAllCommentaries from 'core/hooks/commentaries/useGetAllCommentaries
 import useAddCommentary from 'core/hooks/commentaries/useAddCommentary'
 import {useForm, useUser} from 'core/hooks'
 
-const Commentary = ({id, author, text, canDelete}) => {
-  const {name = 'Luiz Gustavo'} = author ?? {}
+const Commentary = ({commentary, author}) => {
+  const {name} = author ?? {}
+  const {text} = commentary
 
   return (
     <VStack
