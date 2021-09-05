@@ -28,6 +28,7 @@ const ModalMyCategories = ({...props}) => {
           return (
             <Box key={`${index}`}>
               <Category {...category} isLoading={isLoading} />
+              
               {!isLastCategory && <Box height={20} />}
             </Box>
           )
