@@ -120,8 +120,7 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
       authorDetail = authorDetail.setName(author.getName())
         .setEmail(author.getEmail())
         .setId(author.getId());
-      commentDetail = commentDetail.setAuthor(authorDetail).setCommentary(comment);
-      response.add(commentDetail);
+      response.add(commentDetail.setAuthor(authorDetail).setCommentary(comment));
     }
     return response;
   }
