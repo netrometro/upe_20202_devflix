@@ -3,7 +3,6 @@ package br.upe.devflix.controllers;
 import javax.validation.Valid;
 
 import br.upe.devflix.models.dto.UserEditDTO;
-import br.upe.devflix.models.entities.*;
 import br.upe.devflix.services.UserCRUDService;
 import br.upe.devflix.services.serializers.ResponseService;
 

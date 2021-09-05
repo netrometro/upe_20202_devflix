@@ -35,16 +35,16 @@ const Slide = ({item, ...props}) => {
   } = useDisclosure()
 
   return (
-    <Carousel.Item hasSpace {...props}>
+    <Carousel.Item pt="10" pb="10" overflow="visible" hasSpace {...props}>
       <Image
+        cursor="pointer"
         onClick={onVideoDetailsOpen}
-        mt="10"
         width="100%"
         src={videoThumbnail}
         alt="thumb_one"
         borderRadius="6px"
         _hover={{
-          transform: 'scale(1.1)',
+          transform: 'scale(1.25)',
           transition: 'transform .2s',
         }}
       />
