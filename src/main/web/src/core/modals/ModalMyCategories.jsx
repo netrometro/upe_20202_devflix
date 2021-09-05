@@ -4,10 +4,7 @@ import {Modal, Category} from 'core/components'
 import {useGetMyCategories} from 'core/hooks'
 
 const ModalMyCategories = ({...props}) => {
-
   const [{response: categories = [], isLoading}] = useGetMyCategories()
-
-  console.log(categories)
 
   const header = ({title, ...props}) => {
     return (
