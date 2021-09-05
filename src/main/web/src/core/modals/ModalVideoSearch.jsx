@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal } from "core/components"
-import { Text, Box, HStack, VStack, Image} from '@chakra-ui/react'
+import { Text, Box, HStack, VStack, Image, Center } from '@chakra-ui/react'
 
 const ModalVideoSearch = ({videos, ...props}) => {
 
@@ -17,6 +17,12 @@ const ModalVideoSearch = ({videos, ...props}) => {
       {...props}
     >
       <Box bg="background" py={5}>
+        {videos.length === 0 ? (
+          <Center my="5%" size="xl" color="primary">
+            <Text fontSize="2xl">Eita! Não encontramos nenhum vídeo 🤔</Text>
+          </Center>
+        ) : (
+        <>
         {videos.map((video, index, videos) => {
           const isLastVideo = videos.length - 1 === index
           return (
@@ -40,7 +46,9 @@ const ModalVideoSearch = ({videos, ...props}) => {
               {!isLastVideo && <Box height={5} />}
             </Box>
           )
-        })}
+        })}  
+        </>
+        )}
       </Box>
     </Modal>
   )
