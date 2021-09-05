@@ -33,13 +33,9 @@ const Slide = ({item, ...props}) => {
     onOpen: onVideoDetailsOpen,
     onClose: onVideoDetailsClose,
   } = useDisclosure()
+
   return (
     <Carousel.Item hasSpace {...props}>
-      <ModalVideoDetails
-        isOpen={isVideoDetailsOpen}
-        onClose={onVideoDetailsClose}
-        metadata={metadata}
-      />
       <Image
         onClick={onVideoDetailsOpen}
         mt="10"
@@ -48,16 +44,22 @@ const Slide = ({item, ...props}) => {
         alt="thumb_one"
         borderRadius="6px"
         _hover={{
-          transform: 'scale(1.2)',
+          transform: 'scale(1.1)',
           transition: 'transform .2s',
         }}
+      />
+
+      <ModalVideoDetails
+        isOpen={isVideoDetailsOpen}
+        onClose={onVideoDetailsClose}
+        metadata={metadata}
       />
     </Carousel.Item>
   )
 }
 
 const VideosCarousel = ({commentaries, id, items = [], ...props}) => {
-  const slides = items.map((item, index, items) => (
+  const slides = items.map((item, index) => (
     <Slide key={`${index}`} item={item} />
   ))
   if (slides.length === 0) {
@@ -73,6 +75,7 @@ const VideosCarousel = ({commentaries, id, items = [], ...props}) => {
   return (
     <Carousel
       slides={slides}
+      height={280}
       backButtonIcon={({tintColor}) => (
         <Carousel.Button tintColor={tintColor} direction="back" fontSize={56} />
       )}
