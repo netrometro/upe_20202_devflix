@@ -40,7 +40,7 @@ public class Category extends GenericEntity {
   @Column(name = "category_id")
   private long id;
 
-  @Length(min = 20, max = 25)
+  @Length(min = 5, max = 25)
   @NotNull
   @NotBlank
   @Column(name = "category_title")

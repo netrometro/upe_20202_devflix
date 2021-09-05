@@ -55,18 +55,12 @@ const ModalForgotPassword = (props) => {
 
   useEffect(() => {
     if (isSuccess) {
-      onCloseModalForgotPasswordModal()
       return onOpen()
     }
   }, [isSuccess, onOpen, response, onCloseModalForgotPasswordModal])
 
   return (
-    <Modal
-      size="2xl"
-      header={header()}
-      scrollBehavior="inside"
-      {...props}
-      onClose={onCloseModalForgotPasswordModal}>
+    <Modal size="2xl" header={header()} scrollBehavior="inside" {...props}>
       <Center>
         <VStack w="100%" ml="5px" mt="10px">
           <FormField

@@ -5,7 +5,8 @@ import {LOCAL_STORAGES_LOCATIONS, PagesTitles} from 'core/utils/constants'
 import {useGetAllCategories, useStorage, useUser} from 'core/hooks'
 
 const HomePage = () => {
-  const [{response: categories = [], isLoading, refetch}] = useGetAllCategories()
+  const [{response: categories = [], isLoading, refetch}] =
+    useGetAllCategories()
   const [getItem] = useStorage()
   const [actualUser, setActualUser] = useState('')
   const [user, {login}] = useUser()
