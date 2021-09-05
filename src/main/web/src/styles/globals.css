@@ -20,6 +20,11 @@ a {
   text-decoration: none;
 }
 
+select option:first-child{
+  background-color: #303030;
+}
+
+
 * {
   box-sizing: border-box;
   outline: none !important;

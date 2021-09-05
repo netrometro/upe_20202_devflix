@@ -115,7 +115,7 @@ const ModalVideoDetails = ({metadata, id, ...props}) => {
             <ModalShare
               isOpen={isShareOpen}
               onClose={onShareClose}
-              shareLink={videoLink}
+              videoLink={videoLink}
             />
           </HStack>
         </VStack>
