@@ -4,10 +4,7 @@ import {Modal, Category} from 'core/components'
 import {useGetMyCategories} from 'core/hooks'
 
 const ModalMyCategories = ({...props}) => {
-
   const [{response: categories = [], isLoading}] = useGetMyCategories()
-
-  console.log(categories)
 
   const header = ({title, ...props}) => {
     return (
@@ -28,6 +25,7 @@ const ModalMyCategories = ({...props}) => {
           return (
             <Box key={`${index}`}>
               <Category {...category} isLoading={isLoading} />
+              
               {!isLastCategory && <Box height={20} />}
             </Box>
           )
