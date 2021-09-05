@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from 'react'
 import useGetRequest from './useGetRequest'
 
 const ENDPOINT = '/v1/category'

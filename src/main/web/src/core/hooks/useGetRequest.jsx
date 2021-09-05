@@ -17,12 +17,13 @@ const useGetRequest = (url, configs = {}, options = {}) => {
 
   const personalizedConfigs = {
     headers: {Authorization: `Bearer ${token}`},
+    ...configs,
   }
 
   return useQuery({
     ...options,
-    queryKey: [url, {configs, ...personalizedConfigs}],
-    queryFn: () => Api.get(url, configs),
+    queryKey: [url, personalizedConfigs],
+    queryFn: () => Api.get(url, personalizedConfigs),
   })
 }
 
