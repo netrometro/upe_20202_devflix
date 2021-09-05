@@ -3,26 +3,51 @@ import {React, useState} from 'react'
 import {Modal} from 'core/components'
 import {EmailIcon} from '@chakra-ui/icons'
 import {WhatsApp} from '@material-ui/icons'
+import {usePostRequest} from 'core/hooks'
 import {IconButton, Text, Input, HStack, Center, VStack} from '@chakra-ui/react'
+import Alert from 'core/components/Alert'
 
-const ModalShare = ({shareLink, shareTitle, ...props}) => {
+const ModalShare = ({videoLink: link, shareTitle, ...props}) => {
   shareTitle = shareTitle || ''
 
-  const [email, setEmail] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const {mutate: shareEmail, isError, isSuccess} = usePostRequest('/v1/share')
+  const [isShowingAlert] = useState(true)
 
   const buildBody = () => {
     return (
       'Olá, quero compartilhar este(s) vídeo(s) com você pois gostei muito dele(s)! ' +
       'Acompanhe o conteúdo exclusivo dentro do Devflix: ' +
-      shareLink
+      link
     )
   }
+
+  console.log()
 
   const header = ({title}) => {
     return (
       <Text color="whiteLight" fontSize="32px">
         {title}
       </Text>
+    )
+  }
+
+  const renderAlert = () => {
+    const error = {
+      status: 'error',
+      body: 'Eita! Ocorreu um erro ao compartilhar o vídeo. Verifique o preenchimento do campo de Email.',
+    }
+    const success = {
+      status: 'success',
+      body: 'Mensagem enviada com sucesso!',
+    }
+    const buildMessage = () => {
+      return isError ? error : success
+    }
+    const {status, body} = buildMessage()
+    const isRequesting = isError || isSuccess
+    return (
+      isRequesting && isShowingAlert && <Alert status={status} message={body} />
     )
   }
 
@@ -33,8 +58,8 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
     )
   }
 
-  const onEmailShare = () => {
-    alert("Enviando e-mail para... " + email);
+  const onClickEmailShare = () => {
+    shareEmail({userEmail, link});
   }
 
   return (
@@ -50,8 +75,8 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
             preencha-o abaixo.
           </Text>
           <Input
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={userEmail}
+            onChange={(event) => setUserEmail(event.target.value)}
             type="email"
             w="75%"
             ml="5px"
@@ -79,7 +104,7 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
               mr="0.5rem"
             />
             <IconButton
-              onClick={onEmailShare}
+              onClick={onClickEmailShare}
               color="background"
               bgColor="primary"
               opacity="75%"
@@ -92,6 +117,7 @@ const ModalShare = ({shareLink, shareTitle, ...props}) => {
               ml="0.5rem"
             />
           </HStack>
+          {renderAlert()}
         </VStack>
       </Center>
     </Modal>

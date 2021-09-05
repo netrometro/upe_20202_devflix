@@ -101,7 +101,7 @@ const ModalVideoDetails = ({details, metadata, ...props}) => {
             <ModalShare
               isOpen={isShareOpen}
               onClose={onShareClose}
-              shareLink={videoLink}
+              videoLink={videoLink}
             />
             <IconButton
               _hover="background"
