@@ -1,12 +1,13 @@
-/* eslint-disable no-return-assign */
 import React from 'react'
 import {Box, Text} from '@chakra-ui/react'
 import {Modal, Category} from 'core/components'
-import {useGetMyCategories, useGetAllCategories} from 'core/hooks'
+import {useGetMyCategories} from 'core/hooks'
 
 const ModalMyCategories = ({...props}) => {
 
   const [{response: categories = [], isLoading}] = useGetMyCategories()
+
+  console.log(categories)
 
   const header = ({title, ...props}) => {
     return (
