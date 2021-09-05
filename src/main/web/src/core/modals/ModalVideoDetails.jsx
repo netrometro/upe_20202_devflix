@@ -15,17 +15,10 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import ShareIcon from '@material-ui/icons/Share'
 import {ModalShare, ModalCommentary} from 'core/modals'
+import {useUser} from 'core/hooks'
 
-const ModalVideoDetails = ({details, metadata, ...props}) => {
-  const {
-    videoLink,
-    title,
-    description,
-    videoYoutubeChannel,
-    tags,
-    videoThumbnail,
-  } = metadata ?? {}
-
+const ModalVideoDetails = ({metadata, id, ...props}) => {
+  const {videoLink, title, description, videoThumbnail} = metadata ?? {}
   const {
     isOpen: isCommentaryOpen,
     onOpen: onCommentaryOpen,
@@ -36,6 +29,7 @@ const ModalVideoDetails = ({details, metadata, ...props}) => {
     onOpen: onShareOpen,
     onClose: onShareClose,
   } = useDisclosure()
+  const [{isLogged}] = useUser()
 
   const onPlayClick = () => {
     window.open(videoLink, '__blank')
@@ -85,9 +79,7 @@ const ModalVideoDetails = ({details, metadata, ...props}) => {
               }
               onClick={onPlayClick}
             />
-            <ModalCommentary
-              isOpen={isCommentaryOpen}
-              onClose={onCommentaryClose}></ModalCommentary>
+
             <IconButton
               _hover="background"
               bg="background"
@@ -98,20 +90,32 @@ const ModalVideoDetails = ({details, metadata, ...props}) => {
               }
               onClick={onCommentaryOpen}
             />
+            {isLogged && (
+              <IconButton
+                _hover="background"
+                bg="background"
+                icon={
+                  <ShareIcon
+                    style={{
+                      color: '#EC0025',
+                      marginLeft: '9',
+                      fontSize: '38px',
+                    }}
+                  />
+                }
+                onClick={onShareOpen}
+              />
+            )}
+            <ModalCommentary
+              commentariesType="video"
+              id={id}
+              isOpen={isCommentaryOpen}
+              onClose={onCommentaryClose}
+            />
             <ModalShare
               isOpen={isShareOpen}
               onClose={onShareClose}
               shareLink={videoLink}
-            />
-            <IconButton
-              _hover="background"
-              bg="background"
-              icon={
-                <ShareIcon
-                  style={{color: '#EC0025', marginLeft: '9', fontSize: '38px'}}
-                />
-              }
-              onClick={onShareOpen}
             />
           </HStack>
         </VStack>
