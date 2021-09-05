@@ -81,6 +81,8 @@ const ModalCategory = (props) => {
       scrollBehavior="inside"
       {...props}>
       <Input
+        minLength="5"
+        maxLength="25"
         w="65%"
         ml="5px"
         mt="10px"
@@ -93,6 +95,8 @@ const ModalCategory = (props) => {
         {...getFieldProperties('title')}
       />
       <Input
+        minLength="6"
+        maxLength="6"
         w="65%"
         ml="5px"
         mt="10px"
