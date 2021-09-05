@@ -63,7 +63,6 @@ public class VideoCRUDService implements IVideoCRUDService {
     return fetchAll().stream().filter(myVideos).collect(Collectors.toList());
   }
 
-
   public Video create(Video video) {
     log.info("Creating a new video in database.");
     return Videos.save(video);

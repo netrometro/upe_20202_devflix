@@ -1,10 +1,13 @@
 package br.upe.devflix.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import br.upe.devflix.dao.*;
+import br.upe.devflix.models.dto.AuthorDTO;
+import br.upe.devflix.models.dto.CommentaryDTO;
 import br.upe.devflix.models.entities.*;
 import br.upe.devflix.base.exceptions.*;
 import br.upe.devflix.services.security.payload.JwtPayload;
@@ -79,24 +82,48 @@ public class CommentaryCRUDService implements ICommentaryCRUDService {
     return commentary.get();
   }
 
-  public List<Commentary> fetchByVideoId(
+  public List<CommentaryDTO> fetchByVideoId(
     Long videoId) 
   {
     Video video = videoService.fetch(videoId);
     if (video == null){
       throw new VideoNotFoundException("Vídeo não encontrado.");
     }
-    return video.getCommentaries();
+    List<Commentary> commentaries = video.getCommentaries();
+    ArrayList<CommentaryDTO> response = new ArrayList<>();
+    for (Commentary comment : commentaries){
+      User author = userService.fetchCommentaryAuthor(comment);
+      CommentaryDTO commentDetail = new CommentaryDTO();
+      AuthorDTO authorDetail = new AuthorDTO();
+      authorDetail = authorDetail.setName(author.getName())
+        .setEmail(author.getEmail())
+        .setId(author.getId());
+      commentDetail = commentDetail.setAuthor(authorDetail).setCommentary(comment);
+      response.add(commentDetail);
+    }
+    return response;
   }
 
-  public List<Commentary> fetchByCategoryId(
+  public List<CommentaryDTO> fetchByCategoryId(
     Long categoryId) 
   {
     Category category = categoryService.fetch(categoryId);
     if (category == null) {
       throw new CategoryNotFoundException("Categoria não encontrada.");
     }
-    return category.getCommentaries();
+    List<Commentary> commentaries = category.getCommentaries();
+    ArrayList<CommentaryDTO> response = new ArrayList<>();
+    for (Commentary comment : commentaries){
+      User author = userService.fetchCommentaryAuthor(comment);
+      CommentaryDTO commentDetail = new CommentaryDTO();      
+      AuthorDTO authorDetail = new AuthorDTO();
+      authorDetail = authorDetail.setName(author.getName())
+        .setEmail(author.getEmail())
+        .setId(author.getId());
+      commentDetail = commentDetail.setAuthor(authorDetail).setCommentary(comment);
+      response.add(commentDetail);
+    }
+    return response;
   }
   
   public Commentary createInVideo(
