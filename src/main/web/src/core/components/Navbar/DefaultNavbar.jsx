@@ -8,12 +8,33 @@ import {ModalVideo, ModalCategory} from 'core/modals'
 import ActionsButtons from './ActionsButtons'
 import Leading from './Leading'
 import Image from '../Image'
+import {useStorage, useUser} from 'core/hooks'
+import {ExitToApp} from '@material-ui/icons'
+import router from 'next/router'
 
 const LOGO_HEIGHT = 50
 
 const DefaultNavbar = ({onClickSwitchNavbar}) => {
-  const { isOpen: isVideoOpen , onOpen: onVideoOpen, onClose: onVideoClose } = useDisclosure()
-  const { isOpen: isCategoryOpen , onOpen: onCategoryOpen, onClose: onCategoryClose } = useDisclosure()
+  const {
+    isOpen: isVideoOpen,
+    onOpen: onVideoOpen,
+    onClose: onVideoClose,
+  } = useDisclosure()
+  const {
+    isOpen: isCategoryOpen,
+    onOpen: onCategoryOpen,
+    onClose: onCategoryClose,
+  } = useDisclosure()
+
+  const [{isLogged}, {logout}] = useUser()
+  const [, {clear}] = useStorage()
+
+  const onClickDoLogout = () => {
+    logout()
+    clear()
+    router.reload('/')
+  }
+
   return (
     <Flex alignItems="center" justifyContent="space-between">
       <Leading>
@@ -36,11 +57,22 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
           size="lg"
           onClick={onClickSwitchNavbar}
         />
-        <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose}/>
-        <Button onClick={onVideoOpen}>Novo vídeo</Button>
+        {isLogged && (
+          <>
+            <Button onClick={onVideoOpen}>Novo vídeo</Button>
+            <Button onClick={onCategoryOpen}>Nova categoria</Button>
+            {isLogged && (
+              <IconButton
+                bg="black"
+                icon={<ExitToApp style={{color: 'white'}} />}
+                onClick={onClickDoLogout}
+              />
+            )}
+          </>
+        )}
 
-        <ModalCategory isOpen={isCategoryOpen} onClose={onCategoryClose}/>
-        <Button onClick={onCategoryOpen}>Nova categoria</Button>
+        <ModalCategory isOpen={isCategoryOpen} onClose={onCategoryClose} />
+        <ModalVideo isOpen={isVideoOpen} onClose={onVideoClose} />
       </ActionsButtons>
     </Flex>
   )

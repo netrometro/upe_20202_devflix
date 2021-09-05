@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Box, Center, Container, useDisclosure, VStack} from '@chakra-ui/react'
 import PersonIcon from '@material-ui/icons/Person'
 import {Image, Button, Navbar} from 'core/components'
@@ -7,6 +7,7 @@ import FormField from 'core/components/Form/FormField'
 import {PagesTitles} from 'core/utils/constants'
 import {useForm, useSignUp} from 'core/hooks'
 import Alert from 'core/components/Alert'
+import router from 'next/router'
 
 const FORM_FIELDS = [
   {
@@ -56,12 +57,12 @@ const SignUp = () => {
   const renderAlert = () => {
     const error = {
       status: 'error',
-      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de cadastro. Por favor, tente mais tarde!',
+      body: 'Eita! Ocorreu um erro ao processar a sua solicitação de cadastro. Por favor, tente mais tarde.',
     }
 
     const success = {
       status: 'success',
-      body: 'Cadastro realizado com sucesso!',
+      body: 'Cadastro realizado com sucesso! Cheque o seu e-mail com as instruções de como ativar a sua conta.😉',
     }
 
     const warning = {
@@ -87,6 +88,12 @@ const SignUp = () => {
       )
     )
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      return router.push('/authentication/confirmation')
+    }
+  }, [isSuccess])
 
   return (
     <>

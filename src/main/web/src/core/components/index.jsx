@@ -6,6 +6,7 @@ export {default as Text} from './Text'
 export {default as IconButton} from './IconButton'
 export {default as TextInput} from './TextInput'
 export {default as Select} from './Select'
+export {default as Alert} from './Alert'
 
 export * from './Category'
 export * from './Carousel'

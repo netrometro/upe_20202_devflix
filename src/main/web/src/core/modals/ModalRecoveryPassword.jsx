@@ -1,16 +1,32 @@
-import {React, useState} from 'react'
-import {Button, Modal} from 'core/components'
+import {React, useEffect} from 'react'
+import {Alert, Button, Modal} from 'core/components'
 import {Center, VStack, Text, Image} from '@chakra-ui/react'
 import {LockIcon} from '@chakra-ui/icons'
 import {VpnKey} from '@material-ui/icons'
 import FormField from 'core/components/Form/FormField'
+import {useForm} from 'core/hooks'
+import usePutRequest from 'core/hooks/usePutRequest'
+import router from 'next/router'
 
-const ModalRecoveryPassword = ({...props}) => {
-  const [recoveryCode, setRecoveryCode] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+const INITIAL_VALUES = {
+  token: '',
+  password: '',
+  confirmPassword: '',
+}
 
-  const [isDisabled, setIsDisabled] = useState(true)
+const ModalRecoveryPassword = (props) => {
+  const {onClose} = props
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_VALUES)
+  const {token, password, confirmPassword} = fields
+  const isPasswordsEquals = password === confirmPassword
+  const isPasswordsEmpty = !password && !confirmPassword
+
+  const {
+    mutate: updatePassword,
+    isLoading,
+    isSuccess,
+    isError,
+  } = usePutRequest('/v1/authentication/recovery')
 
   const header = () => {
     return (
@@ -27,28 +43,49 @@ const ModalRecoveryPassword = ({...props}) => {
     )
   }
 
-  const changePassword = (code, password) => {
-    // Implementar lógica de mudar a senha.
-    // password é a nova senha escolhida pelo usuário,
-    // code é o código usado na API para redefinir a senha.
-  }
+  const onClickChangePassword = () => updatePassword({token, password})
 
-  const onClickChangePassword = () => {
-    if (newPassword !== confirmPassword) {
-      return
+  const renderAlert = () => {
+    const error = {
+      status: 'error',
+      body: 'Eita! Ocorreu um erro ao tentar alterar a sua senha.',
     }
-    changePassword(recoveryCode, newPassword)
+
+    const success = {
+      status: 'success',
+      body: 'Senha alterada com sucesso.',
+    }
+
+    const warning = {
+      status: 'warning',
+      body: 'As senhas devem ser iguais.',
+    }
+
+    const buildMessage = () => {
+      if (!isPasswordsEquals) {
+        return warning
+      }
+
+      return isError ? error : success
+    }
+
+    const {status, body} = buildMessage()
+
+    return (
+      (isError || isSuccess || !isPasswordsEquals) && (
+        <Alert status={status} message={body} />
+      )
+    )
   }
 
-  const onChangeNewPassword = (value) => {
-    setNewPassword(value)
-    setIsDisabled(value !== confirmPassword)
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      onClose()
+      return router.push('/authentication/sign-in')
+    }
 
-  const onChangeConfirmPassword = (value) => {
-    setConfirmPassword()
-    setIsDisabled(newPassword !== value)
-  }
+    return null
+  }, [isSuccess, onClose])
 
   return (
     <Modal size="2xl" header={header()} scrollBehavior="inside" {...props}>
@@ -58,27 +95,30 @@ const ModalRecoveryPassword = ({...props}) => {
             type="text"
             icon={<VpnKey />}
             text="Código de recuperação"
-            onChange={(event) => setRecoveryCode(event.target.value)}
-            value={recoveryCode}></FormField>
+            {...getFieldProperties('token')}
+          />
 
           <FormField
             type="psw"
             icon={<LockIcon />}
             text="Nova senha"
-            onChange={(event) => onChangeNewPassword(event.target.value)}
-            value={newPassword}></FormField>
+            {...getFieldProperties('password')}
+          />
 
           <FormField
             type="psw"
             icon={<LockIcon />}
             text="Repita a nova senha"
-            onChange={(event) => onChangeConfirmPassword(event.target.value)}
-            value={confirmPassword}></FormField>
+            {...getFieldProperties('confirmPassword')}
+          />
+
+          {renderAlert()}
 
           <Button
-            disabled={isDisabled}
+            disabled={isPasswordsEmpty && !isPasswordsEquals}
             size="lg"
-            onClick={onClickChangePassword}>
+            onClick={onClickChangePassword}
+            isLoading={isLoading}>
             Confirmar
           </Button>
         </VStack>
