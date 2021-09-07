@@ -59,8 +59,8 @@ const DefaultNavbar = ({onClickSwitchNavbar}) => {
         />
         {isLogged && (
           <>
-            <Button onClick={onVideoOpen}>Novo vídeo</Button>
-            <Button onClick={onCategoryOpen}>Nova categoria</Button>
+            <Button onClick={onVideoOpen}>Vídeos</Button>
+            <Button onClick={onCategoryOpen}>Categorias</Button>
             {isLogged && (
               <IconButton
                 bg="black"
