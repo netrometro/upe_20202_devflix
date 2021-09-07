@@ -1,20 +1,26 @@
-import React from 'react'
-import { Box, Text, HStack, Image, VStack, IconButton, useDisclosure } from "@chakra-ui/react"
+import React, {useEffect} from 'react'
+import { Box, Text, HStack, Image, VStack, IconButton, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, Button} from "@chakra-ui/react"
 import { Modal, Alert } from "core/components"
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import ModalEditVideo from './ModalEditVideo'
 import { useGetRequest, usePostRequest } from 'core/hooks'
+import { useRouter } from "next/router";
 
 const Video = ({video, isLoading, ...props}) => {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const onClose = () => setIsOpen(false)
+  const cancelRef = React.useRef()
+  const router = useRouter();
+
   const { isOpen: isEditVideoOpen, onOpen: onEditVideoOpen, onClose: onEditVideoClose } = useDisclosure()
 
   const {metadata, id} = video
-
   const {videoLink, title, videoThumbnail} = metadata ?? {}
 
   const {
     mutate: deleteVideo,
+    data: response,
     isSuccess: isDeleteSuccess,
     isError: isDeleteError,
   } = usePostRequest(`/v1/video/${id}/delete`)
@@ -22,6 +28,12 @@ const Video = ({video, isLoading, ...props}) => {
   const onClickDeleteVideo = () => {
     deleteVideo()
   }
+
+  useEffect(() => {
+    if (isDeleteSuccess && response) {
+      return router.reload()
+    }
+  }, [isDeleteSuccess, response, router])
 
   const renderAlert = () => {
     const error = {
@@ -52,8 +64,30 @@ const Video = ({video, isLoading, ...props}) => {
               _hover="background"
               bg="background"
               icon={<DeleteIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px" }} />}
-              onClick={onClickDeleteVideo}
+              onClick={() => setIsOpen(true)}
             />
+            <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+                <AlertDialogOverlay>
+                  <AlertDialogContent>
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                    Deletar Vídeo
+                    </AlertDialogHeader>
+
+                    <AlertDialogBody>
+                      Você realmente deseja deletar este vídeo?
+                    </AlertDialogBody>
+
+                    <AlertDialogFooter>
+                      <Button ref={cancelRef} onClick={onClose}>
+                        Cancelar
+                      </Button>
+                      <Button colorScheme="red" onClick={onClickDeleteVideo} ml={3}>
+                        Deletar
+                      </Button>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
           </HStack>
           <HStack w="100%">
             <Text color="whiteLight" pr="5px" w="90%">{videoLink}</Text>
