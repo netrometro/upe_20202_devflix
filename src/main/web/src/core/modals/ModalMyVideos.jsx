@@ -63,7 +63,7 @@ const Video = ({video, isLoading, ...props}) => {
               icon={<EditIcon style={{ color: "#BDBDBD", marginLeft: "3", fontSize: "38px" }} />}
               onClick={onEditVideoOpen}
             />
-            <ModalEditVideo isOpen={isEditVideoOpen} onClose={onEditVideoClose} />
+            <ModalEditVideo isOpen={isEditVideoOpen} onClose={onEditVideoClose} video={video}/>
           </HStack>
         </VStack>
       </HStack>
