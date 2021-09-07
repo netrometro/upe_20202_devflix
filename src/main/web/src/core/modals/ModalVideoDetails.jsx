@@ -40,7 +40,7 @@ const ModalVideoDetails = ({metadata, id, ...props}) => {
     return (
       <Box>
         <Center>
-          <Image src={videoThumbnail} alt="Devflix" fit="cover" />
+          <Image src={videoThumbnail} borderRadius="6" alt="Devflix" fit="cover" />
         </Center>
       </Box>
     )
