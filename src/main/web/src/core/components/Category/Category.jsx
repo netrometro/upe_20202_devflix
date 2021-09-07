@@ -28,6 +28,7 @@ const Category = ({category, author}) => {
         <Title
           text={title}
           color={color}
+          id={id}
           canUseDeleteOrEdit={canUseDeleteOrEdit}
         />
         <IconButton

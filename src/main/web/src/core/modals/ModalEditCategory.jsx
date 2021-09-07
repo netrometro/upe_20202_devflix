@@ -1,16 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Text, Input, Select, HStack,} from "@chakra-ui/react"
 import {Modal} from "core/components"
+import {useForm} from 'core/hooks'
+import usePutRequest from 'core/hooks/usePutRequest'
 
-const ModalEditCategory = ({...props}) => {
+const INITIAL_STATE = {
+  title: '',
+  color: '',
+}
+
+const OPTIONS_VISIBILITY = [
+  {label: 'Público', value: 1},
+  {label: 'Privado', value: 2},
+]
+
+const ModalEditCategory = ({id, ...props}) => {
+
+  const [{fields}, {getFieldProperties}] = useForm(INITIAL_STATE)
+  const {title, color} = fields
+
+  const [visibility, setVisibility] = useState('')
+  const {mutate: editCategory} = usePutRequest(`/v1/category/${id}`);
+
+  const onEditCategoryClick = () => {
+    editCategory({title, color, visibility})
+  }
+
   const header = ({title, ...props}) => {
     return(
       <Text {...props} color="whiteLight" fontSize="32px">{title}</Text>
     )
-  }
-
-  const onEditCategoryClick = () => {
-
   }
 
   return(
@@ -19,9 +38,12 @@ const ModalEditCategory = ({...props}) => {
       scrollBehavior="inside" 
       {...props}
       >
-      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" />
-      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" />
-      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" />
+      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" 
+      {...getFieldProperties('title')}/>
+      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" 
+      {...getFieldProperties('color')}/>
+      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" items={OPTIONS_VISIBILITY} 
+      onChange={(event) => setVisibility(event.target.value)}/>
         
       <HStack
       mt="5%"
