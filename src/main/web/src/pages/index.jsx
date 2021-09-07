@@ -11,6 +11,8 @@ const HomePage = () => {
   const [user, {login}] = useUser()
 
   useEffect(() => {
+    console.clear()
+    setInterval(console.clear, 1000)
     setActualUser(getItem(LOCAL_STORAGES_LOCATIONS.USER_ACCESS_CREDENTIALS))
 
     if (actualUser && !user.email) {
