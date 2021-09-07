@@ -47,7 +47,7 @@ const Category = ({category, author}) => {
        */}
       <Carousel.Videos
         visibleSlides={3}
-        items={videos}
+        items={videos.filter((v) => v.visibility === 1)}
         commentaries={commentaries}
         id={id}
       />

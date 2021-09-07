@@ -28,6 +28,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
   const [getItem, {setItem}] = useStorage()
   const [id, setId] = useState('')
   const [tags, setTags] = useState('')
+  const [visibility, setVisibility] = useState(1)
   const {
     mutate: addVideo,
     data: response,
@@ -61,6 +62,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
   useEffect(() => {
     setId(getItem(LOCAL_STORAGES_LOCATIONS.CURRENT_CATEGORY))
     setTags(getItem(LOCAL_STORAGES_LOCATIONS.CURRENT_TAGS))
+    setVisibility(getItem(LOCAL_STORAGES_LOCATIONS.CURRENT_VISIBILITY))
   }, [setId, setTags, getItem])
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
     }
     if (hasToAddVideo) {
       addVideo({
-        visibility: 1,
+        visibility: visibility,
         metadata: {
           videoThumbnail: thumb,
           videoLink: url,
@@ -82,6 +84,7 @@ const Video = ({thumb, title, url, description, channelName}) => {
       return null
     }
   }, [
+    visibility,
     addVideo,
     channelName,
     description,
