@@ -10,7 +10,8 @@ export const LOCAL_STORAGES_LOCATIONS = {
   BEARER_TOKEN: '@devflix/bearer-token',
   CURRENT_CATEGORY: "@devflix-current-category",
   USER_ACCESS_CREDENTIALS: '@devflix/user',
-  CURRENT_TAGS: "@devflix-current-tags"
+  CURRENT_TAGS: "@devflix-current-tags",
+  CURRENT_VISIBILITY: "@devflix-current-visibility"
 }
 
 export const USER_ROLES = {

@@ -6,7 +6,6 @@ import {useGetAllCategories, useStorage, useUser} from 'core/hooks'
 
 const HomePage = () => {
   const [{response: categories = [], isLoading}] = useGetAllCategories()
-
   const [getItem] = useStorage()
   const [actualUser, setActualUser] = useState('')
   const [user, {login}] = useUser()
@@ -28,11 +27,15 @@ const HomePage = () => {
       <Box bg="background" py={20}>
         {categories.map((category, index, categories) => {
           const isLastCategory = categories.length - 1 === index
+          const canShowCategory = (category.category.visibility === 1)
           return (
-            <Box key={`${index}`}>
+            <>
+            {canShowCategory && (
+                <Box key={`${index}`}>
               <Category {...category} isLoading={isLoading} />
               {!isLastCategory && <Box height={20} />}
-            </Box>
+            </Box>)}
+            </>
           )
         })}
       </Box>
