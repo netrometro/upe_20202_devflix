@@ -7,6 +7,12 @@ import ModalYoutubeSearch from './ModalYoutubeSearch'
 import {useGetMyCategories, useStorage, useForm} from 'core/hooks'
 import {LOCAL_STORAGES_LOCATIONS} from 'core/utils/constants'
 
+const OPTIONS_VISIBILITY = [
+  {label: 'Público', value: 1},
+  {label: 'Privado', value: 2},
+]
+
+
 const ModalVideo = ({...props}) => {
   const {
     isOpen: isMyVideoOpen,
@@ -25,14 +31,21 @@ const ModalVideo = ({...props}) => {
   const [{response: categories = [], isLoading, isSuccess, ...rest}] =
     useGetMyCategories()
   const [items, setItems] = useState([])
+  const [visibility, setVisibility] = useState('')
 
-  const onChangeSelectCategory = (event) => {
+  const onChangeSelect = (event) => {
     setCurrentCategory(event.target.value)
     setItem(
       LOCAL_STORAGES_LOCATIONS.CURRENT_CATEGORY,
       String(event.target.value),
     )
+    
+  }
+
+  const onClickSearchVideo = () => {
     setItem(LOCAL_STORAGES_LOCATIONS.CURRENT_TAGS, tags)
+    setItem(LOCAL_STORAGES_LOCATIONS.CURRENT_VISIBILITY, visibility)
+    onYoutubeSearchOpen()
   }
 
   const header = ({title, ...props}) => {
@@ -85,13 +98,26 @@ const ModalVideo = ({...props}) => {
         focusBorderColor="primary"
         placeholder="Selecione a categoria"
         items={items}
-        onChange={onChangeSelectCategory}
+        onChange={onChangeSelect}
+      />
+      <Select
+        w="65%"
+        ml="5px"
+        mt="10px"
+        variant="flushed"
+        color="whiteLight"
+        _placeholder={{color: 'whiteLight'}}
+        borderColor="primary"
+        focusBorderColor="primary"
+        placeholder="Selecione a Visibilidade"
+        items={OPTIONS_VISIBILITY}
+        onChange={(event) => setVisibility(event.target.value)}
       />
 
       <HStack mt="5%" spacing="5%">
         <Button
           size="lg"
-          onClick={onYoutubeSearchOpen}
+          onClick={onClickSearchVideo}
           disabled={!tags && !currentCategory}>
           Buscar Vídeo
         </Button>

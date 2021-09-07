@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import {Modal} from "core/components"
-import {Button, Text, Input, Alert, VStack} from "@chakra-ui/react"
+import React, {useState, useEffect} from 'react'
+import {Modal, Alert} from "core/components"
+import {Button, Text, Input, VStack, Textarea} from "@chakra-ui/react"
 import usePutRequest from 'core/hooks/usePutRequest'
+import { useRouter } from "next/router";
 
 const ModalEditVideo = ({video, ...props}) => {
 
@@ -13,9 +14,12 @@ const ModalEditVideo = ({video, ...props}) => {
   const [actualTitle, setActualTitle] = useState(title)
   const [actualTags, setActualTags] = useState(tags)
 
+  const router = useRouter();
+
   const {
     mutate: editVideo,
     isSuccess,
+    data: response,
     isError,
   } = usePutRequest(`/v1/video/${id}`)
 
@@ -33,10 +37,16 @@ const ModalEditVideo = ({video, ...props}) => {
     })
   }
 
+  useEffect(() => {
+    if (isSuccess && response) {
+      return router.reload()
+    }
+  }, [isSuccess, response, router])
+
   const renderAlert = () => {
     const error = {
       status: 'error',
-      body: 'Eita! Ocorreu um erro ao tentar editar suas informações. Por favor, tente novamente!',
+      body: 'Eita! Ocorreu um erro ao tentar editar as informações do vídeo. Por favor, tente novamente!',
     }
     const success = {
       status: 'success',
@@ -47,7 +57,10 @@ const ModalEditVideo = ({video, ...props}) => {
     }
 
     const {status, body} = buildMessage()
-    return (isError || isSuccess) && <Alert status={status} message={body} />
+    const isRequesting = isError || isSuccess
+    return (
+      isRequesting && <Alert status={status} message={body} />
+    )
   }
 
   const header = ({title, ...props}) => {
@@ -63,9 +76,9 @@ const ModalEditVideo = ({video, ...props}) => {
     {...props}
     > 
         <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" onChange={(event) => setActualTitle(event.target.value)}/>
-        <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Descrição" onChange={(event) => setActualDescription(event.target.value)}/>
+        <Textarea w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Descrição" onChange={(event) => setActualDescription(event.target.value)}/>
         <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Tags" onChange={(event) => setActualTags(event.target.value)}/>
-        <VStack>
+        <VStack mt={10}>
           {renderAlert()}
         </VStack>
       <Button
