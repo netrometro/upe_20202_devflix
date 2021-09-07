@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import {Button, Text, Input, Select, HStack,} from "@chakra-ui/react"
-import {Modal} from "core/components"
+import {Button, Text, Input, HStack,} from "@chakra-ui/react"
+import {Modal, Select} from "core/components"
 import {useForm} from 'core/hooks'
 import usePutRequest from 'core/hooks/usePutRequest'
 
@@ -38,11 +38,12 @@ const ModalEditCategory = ({id, ...props}) => {
       scrollBehavior="inside" 
       {...props}
       >
-      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" 
+      <Input minLength="5" maxLength="25" w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Título" 
       {...getFieldProperties('title')}/>
-      <Input w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" 
+      <Input minLength="6" maxLength="6" w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Cor" 
       {...getFieldProperties('color')}/>
-      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" items={OPTIONS_VISIBILITY} 
+      <Select w="65%" ml="5px" mt="10px" variant="flushed" color="whiteLight" _placeholder={{ color: 'whiteLight' }} borderColor="primary" focusBorderColor="primary" placeholder="Selecione a Visibilidade" 
+      items={OPTIONS_VISIBILITY} 
       onChange={(event) => setVisibility(event.target.value)}/>
         
       <HStack
