@@ -56,7 +56,7 @@ const Video = ({video, isLoading, ...props}) => {
     <Box
     {...props}>
       <HStack>
-        <Image src={videoThumbnail} htmlWidth="200" htmlHeight="120" mr="3%" alt="thumb" isLoading={isLoading}></Image>
+        <Image src={videoThumbnail} cursor="pointer" htmlWidth="200" htmlHeight="120" mr="3%" alt="thumb" isLoading={isLoading}></Image>
         <VStack w="100%">
           <HStack w="100%">
             <Text color="whiteLight" fontSize="30px" w="90%">{title}</Text>
