@@ -41,6 +41,9 @@
 
 Este projeto foi feito utilizando as seguintes tecnologias:
 
+- [NextJS](https://nextjs.org/)
+- [Chakra-UI](https://chakra-ui.com/)
+- [Spring Boot](https://spring.io/projects/spring-boot) 
 - [UML](https://www.uml.org/)
 - [PlantUML](https://plantuml.com/)
 - [Astah](https://astah.net/)
